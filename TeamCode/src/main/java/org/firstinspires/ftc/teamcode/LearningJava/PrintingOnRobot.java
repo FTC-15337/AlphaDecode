@@ -36,54 +36,6 @@ public class PrintingOnRobot extends LinearOpMode {
             if (gamepad1.a){
                 telemetry.addLine("Robotics is fun!!!");
             }
-            if (gamepad1.left_stick_y < -0.5) {
-                frontLeft.setPower(-0.5);
-                frontRight.setPower(-0.5);
-                backLeft.setPower(0.5);
-                backRight.setPower(-0.5);
-            }
-            if (gamepad1.left_stick_y > 0.5) {
-                frontLeft.setPower(0.5);
-                frontRight.setPower(0.5);
-                backLeft.setPower(-0.5);
-                backRight.setPower(0.5);
-            }
-            if (gamepad1.left_stick_y < 0.5) {
-                frontLeft.setPower(0);
-                frontRight.setPower(0);
-                backLeft.setPower(0);
-                backRight.setPower(0);
-            }
-            if (gamepad1.left_stick_y > -0.5) {
-                frontLeft.setPower(0);
-                frontRight.setPower(0);
-                backLeft.setPower(0);
-                backRight.setPower(0);
-            }
-            if (gamepad1.left_stick_x < -0.5) {
-                frontLeft.setPower(1);
-                frontRight.setPower(0);
-                backLeft.setPower(1);
-                backRight.setPower(0);
-            }
-            if (gamepad1.left_stick_x > 0.5) {
-                frontLeft.setPower(0);
-                frontRight.setPower(1);
-                backLeft.setPower(0);
-                backRight.setPower(-1);
-            }
-            if (gamepad1.left_stick_x < 0.5) {
-                frontLeft.setPower(0);
-                frontRight.setPower(0);
-                backLeft.setPower(0);
-                backRight.setPower(0);
-            }
-            if (gamepad1.left_stick_x < -0.5) {
-                frontLeft.setPower(0);
-                frontRight.setPower(0);
-                backLeft.setPower(0);
-                backRight.setPower(0);
-            }
             telemetry.update();
         }
     }
