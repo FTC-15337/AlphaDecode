@@ -14,9 +14,9 @@ public class MecDrivebase {
 
     public void init(HardwareMap hwMap) {
         frontLeft = hwMap.get(DcMotor.class, "frontLeft");
-        backLeft = hwMap.get(DcMotor.class, "frontLeft");
-        frontRight = hwMap.get(DcMotor.class, "frontLeft");
-        backRight = hwMap.get(DcMotor.class, "frontLeft");
+        backLeft = hwMap.get(DcMotor.class, "backLeft");
+        frontRight = hwMap.get(DcMotor.class, "frontRight");
+        backRight = hwMap.get(DcMotor.class, "backRight");
 
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -41,7 +41,7 @@ public class MecDrivebase {
         double backRightPower = forward + strafe - rotate;
 
         double maxPower = 1.0;
-        double maxSpeed = 1.0;
+        double maxSpeed = 0.5;
 
         maxPower = Math.max(maxPower, Math.abs(frontLeftPower));
         maxPower = Math.max(maxPower, Math.abs(backLeftPower));
@@ -54,16 +54,15 @@ public class MecDrivebase {
         backRight.setPower(maxSpeed * (backRightPower / maxPower));
     }
 
-    public void driveFieldRelative(double forward, double strafe, double rotate) {
+    /*public void driveFieldRelative(double forward, double strafe, double rotate) {
         double theta = Math.atan2(forward, strafe);
         double r = Math.hypot(strafe, forward);
 
         theta = AngleUnit.normalizeRadians(theta -
                 imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS));
-
         double newForward = r * Math.sin(theta);
         double newStrafe = r * Math.cos(theta);
 
         this.drive(newForward, newStrafe, rotate);
-    }
+    }*/
 }
