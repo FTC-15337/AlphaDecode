@@ -54,7 +54,7 @@ public class MecDrivebase {
         backRight.setPower(maxSpeed * (backRightPower / maxPower));
     }
 
-    /*public void driveFieldRelative(double forward, double strafe, double rotate) {
+    public void driveFieldRelative(double forward, double strafe, double rotate) {
         double theta = Math.atan2(forward, strafe);
         double r = Math.hypot(strafe, forward);
 
@@ -64,5 +64,5 @@ public class MecDrivebase {
         double newStrafe = r * Math.cos(theta);
 
         this.drive(newForward, newStrafe, rotate);
-    }*/
+    }
 }
