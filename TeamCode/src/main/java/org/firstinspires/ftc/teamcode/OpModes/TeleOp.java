@@ -10,7 +10,12 @@ public class TeleOp extends LinearOpMode {
 
     MecDrivebase drive = new MecDrivebase();
     double forward, strafe, rotate;
-
+    public void setDrive(){
+        forward = gamepad1.left_stick_y;
+        strafe = -gamepad1.left_stick_x;
+        rotate = gamepad1.right_stick_x;
+        drive.driveFieldRelative(forward, strafe, rotate);
+    }
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -22,11 +27,7 @@ public class TeleOp extends LinearOpMode {
 
         while(!isStopRequested() && opModeIsActive()) {
             telemetry.addLine("OpMode is active");
-            forward = gamepad1.left_stick_y;
-            strafe = -gamepad1.left_stick_x;
-            rotate = gamepad1.right_stick_x;
-
-            drive.driveFieldRelative(forward, strafe, rotate);
+            setDrive();
 
             telemetry.update();
         }
