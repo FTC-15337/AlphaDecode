@@ -7,9 +7,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 
 public class MecDrivebase {
     private DcMotor frontLeft, backLeft, frontRight, backRight;
+    Constants constants = new Constants();
     private IMU imu;
 
     public void init(HardwareMap hwMap) {
@@ -40,8 +42,8 @@ public class MecDrivebase {
         double frontRightPower = forward - strafe - rotate;
         double backRightPower = forward + strafe - rotate;
 
-        double maxPower = 1.0;
-        double maxSpeed = 1.0;
+        double maxPower = constants.driveMaxPower;
+        double maxSpeed = constants.driveMaxSpeed;
 
         maxPower = Math.max(maxPower, Math.abs(frontLeftPower));
         maxPower = Math.max(maxPower, Math.abs(backLeftPower));

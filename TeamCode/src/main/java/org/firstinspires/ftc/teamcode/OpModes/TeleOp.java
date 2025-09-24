@@ -2,19 +2,25 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "MecBase")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TelOp")
+
 public class TeleOp extends LinearOpMode {
 
     MecDrivebase drive = new MecDrivebase();
+    Constants constants = new Constants();
     double forward, strafe, rotate;
+
     public void setDrive(){
         forward = -gamepad1.left_stick_y;
         strafe = gamepad1.left_stick_x;
         rotate = gamepad1.right_stick_x;
         drive.driveFieldRelative(forward, strafe, rotate);
     }
+
     @Override
     public void runOpMode() throws InterruptedException {
 
