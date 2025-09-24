@@ -28,8 +28,8 @@ public class MecDrivebase {
         imu = hwMap.get(IMU.class, "imu");
 
         RevHubOrientationOnRobot RevOrientation = new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
-                RevHubOrientationOnRobot.UsbFacingDirection.UP);
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
 
         imu.initialize(new IMU.Parameters(RevOrientation));
     }
@@ -49,7 +49,7 @@ public class MecDrivebase {
         maxPower = Math.max(maxPower, Math.abs(backRightPower));
 
         frontLeft.setPower(maxSpeed * (frontLeftPower / maxPower));
-        backLeft.setPower(maxSpeed* (backLeftPower / maxPower));
+        backLeft.setPower(maxSpeed * (frontLeftPower / maxPower));
         frontRight.setPower(maxSpeed * (frontRightPower / maxPower));
         backRight.setPower(maxSpeed * (backRightPower / maxPower));
     }
