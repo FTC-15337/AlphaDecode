@@ -6,23 +6,23 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 
-public class OutreachHoodMovement {
-private DcMotor testMotor;
+public class PrototypeHoodFire {
+private DcMotor outreachHoodMotor;
 Constants constants = new Constants();
 
     public void init(HardwareMap hwMap){
-        testMotor = hwMap.get(DcMotor.class , "frontLeft");
+        outreachHoodMotor = hwMap.get(DcMotor.class , "frontLeft");
 
-        testMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        outreachHoodMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        testMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        outreachHoodMotor.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     public void moveMotor(){
-        testMotor.setPower(constants.testMotorPower);
+        outreachHoodMotor.setPower(constants.testMotorPower);
 
     }
     public void stopMotor(){
-        testMotor.setPower(constants.testMotorStop);
+        outreachHoodMotor.setPower(constants.testMotorStop);
     }
 }
