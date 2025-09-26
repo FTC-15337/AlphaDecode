@@ -55,7 +55,7 @@ public class MecDrivebase {
         frontRight.setPower(maxSpeed * (frontRightPower / maxPower));
         backRight.setPower(maxSpeed * (backRightPower / maxPower));
     }
-
+    //Method defines field relative drive
     public void driveFieldRelative(double forward, double strafe, double rotate) {
         double theta = Math.atan2(forward, strafe);
         double r = Math.hypot(strafe, forward);
