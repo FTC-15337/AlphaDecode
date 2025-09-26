@@ -3,15 +3,14 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
-import org.firstinspires.ftc.teamcode.LearningJava.MotorMovement;
+import org.firstinspires.ftc.teamcode.LearningJava.OutreachHoodMovement;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TelOp")
 
 public class TeleOp extends LinearOpMode {
 
-    MotorMovement motorMoveTest = new MotorMovement();
+    OutreachHoodMovement motorMoveTest = new OutreachHoodMovement();
     MecDrivebase drive = new MecDrivebase();
 
     double forward, strafe, rotate;
@@ -35,12 +34,6 @@ public class TeleOp extends LinearOpMode {
         while(!isStopRequested() && opModeIsActive()) {
             telemetry.addLine("OpMode is active");
             setDrive();
-
-            if (gamepad2.a){
-                motorMoveTest.moveMotor();
-            } else{
-                motorMoveTest.stopMotor();
-            }
 
             telemetry.update();
         }

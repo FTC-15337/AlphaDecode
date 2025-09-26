@@ -51,7 +51,7 @@ public class MecDrivebase {
         maxPower = Math.max(maxPower, Math.abs(backRightPower));
 
         frontLeft.setPower(maxSpeed * (frontLeftPower / maxPower));
-        backLeft.setPower(maxSpeed * (frontLeftPower / maxPower));
+        backLeft.setPower(maxSpeed * (backLeftPower / maxPower));
         frontRight.setPower(maxSpeed * (frontRightPower / maxPower));
         backRight.setPower(maxSpeed * (backRightPower / maxPower));
     }

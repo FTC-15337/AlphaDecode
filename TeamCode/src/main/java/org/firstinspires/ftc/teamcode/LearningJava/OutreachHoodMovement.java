@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 
-public class MotorMovement {
+public class OutreachHoodMovement {
 private DcMotor testMotor;
 Constants constants = new Constants();
 
