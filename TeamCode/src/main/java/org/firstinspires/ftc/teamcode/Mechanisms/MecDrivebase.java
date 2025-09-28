@@ -20,17 +20,18 @@ public class MecDrivebase {
         frontRight = hwMap.get(DcMotor.class, "frontRight");
         backRight = hwMap.get(DcMotor.class, "backRight");
 
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-
         frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
         imu = hwMap.get(IMU.class, "imu");
 
         RevHubOrientationOnRobot RevOrientation = new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
 
         imu.initialize(new IMU.Parameters(RevOrientation));
@@ -55,7 +56,6 @@ public class MecDrivebase {
         frontRight.setPower(maxSpeed * (frontRightPower / maxPower));
         backRight.setPower(maxSpeed * (backRightPower / maxPower));
     }
-    //Method defines field relative drive
     public void driveFieldRelative(double forward, double strafe, double rotate) {
         double theta = Math.atan2(forward, strafe);
         double r = Math.hypot(strafe, forward);
@@ -67,4 +67,5 @@ public class MecDrivebase {
 
         this.drive(newForward, newStrafe, rotate);
     }
+
 }

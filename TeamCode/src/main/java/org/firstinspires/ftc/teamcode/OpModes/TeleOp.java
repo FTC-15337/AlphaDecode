@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.LearningJava.PrototypeHoodFire;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TelOp")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
 
 public class TeleOp extends LinearOpMode {
 
@@ -32,7 +32,7 @@ public class TeleOp extends LinearOpMode {
         waitForStart();
 
         while(!isStopRequested() && opModeIsActive()) {
-            telemetry.addLine("OpMode is active");
+            telemetry.addLine("OpMode Is Active");
             setDrive();
 
             telemetry.update();

@@ -11,7 +11,7 @@ private DcMotor outreachHoodMotor;
 Constants constants = new Constants();
 
     public void init(HardwareMap hwMap){
-        outreachHoodMotor = hwMap.get(DcMotor.class , "frontLeft");
+        outreachHoodMotor = hwMap.get(DcMotor.class , "testHood");
 
         outreachHoodMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
