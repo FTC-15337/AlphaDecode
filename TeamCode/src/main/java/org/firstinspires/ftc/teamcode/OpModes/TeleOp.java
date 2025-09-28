@@ -3,14 +3,12 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.LearningJava.PrototypeHoodFire;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
 
 public class TeleOp extends LinearOpMode {
 
-    PrototypeHoodFire motorMoveTest = new PrototypeHoodFire();
     MecDrivebase drive = new MecDrivebase();
 
     double forward, strafe, rotate;

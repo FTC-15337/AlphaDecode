@@ -1,9 +1,12 @@
-package org.firstinspires.ftc.teamcode.LearningJava;
+package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
+import org.firstinspires.ftc.teamcode.Mechanisms.PrototypeHoodFire;
 
+@TeleOp
 public class SimpleTeleOp extends LinearOpMode {
     PrototypeHoodFire motorMovement = new PrototypeHoodFire();
     MecDrivebase drive = new MecDrivebase();
