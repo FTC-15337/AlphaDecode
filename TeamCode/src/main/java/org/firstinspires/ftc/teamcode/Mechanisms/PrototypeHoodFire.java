@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 
 public class PrototypeHoodFire {
 private DcMotor outreachHoodMotor;
-Constants constants = new Constants();
+
 
     public void init(HardwareMap hwMap){
         outreachHoodMotor = hwMap.get(DcMotor.class , "testHood");
@@ -19,10 +19,10 @@ Constants constants = new Constants();
     }
 
     public void moveMotor(){
-        outreachHoodMotor.setPower(constants.testMotorPower);
+        outreachHoodMotor.setPower(Constants.testMotorPower);
 
     }
     public void stopMotor(){
-        outreachHoodMotor.setPower(constants.testMotorStop);
+        outreachHoodMotor.setPower(Constants.testMotorStop);
     }
 }
