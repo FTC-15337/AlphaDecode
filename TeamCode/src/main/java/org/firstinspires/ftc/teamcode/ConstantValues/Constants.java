@@ -6,19 +6,19 @@ public class Constants {
     public static double testMotorPower = 0.5;
     public static double testMotorStop = 0.0;
 
-    public static final int GREEN_RED_MIN = 0;
-    public static final int GREEN_RED_MAX = 80;
-    public static final int GREEN_GREEN_MIN = 100;
-    public static final int GREEN_GREEN_MAX = 255;
-    public static final int GREEN_BLUE_MIN = 0;
-    public static final int GREEN_BLUE_MAX = 80;
+    public static final int GREEN_RED_MIN = 15;
+    public static final int GREEN_RED_MAX = 85;
+    public static final int GREEN_GREEN_MIN = 200;
+    public static final int GREEN_GREEN_MAX = 500;
+    public static final int GREEN_BLUE_MIN = 50;
+    public static final int GREEN_BLUE_MAX = 90;
 
-    public static final int PURPLE_RED_MIN = 80;
-    public static final int PURPLE_RED_MAX = 255;
-    public static final int PURPLE_GREEN_MIN = 0;
-    public static final int PURPLE_GREEN_MAX = 80;
-    public static final int PURPLE_BLUE_MIN = 80;
-    public static final int PURPLE_BLUE_MAX = 255;
+    public static final int PURPLE_RED_MIN = 30;
+    public static final int PURPLE_RED_MAX = 90;
+    public static final int PURPLE_GREEN_MIN = 60;
+    public static final int PURPLE_GREEN_MAX = 100;
+    public static final int PURPLE_BLUE_MIN = 115;
+    public static final int PURPLE_BLUE_MAX = 1100;
 
     public static final int Max_BALL_STORAGE = 3;
 

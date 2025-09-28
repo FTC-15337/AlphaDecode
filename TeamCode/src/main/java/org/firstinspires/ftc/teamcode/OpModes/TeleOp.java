@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 
@@ -36,7 +37,10 @@ public class TeleOp extends LinearOpMode {
             telemetry.addLine("OpMode Is Active");
             setDrive();
 
-            telemetry.addData("Ball color is: " , colorSensor.detectColor());
+            telemetry.addData("Ball color is", colorSensor.detectColor());
+            telemetry.addData("Red", colorSensor.getRed());
+            telemetry.addData("Green", colorSensor.getGreen());
+            telemetry.addData("Blue", colorSensor.getBlue());
 
             telemetry.update();
         }
