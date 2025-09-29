@@ -12,9 +12,12 @@ public class SortingWithColor {
     public void init(HardwareMap hwMap){
         colorSensor = hwMap.get(ColorSensor.class , "ColorSensor");
     }
-    public int getRed() { return colorSensor.red(); }
-    public int getGreen() { return colorSensor.green(); }
-    public int getBlue() { return colorSensor.blue(); }
+    public int getRed()
+        { return colorSensor.red(); }
+    public int getGreen()
+        { return colorSensor.green(); }
+    public int getBlue()
+        { return colorSensor.blue(); }
 
     public String detectColor(){
 
@@ -23,15 +26,11 @@ public class SortingWithColor {
         int g = colorSensor.green();
 
 
-        if (r >= Constants.GREEN_RED_MIN && r <= Constants.GREEN_RED_MAX &&
-                g >= Constants.GREEN_GREEN_MIN && g <= Constants.GREEN_GREEN_MAX &&
-                b >= Constants.GREEN_BLUE_MIN && b <= Constants.GREEN_BLUE_MAX) {
+        if(b < g && r < g) {
             return "Green";
-        }else if (r >= Constants.PURPLE_RED_MIN && r <= Constants.PURPLE_RED_MAX &&
-                g >= Constants.PURPLE_GREEN_MIN && g <= Constants.PURPLE_GREEN_MAX &&
-                b >= Constants.PURPLE_BLUE_MIN && b <= Constants.PURPLE_BLUE_MAX) {
+        } else if (r < b && g < b) {
             return "Purple";
-        }else {
+        } else {
             return "Unknown Color";
         }
     }
