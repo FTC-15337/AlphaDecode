@@ -6,12 +6,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
+import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
 
 public class TeleOp extends LinearOpMode {
 
     MecDrivebase drive = new MecDrivebase();
+    StorageConfig sorter = new StorageConfig();
     SortingWithColor colorSensor = new SortingWithColor();
 
     double forward, strafe, rotate;
@@ -28,6 +30,7 @@ public class TeleOp extends LinearOpMode {
 
         drive.init(hardwareMap);
         colorSensor.init(hardwareMap);
+        sorter.init(hardwareMap);
         telemetry.addLine("Initialized");
         telemetry.update();
 
@@ -38,9 +41,6 @@ public class TeleOp extends LinearOpMode {
             setDrive();
 
             telemetry.addData("Ball color is", colorSensor.detectColor());
-            telemetry.addData("Red", colorSensor.getRed());
-            telemetry.addData("Green", colorSensor.getGreen());
-            telemetry.addData("Blue", colorSensor.getBlue());
 
             telemetry.update();
         }
