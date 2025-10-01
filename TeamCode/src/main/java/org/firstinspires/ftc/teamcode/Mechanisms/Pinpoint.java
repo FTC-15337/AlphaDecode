@@ -11,7 +11,7 @@ public class Pinpoint {
 
     public GoBildaPinpointDriver pinpoint;
 
-    public void init(HardwareMap hwMap) {
+    public void init(HardwareMap hwMap) { /*init pinpoint hardware*/
         pinpoint = hwMap.get(GoBildaPinpointDriver.class, "pinpoint");
     }
 
