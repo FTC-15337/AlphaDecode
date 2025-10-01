@@ -11,22 +11,18 @@ import com.qualcomm.robotcore.hardware.IMU;
 @TeleOp(name = "Joystick Program")
 public class PrintingOnRobot extends LinearOpMode {
 
-    private DcMotor frontLeft, frontRight, backLeft, backRight;
+        public void initialize(){
+            telemetry.addLine("Init is active");
+    }
+
     @Override
     public void runOpMode() throws InterruptedException {
 
-        init();
-        while (opModeInInit()) {
-            telemetry.addLine("Everything is initialized!");
-            telemetry.update();
-        }
 
-        frontLeft = hardwareMap.dcMotor.get("frontLeft");
-        frontRight = hardwareMap.dcMotor.get("frontRight");
-        backLeft = hardwareMap.dcMotor.get("backLeft");
-        backRight = hardwareMap.dcMotor.get("backRight");
+        initialize();
 
         waitForStart();
+
         while (opModeIsActive()) {
             telemetry.addData("Gamepad 1 stick y is ", gamepad1.left_stick_y);
             telemetry.addData("Gamepad 1 stick x is ", gamepad1.left_stick_x);
