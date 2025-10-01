@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
-
+import org.firstinspires.ftc.teamcode.Mechanisms.IntakeConfig;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
 
 public class TeleOp extends LinearOpMode {
@@ -15,6 +15,8 @@ public class TeleOp extends LinearOpMode {
     MecDrivebase drive = new MecDrivebase();
     StorageConfig sorter = new StorageConfig();
     SortingWithColor colorSensor = new SortingWithColor();
+
+    IntakeConfig intake = new IntakeConfig();
 
     double forward, strafe, rotate;
 
@@ -43,6 +45,16 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("Ball color is", colorSensor.detectColor());
 
             telemetry.update();
+        }
+    }
+
+    public void setIntake(){
+
+        if (gamepad2.a){
+            intake.IntakeMotorMax();
+        }
+        else{
+            intake.IntakeMotorStop();
         }
     }
 }
