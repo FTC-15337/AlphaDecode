@@ -11,8 +11,6 @@ public class Constants {
     public static double sorterOutTakeA = 1.0;
     public static double sorterOutTakeB = 0.9;
     public static double sorterOutTakeC = 0.8;
-
     public static double IntakeStop = 0.0;
-
     public static double IntakeMax = 1.0;
 }
