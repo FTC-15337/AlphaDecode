@@ -3,26 +3,29 @@ package org.firstinspires.ftc.teamcode.Mechanisms;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 
-public class PrototypeHoodFire {
-private DcMotor outreachHoodMotor;
+import java.util.Objects;
 
+public class PrototypeHoodFire {
+private DcMotor hoodMotor;
 
     public void init(HardwareMap hwMap){
-        outreachHoodMotor = hwMap.get(DcMotor.class , "testHood");
+        hoodMotor = hwMap.get(DcMotor.class , "testHood");
 
-        outreachHoodMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        hoodMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        outreachHoodMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        hoodMotor.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
-    public void moveMotor(){
-        outreachHoodMotor.setPower(Constants.testMotorPower);
+    public void fireMotor(){
+        hoodMotor.setPower(Constants.testMotorPower);
 
     }
     public void stopMotor(){
-        outreachHoodMotor.setPower(Constants.testMotorStop);
+        hoodMotor.setPower(Constants.testMotorStop);
     }
+
 }
