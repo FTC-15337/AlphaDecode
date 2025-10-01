@@ -29,6 +29,7 @@ public class IntakeConfig {
         intakeMotorLeft.setPower(Constants.intakeStop);
     }
 
+
     public void IntakeMotorMax(){
         intakeMotorRight.setPower(Constants.intakeMax);
         intakeMotorLeft.setPower(Constants.intakeMax);
