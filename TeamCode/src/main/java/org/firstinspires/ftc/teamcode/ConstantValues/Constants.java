@@ -6,6 +6,7 @@ public class Constants {
     public static double testMotorStop = 0.0;
 
     public static double sorterIntakeA = 0.5;
+
     public static double sorterIntakeB = 0.6;
     public static double sorterIntakeC = 0.7;
     public static double sorterOutTakeA = 1.0;
