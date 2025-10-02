@@ -5,6 +5,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit.M
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 
+@Autonomous
 public class Auto extends LinearOpMode {
     MecDrivebase mecDrivebase = new MecDrivebase();
     GoBildaPinpointDriver pinpoint;
