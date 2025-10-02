@@ -73,6 +73,7 @@ public class MecDrivebase {
         this.drive(newForward, newStrafe, rotate);
     }
 
+    //Rotate method for autonomus rotation (use timer)
     public void autoRotate(double xPower, double yPower) {
 
         frontLeft.setPower(xPower);

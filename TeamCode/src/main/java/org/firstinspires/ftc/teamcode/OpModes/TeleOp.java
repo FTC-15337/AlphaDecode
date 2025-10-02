@@ -21,7 +21,7 @@ public class TeleOp extends LinearOpMode {
     MecDrivebase drive = new MecDrivebase();
     StorageConfig sorter = new StorageConfig();
     SortingWithColor colorSensor = new SortingWithColor();
-    Pinpoint pinPoint = new Pinpoint();
+    Auto auto = new Auto();
     PrototypeHoodFire hood = new PrototypeHoodFire();
 
     double forward, strafe, rotate;
@@ -39,8 +39,6 @@ public class TeleOp extends LinearOpMode {
         drive.init(hardwareMap);
         colorSensor.init(hardwareMap);
         sorter.init(hardwareMap);
-        pinPoint.init(hardwareMap);
-        pinPoint.pinpointInit();
         hood.init(hardwareMap);
         telemetry.addLine("Initialized");
         telemetry.update();
@@ -53,14 +51,6 @@ public class TeleOp extends LinearOpMode {
 
             telemetry.addData("Ball color is", colorSensor.detectColor());
 
-            pinPoint.pinpoint.update();
-
-            Pose2D pose2D = pinPoint.pinpoint.getPosition();
-
-            telemetry.addData("X Coordinate (IN)", pose2D.getX(DistanceUnit.INCH));
-            telemetry.addData("Y Coordinate (IN)", pose2D.getY(DistanceUnit.INCH));
-            telemetry.addData("Heading Angle (Degrees)", pose2D.getHeading(AngleUnit.DEGREES));
-
             telemetry.update();
 
             if(gamepad2.x){
@@ -68,6 +58,7 @@ public class TeleOp extends LinearOpMode {
             }else{
                 hood.stopMotor();
             }
+            telemetry.update();
         }
     }
 }
