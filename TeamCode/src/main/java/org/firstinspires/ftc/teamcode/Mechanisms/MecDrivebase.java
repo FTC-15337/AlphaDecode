@@ -7,16 +7,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 
 public class MecDrivebase {
-    private DcMotor frontLeft, backLeft, frontRight, backRight;
+    public DcMotor frontLeft, backLeft, frontRight, backRight;
     Constants constants = new Constants();
-    private IMU imu;
+    public IMU imu;
+    private GoBildaPinpointDriver pinpoint;
 
     public void init(HardwareMap hwMap) {
         frontLeft = hwMap.get(DcMotor.class, "frontLeft");
@@ -73,4 +73,11 @@ public class MecDrivebase {
         this.drive(newForward, newStrafe, rotate);
     }
 
+    public void autoRotate(double xPower, double yPower) {
+
+        frontLeft.setPower(xPower);
+        backLeft.setPower(xPower);
+        frontRight.setPower(yPower);
+        backRight.setPower(yPower);
+    }
 }
