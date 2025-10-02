@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit.CM;
+import static org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit.MM;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
@@ -42,12 +43,11 @@ public class Auto extends LinearOpMode {
         //Pinpoint starting pos for tracking
         telemetry.addData("Starting y: " , pinpoint.getPosY(CM));
         telemetry.addData("Starting x: " , pinpoint.getPosX(CM));
+        timer.reset();
 
         waitForStart();
 
         while(opModeIsActive() && !isStopRequested()){
-
-            timer.reset();
 
             driveAndAlignToTest();
 
@@ -113,7 +113,7 @@ public class Auto extends LinearOpMode {
     }
 
     public void driveAndAlignToTest(){
-        driveToPos(1,1);
+        driveToPos(100,100);
 
         if(timer.seconds() <= 3) {
             mecDrivebase.autoRotate(0.25, -0.25);

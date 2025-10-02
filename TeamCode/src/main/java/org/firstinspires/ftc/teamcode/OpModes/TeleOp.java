@@ -1,15 +1,9 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
 
-import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
-import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
-import org.firstinspires.ftc.teamcode.Mechanisms.Pinpoint;
 import org.firstinspires.ftc.teamcode.Mechanisms.PrototypeHoodFire;
 import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
@@ -50,8 +44,6 @@ public class TeleOp extends LinearOpMode {
             setDrive();
 
             telemetry.addData("Ball color is", colorSensor.detectColor());
-
-            telemetry.update();
 
             if(gamepad2.x){
                 hood.fireMotor();
