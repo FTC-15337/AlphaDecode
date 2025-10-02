@@ -10,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 import org.firstinspires.ftc.teamcode.Mechanisms.Pinpoint;
+import org.firstinspires.ftc.teamcode.Mechanisms.PrototypeHoodFire;
 import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
@@ -21,6 +22,7 @@ public class TeleOp extends LinearOpMode {
     StorageConfig sorter = new StorageConfig();
     SortingWithColor colorSensor = new SortingWithColor();
     Pinpoint pinPoint = new Pinpoint();
+    PrototypeHoodFire hood = new PrototypeHoodFire();
 
     double forward, strafe, rotate;
 
@@ -39,6 +41,7 @@ public class TeleOp extends LinearOpMode {
         sorter.init(hardwareMap);
         pinPoint.init(hardwareMap);
         pinPoint.pinpointInit();
+        hood.init(hardwareMap);
         telemetry.addLine("Initialized");
         telemetry.update();
 
@@ -59,6 +62,12 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("Heading Angle (Degrees)", pose2D.getHeading(AngleUnit.DEGREES));
 
             telemetry.update();
+
+            if(gamepad2.x){
+                hood.fireMotor();
+            }else{
+                hood.stopMotor();
+            }
         }
     }
 }
