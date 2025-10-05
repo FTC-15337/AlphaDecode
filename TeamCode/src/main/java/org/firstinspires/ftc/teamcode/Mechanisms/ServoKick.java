@@ -13,10 +13,10 @@ public class ServoKick {
         kick = hwMap.get(Servo.class,"kick");
     }
     public void kickServo(){
-        kick.setPosition(Constants.kickServo);
+        //kick.setPosition(Constants.kickServo);
     }
     public void retractKick(){
-        kick.setPosition(Constants.kickServoRetract);
+        //kick.setPosition(Constants.kickServoRetract);
     }
 
 }
