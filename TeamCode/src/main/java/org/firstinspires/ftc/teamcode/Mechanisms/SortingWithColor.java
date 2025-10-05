@@ -9,15 +9,16 @@ import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 public class SortingWithColor {
     private ColorSensor colorSensor;
 
-    public void init(HardwareMap hwMap){
-        colorSensor = hwMap.get(ColorSensor.class , "ColorSensor");
+    public void init(HardwareMap hwMap) {
+        colorSensor = hwMap.get(ColorSensor.class, "ColorSensor");
     }
-    public int getRed()
-        { return colorSensor.red(); }
-    public int getGreen()
-        { return colorSensor.green(); }
-    public int getBlue()
-        { return colorSensor.blue(); }
+
+    public int getRed() {
+        return colorSensor.red(); }
+    public int getGreen() {
+        return colorSensor.green(); }
+    public int getBlue() {
+        return colorSensor.blue(); }
 
     public String detectColor(){
 
@@ -30,8 +31,8 @@ public class SortingWithColor {
             return "Green";
         } else if (r < b && g < b) {
             return "Purple";
-        } else {
-            return "Unknown Color";
         }
-    }
+        return "Unknown"     ;
+        }
 }
+
