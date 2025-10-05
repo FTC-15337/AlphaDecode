@@ -6,17 +6,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 
 public class ServoKick {
+    Servo servoKick;
 
-    private Servo kick;
-
-    public void init(HardwareMap hwMap){
-        kick = hwMap.get(Servo.class,"kick");
+    public void init(HardwareMap hwMap) {
+        servoKick = hwMap.get(Servo.class, "servoKick");
     }
-    public void kickServo(){
-        //kick.setPosition(Constants.kickServo);
+    public void kick() {
+        servoKick.setPosition(Constants.servokickMax);
     }
-    public void retractKick(){
-        //kick.setPosition(Constants.kickServoRetract);
+    public void retract() {
+        servoKick.setPosition(Constants.servokickMin);
     }
-
 }
