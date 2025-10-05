@@ -9,7 +9,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
-import org.firstinspires.ftc.teamcode.Mechanisms.Pinpoint;
+import org.firstinspires.ftc.teamcode.Mechanisms.PinpointTracking;
+import org.firstinspires.ftc.teamcode.Mechanisms.PinpointTracking;
 import org.firstinspires.ftc.teamcode.Mechanisms.PrototypeHoodFire;
 import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
 import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
@@ -24,7 +25,7 @@ public class TeleOp extends LinearOpMode {
     MecDrivebase drive = new MecDrivebase();
     StorageConfig storage = new StorageConfig();
     SortingWithColor sorting = new SortingWithColor();
-    Pinpoint pinPoint = new Pinpoint();
+    PinpointTracking pinPoint = new PinpointTracking();
     ServoKick kick = new ServoKick();
     PrototypeHoodFire hood = new PrototypeHoodFire();
 
@@ -43,7 +44,7 @@ public class TeleOp extends LinearOpMode {
         drive.init(hardwareMap);
         sorting.init(hardwareMap);
         storage.init(hardwareMap);
-        pinPoint.init(hardwareMap);
+        pinPoint.hardwareInit(hardwareMap);
         pinPoint.pinpointInit();
         kick.init(hardwareMap);
         hood.init(hardwareMap);
@@ -88,7 +89,7 @@ public class TeleOp extends LinearOpMode {
             }
 
             if(gamepad1.right_trigger >= 0.7) {
-                hood.moveMotor();
+                hood.fireMotor();
             } else {
                 hood.stopMotor();
             }
