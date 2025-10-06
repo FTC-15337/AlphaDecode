@@ -11,9 +11,9 @@ public class IntakeConfig {
 
         intakeMotor = hwMap.get(DcMotor.class , "intakeMotor");
 
-        intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
 

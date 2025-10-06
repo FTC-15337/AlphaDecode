@@ -9,7 +9,7 @@ public class StorageConfig {
     private Servo storageServo;
 
     public void init(HardwareMap hwMap) {
-        storageServo = hwMap.get(Servo.class , "rotateServo");
+        storageServo = hwMap.get(Servo.class , "storage");
     }
 
     public void setIntakeA(){
