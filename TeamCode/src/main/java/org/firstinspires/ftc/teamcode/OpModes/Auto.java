@@ -20,20 +20,20 @@ public class Auto extends LinearOpMode {
     GoBildaPinpointDriver pinpoint;
     ElapsedTime timer = new ElapsedTime();
 
-    //WHEN USING PINPOINT PLEASE MAKE A METHOD WHERE YOU WRITE THE DRIVE AND ALIGN
-    //CODE SO IT CAN BE REUSED AND IS EASILY ACCESSIBLE
-    //See driveAndAlignToTest(); as an example
-    //If it is just a pinpoint value like driving forward and then it aligns
-    //via limelight keep the limelight align method separate and call it within
-    //the pinpoint method
-    //Limelight methods will need to be called using an instance of the limelight
-    //class as we are making it a separate class for organization (not made yet)
-    //Ex:
-    //public void driveToGoal(){
-    //call driveToPos method with correct values
-    //call limelight align method (could be replaced with autoAlign method and
-    //timer based if (also in driveAndAlignToTest)
-    //}
+    /*WHEN USING PINPOINT PLEASE MAKE A METHOD WHERE YOU WRITE THE DRIVE AND ALIGN
+    CODE SO IT CAN BE REUSED AND IS EASILY ACCESSIBLE
+    See driveAndAlignToTest(); as an example
+    If it is just a pinpoint value like driving forward and then it aligns
+    via limelight keep the limelight align method separate and call it within
+    the pinpoint method
+    Limelight methods will need to be called using an instance of the limelight
+    class as we are making it a separate class for organization (not made yet)
+    Ex:
+    public void driveToGoal(){
+    call driveToPos method with correct values
+    call limelight align method (could be replaced with autoAlign method and
+    timer based if (also in driveAndAlignToTest)
+    }*/
 
     @Override
     public void runOpMode() {
