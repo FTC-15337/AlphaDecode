@@ -52,7 +52,7 @@ public class Auto extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive() && !isStopRequested()) {
-            driveToPos(0.01, 0.0);
+            DriveToPos(0.01, 0.0);
             telemetry.update();
         }
 
@@ -125,12 +125,12 @@ public class Auto extends LinearOpMode {
 //        }
 //    }
 
-    private void driveToPos(double targetX, double targetY) {
+    private void DriveToPos(double targetX, double targetY) {
         pinpoint.update();
         boolean telemAdded = false;
 
         while (opModeIsActive() &&
-                (Math.abs(targetX - pinpoint.getPosX(MM)) > 0 || Math.abs(targetY - pinpoint.getPosY(MM)) > 0)
+                (Math.abs(targetX - pinpoint.getPosX(MM)) > 30  || Math.abs(targetY - pinpoint.getPosY(MM)) > 30)
         ) {
             pinpoint.update();
 

@@ -2,10 +2,12 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Mechanisms.IntakeConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 import org.firstinspires.ftc.teamcode.Mechanisms.PrototypeHoodFire;
+import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
 import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
@@ -18,6 +20,9 @@ public class TeleOp extends LinearOpMode {
     SortingWithColor colorSensor = new SortingWithColor();
     PrototypeHoodFire hood = new PrototypeHoodFire();
     IntakeConfig intake = new IntakeConfig();
+    ServoKick kick = new ServoKick();
+
+    int pos = 0;
 
     double forward, strafe, rotate;
     public void setDriver(){
@@ -27,76 +32,107 @@ public class TeleOp extends LinearOpMode {
         drive.driveFieldRelative(forward, strafe, rotate);
     }
     public void setOperator(){
-        if(gamepad1.left_trigger >= 0.7){
-            intake.IntakeMotorMax();
-        }else{
-            intake.IntakeMotorStop();
-        }
-        //shooter
-        if(gamepad1.right_trigger >= 0.7){
+
+        if(gamepad2.right_trigger >= 0.7){
             hood.fireMotor();
         }else{
             hood.stopMotor();
         }
-        //sorter
-        if(gamepad1.dpad_up){
-            sorter.setIntakeA();
+        if(gamepad2.y){
+            kick.kick();
+        }else{
+            kick.retract();
         }
-        if(gamepad1.dpad_down){
-            sorter.setIntakeB();
-        }
-        if(gamepad1.dpad_left){
-            sorter.setIntakeC();
-        }
-        //Checks each slot until purple ball is detected
-        if(gamepad1.a){
+
+         if(gamepad2.left_trigger >= 0.7){
+             intake.IntakeMotorMax();
+         }else{
+             intake.IntakeMotorStop();
+         }
+
+        if(gamepad2.a){
             setSorterGreen();
         }
-        if(gamepad1.b) {
+        if(gamepad2.b) {
             setSorterPurple();
         }
+        if(gamepad2.dpad_up) {
+            sorter.setIntakeA();
+        }
+        if(gamepad2.dpad_left) {
+            sorter.setIntakeB();
+        }
+        if(gamepad2.dpad_right) {
+            sorter.setIntakeC();
+        }
     }
+
     public void setSorterPurple(){
-        sorter.setOutA();
-        colorSensor.detectColor();
-        if(colorSensor.detectColor().equals("Purple")) {
-            sorter.setOutA();
-        } else if(colorSensor.detectColor().equals("Green")){
-            sorter.setOutB();
-            if(colorSensor.detectColor().equals("Purple")){
+        switch (pos){
+            case 0:
+                kick.retract();
+                sorter.setOutA();
+                if(colorSensor.detectColor().equals("Purple")){
+                    kick.kick();
+                }else{
+                    pos = 1;
+                }
+                break;
+            case 1:
                 sorter.setOutB();
-            } else if(colorSensor.detectColor().equals("Green")) {
+                if(colorSensor.detectColor().equals("Purple")){
+                kick.kick();
+            }else{
+                    pos = 2;
+                }
+                break;
+            case 2:
                 sorter.setOutC();
                 if(colorSensor.detectColor().equals("Purple")){
-                    sorter.setOutC();
-                } else if(colorSensor.detectColor().equals("Green")){
-                    sorter.setOutA();
+                    kick.kick();
+                }else{
+                    telemetry.addLine("ERROR");
                 }
-            }
+                break;
+            default:
+                sorter.setOutA();
+                pos = 0;
+                break;
         }
     }
-
-    public void setSorterGreen(){
-        sorter.setOutA();
-        colorSensor.detectColor();
-        if(colorSensor.detectColor().equals("Green")) {
-            sorter.setOutA();
-        } else if(colorSensor.detectColor().equals("Purple")){
-            sorter.setOutB();
-            if(colorSensor.detectColor().equals("Green")){
+    public void setSorterGreen() {
+        switch (pos){
+            case 0:
+                kick.retract();
+                sorter.setOutA();
+                if(colorSensor.detectColor().equals("Green")){
+                    kick.kick();
+                }else{
+                    pos = 1;
+                }
+                break;
+            case 1:
                 sorter.setOutB();
-            } else if(colorSensor.detectColor().equals("Purple")) {
+                if(colorSensor.detectColor().equals("Green")){
+                    kick.kick();
+                }else{
+                    pos = 2;
+                }
+                break;
+            case 2:
                 sorter.setOutC();
                 if(colorSensor.detectColor().equals("Green")){
-                    sorter.setOutC();
-                } else if(colorSensor.detectColor().equals("Purple")){
-                    sorter.setOutA();
+                    kick.kick();
+                }else{
+                    telemetry.addLine("ERROR");
                 }
-            }
+                break;
+            default:
+                sorter.setOutA();
+                pos = 0;
+                break;
         }
     }
-
-
     @Override
     public void runOpMode() throws InterruptedException {
 

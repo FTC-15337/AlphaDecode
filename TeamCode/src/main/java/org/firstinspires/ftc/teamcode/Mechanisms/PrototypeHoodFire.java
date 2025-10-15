@@ -7,8 +7,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 
-import java.util.Objects;
-
 public class PrototypeHoodFire {
 private DcMotor hoodMotor;
 
@@ -29,5 +27,4 @@ private DcMotor hoodMotor;
     public void stopMotor(){
         hoodMotor.setPower(Constants.testMotorStop);
     }
-
 }
