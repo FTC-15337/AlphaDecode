@@ -12,6 +12,7 @@ public class StorageConfig {
         storageServo = hwMap.get(Servo.class , "storage");
     }
 
+    ServoKick kick = new ServoKick();
     public void setIntakeA(){
 
         storageServo.setPosition(Constants.sorterIntakeA);
@@ -36,4 +37,6 @@ public class StorageConfig {
 
         storageServo.setPosition(Constants.sorterOutTakeC);
     }
+
+
 }
