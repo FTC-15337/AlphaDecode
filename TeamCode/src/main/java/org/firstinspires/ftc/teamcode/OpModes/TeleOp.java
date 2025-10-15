@@ -78,6 +78,7 @@ public class TeleOp extends LinearOpMode {
         }
     }
 
+
     public void setSorterPurple(){
         switch (pos){
             case 0:
