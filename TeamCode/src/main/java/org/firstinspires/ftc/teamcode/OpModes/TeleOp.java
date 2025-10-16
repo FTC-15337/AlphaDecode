@@ -37,7 +37,7 @@ public class TeleOp extends LinearOpMode {
             telemetry.addLine("Hood motor is firing");
             hood.fireMotor();
         }else{
-            telemetry.addLine("Hood motor is not moving");
+            telemetry.addLine("Hood motor is stopped");
             hood.stopMotor();
         }
         if(gamepad2.y){
@@ -49,7 +49,7 @@ public class TeleOp extends LinearOpMode {
         }
 
          if(gamepad2.left_trigger >= 0.7){
-             telemetry.addLine("Intake motor is moving");
+             telemetry.addLine("Intaking");
              intake.IntakeMotorMax();
          }else{
              telemetry.addLine("Intake motor is not moving");
@@ -57,23 +57,23 @@ public class TeleOp extends LinearOpMode {
          }
 
         if(gamepad2.a){
-            telemetry.addLine("Sorting green");
+            telemetry.addLine("GREEN SORT");
             setSorterGreen();
         }
         if(gamepad2.b) {
-            telemetry.addLine("Sorting purple");
+            telemetry.addLine("PURPLE SORT");
             setSorterPurple();
         }
         if(gamepad2.dpad_up) {
-            telemetry.addLine("Setting Intake A");
+            telemetry.addLine("Intake A");
             sorter.setIntakeA();
         }
         if(gamepad2.dpad_left) {
-            telemetry.addLine("Setting Intake B");
+            telemetry.addLine("Intake B");
             sorter.setIntakeB();
         }
         if(gamepad2.dpad_right) {
-            telemetry.addLine("Setting Intake C");
+            telemetry.addLine("Intake C");
             sorter.setIntakeC();
         }
     }
