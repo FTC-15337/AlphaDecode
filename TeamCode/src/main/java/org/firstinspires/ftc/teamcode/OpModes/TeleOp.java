@@ -34,7 +34,7 @@ public class TeleOp extends LinearOpMode {
     public void setOperator(){
 
         if(gamepad2.right_trigger >= 0.7){
-            telemetry.addLine("Hood motor is moving");
+            telemetry.addLine("Hood motor is firing");
             hood.fireMotor();
         }else{
             telemetry.addLine("Hood motor is not moving");
@@ -44,7 +44,7 @@ public class TeleOp extends LinearOpMode {
             telemetry.addLine("Servo kick is kicking");
             kick.kick();
         }else{
-            telemetry.addLine("Servo kick is not kicking");
+            telemetry.addLine("Servo kick retracted");
             kick.retract();
         }
 
