@@ -153,6 +153,7 @@ public class TeleOp extends LinearOpMode {
         intake.init(hardwareMap);
         sorter.init(hardwareMap);
         hood.init(hardwareMap);
+        kick.init(hardwareMap);
         telemetry.addLine("Initialized");
         telemetry.update();
 

@@ -16,11 +16,12 @@ public class ServoKick {
     public void init(HardwareMap hwMap){
         kick = hwMap.get(Servo.class , "kick");
         servoWheel = hwMap.get(CRServo.class, "wheel");
+        kick.setPosition(0.4);
     }
 
     public void kick(){
         kick.setPosition(Constants.kick);
-        servoWheel.setPower(1.0);
+        servoWheel.setPower(-1.0);
     }
 
     public void retract(){
