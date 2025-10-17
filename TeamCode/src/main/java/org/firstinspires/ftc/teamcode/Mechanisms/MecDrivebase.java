@@ -14,7 +14,6 @@ import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 
 public class MecDrivebase {
     public DcMotor frontLeft, backLeft, frontRight, backRight;
-    Constants constants = new Constants();
     public IMU imu;
     private GoBildaPinpointDriver pinpoint;
 

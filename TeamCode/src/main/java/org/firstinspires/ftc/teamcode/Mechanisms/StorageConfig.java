@@ -38,5 +38,10 @@ public class StorageConfig {
         storageServo.setPosition(Constants.sorterOutTakeC);
     }
 
+    public void setZero(){
+
+        storageServo.setPosition(0.0);
+    }
+
 
 }

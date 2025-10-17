@@ -13,7 +13,7 @@ private DcMotor hoodMotor;
     public void init(HardwareMap hwMap){
         hoodMotor = hwMap.get(DcMotor.class , "shooter");
 
-        hoodMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        hoodMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         hoodMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 

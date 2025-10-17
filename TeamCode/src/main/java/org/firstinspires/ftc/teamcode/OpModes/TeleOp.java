@@ -56,14 +56,14 @@ public class TeleOp extends LinearOpMode {
              intake.IntakeMotorStop();
          }
 
-        if(gamepad2.a){
+        /*if(gamepad2.a){
             telemetry.addLine("GREEN SORT");
             setSorterGreen();
         }
         if(gamepad2.b) {
             telemetry.addLine("PURPLE SORT");
             setSorterPurple();
-        }
+        }*/
         if(gamepad2.dpad_up) {
             telemetry.addLine("Intake A");
             sorter.setIntakeA();
@@ -76,10 +76,22 @@ public class TeleOp extends LinearOpMode {
             telemetry.addLine("Intake C");
             sorter.setIntakeC();
         }
+        if(gamepad2.a) {
+            sorter.setOutA();
+        }
+        if(gamepad2.x) {
+            sorter.setOutB();
+        }
+        if(gamepad2.b) {
+            sorter.setOutC();
+        }
+        if(gamepad2.right_bumper) {
+            sorter.setZero();
+        }
     }
 
 
-    public void setSorterPurple(){
+    /*public void setSorterPurple(){
         switch (pos){
             case 0:
                 kick.retract();
@@ -144,7 +156,7 @@ public class TeleOp extends LinearOpMode {
                 pos = 0;
                 break;
         }
-    }
+    }*/
     @Override
     public void runOpMode() throws InterruptedException {
 

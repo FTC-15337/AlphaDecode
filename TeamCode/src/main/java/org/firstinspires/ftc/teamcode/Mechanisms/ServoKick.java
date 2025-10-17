@@ -16,7 +16,7 @@ public class ServoKick {
     public void init(HardwareMap hwMap){
         kick = hwMap.get(Servo.class , "kick");
         servoWheel = hwMap.get(CRServo.class, "wheel");
-        kick.setPosition(0.4);
+        kick.setPosition(Constants.retract);
     }
 
     public void kick(){
