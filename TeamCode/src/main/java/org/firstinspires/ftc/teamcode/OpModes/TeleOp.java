@@ -94,9 +94,6 @@ public class TeleOp extends LinearOpMode {
             telemetry.addLine("Sorter OC");
             sorter.setOutC();
         }
-        if(gamepad2.start) {
-            sorter.setZero();
-        }
     }
 
     public void outWithoutSort(){
@@ -126,7 +123,7 @@ public class TeleOp extends LinearOpMode {
                 if(colorSensor.detectColor().equals("Purple")){
                     kick.kick();
                 }else{
-                    pos = 1;
+                    posP = 1;
                 }
                 break;
             case 1:
@@ -134,7 +131,7 @@ public class TeleOp extends LinearOpMode {
                 if(colorSensor.detectColor().equals("Purple")){
                 kick.kick();
             }else{
-                    pos = 2;
+                    posP = 2;
                 }
                 break;
             case 2:
@@ -143,11 +140,12 @@ public class TeleOp extends LinearOpMode {
                     kick.kick();
                 }else{
                     telemetry.addLine("ERROR");
+                    posP = -1;
                 }
                 break;
             default:
                 sorter.setOutA();
-                pos = 0;
+                posP = 0;
                 break;
         }
     }
@@ -159,7 +157,7 @@ public class TeleOp extends LinearOpMode {
                 if(colorSensor.detectColor().equals("Green")){
                     kick.kick();
                 }else{
-                    pos = 1;
+                    posG = 1;
                 }
                 break;
             case 1:
@@ -167,7 +165,7 @@ public class TeleOp extends LinearOpMode {
                 if(colorSensor.detectColor().equals("Green")){
                     kick.kick();
                 }else{
-                    pos = 2;
+                    posG = 2;
                 }
                 break;
             case 2:
@@ -175,13 +173,13 @@ public class TeleOp extends LinearOpMode {
                 if(colorSensor.detectColor().equals("Green")){
                     kick.kick();
                 }else{
-                    pos = -1;
+                    posG = -1;
                 }
                 break;
             default:
                 kick.retract();
                 sorter.setOutA();
-                pos = 0;
+                posG = 0;
                 break;
         }
     }
