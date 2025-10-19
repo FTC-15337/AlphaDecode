@@ -52,80 +52,13 @@ public class Auto extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive() && !isStopRequested()) {
-            DriveToPos(0.01, 0.0);
+            driveToTestPoint();
             telemetry.update();
         }
 
     }
 
-
-//    public void DriveToPos(double targetX, double targetY) {
-//        pinpoint.update();
-//        boolean telemAdded = false;
-//
-//        telemetry.addLine("Inside the driveToPos");
-//        if (opModeIsActive() &&
-//                (Math.abs(targetX - pinpoint.getPosX(MM)) > 5 || Math.abs(targetY - pinpoint.getPosY(MM)) > 5)
-//        ){
-//            telemetry.addData("Inside while X", Math.abs(targetX - pinpoint.getPosX(MM)));
-//            telemetry.addData("Inside while Y", Math.abs(targetY - pinpoint.getPosY(MM)));
-//            pinpoint.update();
-//
-//            double x = 0.001*(targetX - pinpoint.getPosX(MM));
-//            double y = -0.001*(targetY - pinpoint.getPosY(MM));
-//
-//            double botHeading = mecDrivebase.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-//            double rotateY = y * Math.cos(-botHeading) - x * Math.sin(-botHeading);
-//            double rotateX = y * Math.sin(-botHeading) + x * Math.cos(-botHeading);
-//
-//            if (!telemAdded) {
-//                telemetry.addData("x: ", x);
-//                telemetry.addData("y: ", y);
-//                telemetry.addData("rotateX: ", rotateX);
-//                telemetry.addData("rotateY: ", rotateY);
-//                telemetry.update();
-//                telemAdded = true;
-//            }
-//
-//            if (Math.abs(rotateX) < 0.05) {
-//                rotateX = Math.signum(rotateX) * 0.05;
-//            }
-//
-//            if (Math.abs(rotateY) < 0.05) {
-//                rotateY = Math.signum(rotateY) * 0.05;
-//            }
-//
-//            double denominator = Math.max(Math.abs(y) + Math.abs(x), 1);
-//            double frontLeftPower = (rotateX + rotateY) / denominator;
-//            double backLeftPower = (rotateX - rotateY) / denominator;
-//            double frontRightPower = (rotateX - rotateY) / denominator;
-//            double backRightPower = (rotateX + rotateY) / denominator;
-//
-//            mecDrivebase.frontLeft.setPower(frontLeftPower);
-//            mecDrivebase.backLeft.setPower(backLeftPower);
-//            mecDrivebase.frontRight.setPower(frontRightPower);
-//            mecDrivebase.backRight.setPower(backRightPower);
-//
-//            //mecDrivebase.frontLeft.setPower(0.25);
-//            //mecDrivebase.backLeft.setPower(0.25);
-//            //mecDrivebase.frontRight.setPower(0.25);
-//            //mecDrivebase.backRight.setPower(0.25);
-//
-//            telemetry.addData("X: ", pinpoint.getPosX(MM));
-//            telemetry.addData("Y: ", pinpoint.getPosY(MM));
-//            telemetry.addData("Heading pinpoint: ", Math.toDegrees(pinpoint.getHeading(AngleUnit.DEGREES)));
-//            telemetry.addData("Heading IMU: ", mecDrivebase.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
-//            telemetry.update();
-//        }
-//        else {
-//            mecDrivebase.frontLeft.setPower(0);
-//            mecDrivebase.backLeft.setPower(0);
-//            mecDrivebase.frontRight.setPower(0);
-//            mecDrivebase.backRight.setPower(0);
-//        }
-//    }
-
-    private void DriveToPos(double targetX, double targetY) {
+    public void DriveToPos(double targetX, double targetY) {
         pinpoint.update();
         boolean telemAdded = false;
 
@@ -182,5 +115,8 @@ public class Auto extends LinearOpMode {
         mecDrivebase.frontRight.setPower(0);
         mecDrivebase.backLeft.setPower(0);
         mecDrivebase.backRight.setPower(0);
+    }
+    public void driveToTestPoint(){
+        DriveToPos(40,0);
     }
 }

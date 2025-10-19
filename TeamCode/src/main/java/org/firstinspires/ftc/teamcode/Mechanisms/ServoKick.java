@@ -20,8 +20,8 @@ public class ServoKick {
     }
 
     public void kick(){
-        kick.setPosition(Constants.kick);
         servoWheel.setPower(-1.0);
+        kick.setPosition(Constants.kick);
     }
 
     public void retract(){
