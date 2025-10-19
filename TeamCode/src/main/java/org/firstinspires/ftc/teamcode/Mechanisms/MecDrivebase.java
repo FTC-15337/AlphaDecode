@@ -42,7 +42,7 @@ public class MecDrivebase {
 
     public void drive(double forward, double strafe, double rotate) {
         double frontLeftPower = forward + strafe + rotate;
-        double backLeftPower = forward - strafe + rotate;
+        double backLeftPower = -forward + strafe + rotate;
         double frontRightPower = forward - strafe - rotate;
         double backRightPower = forward + strafe - rotate;
 
