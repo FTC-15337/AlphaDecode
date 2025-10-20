@@ -15,7 +15,6 @@ import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 public class MecDrivebase {
     public DcMotor frontLeft, backLeft, frontRight, backRight;
     public IMU imu;
-    private GoBildaPinpointDriver pinpoint;
 
     public void init(HardwareMap hwMap) {
         frontLeft = hwMap.get(DcMotor.class, "frontLeft");
@@ -28,7 +27,6 @@ public class MecDrivebase {
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         imu = hwMap.get(IMU.class, "imu");
@@ -42,7 +40,7 @@ public class MecDrivebase {
 
     public void drive(double forward, double strafe, double rotate) {
         double frontLeftPower = forward + strafe + rotate;
-        double backLeftPower = -forward + strafe + rotate;
+        double backLeftPower = forward - strafe + rotate;
         double frontRightPower = forward - strafe - rotate;
         double backRightPower = forward + strafe - rotate;
 
@@ -73,11 +71,15 @@ public class MecDrivebase {
     }
 
     //Rotate method for auto rotation
-    public void autoRotate(double xPower, double yPower) {
+    /*public void autoRotate(double xPower, double yPower) {
 
         frontLeft.setPower(xPower);
         backLeft.setPower(xPower);
         frontRight.setPower(yPower);
         backRight.setPower(yPower);
-    }
+    }*/
+    /*strafe not working as both go outwards.
+        for left and inwards for right
+     */
+
 }
