@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 import org.firstinspires.ftc.teamcode.Mechanisms.IntakeConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
@@ -30,6 +31,12 @@ public class TeleOp extends LinearOpMode {
         strafe = gamepad1.left_stick_x;
         rotate = gamepad1.right_stick_x;
         drive.driveFieldRelative(forward, strafe, rotate);
+
+        if(gamepad1.right_trigger == 1.0) {
+            Constants.driveMaxSpeed = 0.3;
+        } else {
+            Constants.driveMaxSpeed = 1.0;
+        }
     }
     public void setOperator(){
 
@@ -69,50 +76,62 @@ public class TeleOp extends LinearOpMode {
             telemetry.addLine("PURPLE SORT");
             setSorterPurple();
         }
-
         if(gamepad2.dpad_up) {
+            telemetry.addLine("Outtake Without Sort");
+            outWithoutSort();
+        }
+
+        if(gamepad2.dpad_down) {
             telemetry.addLine("Sorter IA");
             sorter.setIntakeA();
         }
-        if(gamepad2.dpad_left) {
-            telemetry.addLine("Sorter IB");
-            sorter.setIntakeB();
-        }
         if(gamepad2.dpad_right) {
             telemetry.addLine("Sorter IC");
+            sorter.setIntakeB();
+        }
+        if(gamepad2.dpad_left) {
+            telemetry.addLine("Sorter IB");
             sorter.setIntakeC();
         }
         if(gamepad2.a) {
             telemetry.addLine("Sorter OA");
             sorter.setOutA();
         }
-        if(gamepad2.x) {
-            telemetry.addLine("Sorter OB");
-            sorter.setOutB();
-        }
         if(gamepad2.b) {
             telemetry.addLine("Sorter OC");
+            sorter.setOutB();
+        }
+        if(gamepad2.x) {
+            telemetry.addLine("Sorter OB");
             sorter.setOutC();
         }
     }
 
     public void outWithoutSort(){
-        kick.retract();
-        shooter.fireMotor();
-
-        sorter.setOutA();
-        kick.kick();
-
-        kick.retract();
-        sorter.setOutB();
-        kick.kick();
-
-        kick.retract();
-        sorter.setOutC();
-        kick.kick();
-
-        sorter.resetToIntake();
-
+        switch (pos){
+            case 0:
+                kick.retract();
+                sleep(10);
+                sorter.setOutA();
+                sleep(10);
+                kick.kick();
+                pos = 1;
+                break;
+            case 1:
+                kick.retract();
+                sleep(10);
+                sorter.setOutB();
+                sleep(10);
+                kick.kick();
+                pos = 2;
+            case 2:
+                kick.retract();
+                sleep(10);
+                sorter.setOutC();
+                sleep(10);
+                kick.kick();
+                pos = 1;
+        }
     }
 
     public void setSorterPurple(){
