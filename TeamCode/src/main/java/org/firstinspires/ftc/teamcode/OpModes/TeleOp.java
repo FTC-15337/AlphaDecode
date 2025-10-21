@@ -57,7 +57,7 @@ public class TeleOp extends LinearOpMode {
         }
 
         if(gamepad2.right_stick_button){
-            outWithoutSort();
+            fireAtRandom();
         }
 
          if(gamepad2.left_trigger >= 0.7){
@@ -78,7 +78,7 @@ public class TeleOp extends LinearOpMode {
         }
         if(gamepad2.dpad_up) {
             telemetry.addLine("Outtake Without Sort");
-            outWithoutSort();
+            fireAtRandom();
         }
 
         if(gamepad2.dpad_down) {
@@ -107,7 +107,7 @@ public class TeleOp extends LinearOpMode {
         }
     }
 
-    public void outWithoutSort(){
+    public void fireAtRandom(){
         switch (pos){
             case 0:
                 kick.retract();
@@ -124,13 +124,19 @@ public class TeleOp extends LinearOpMode {
                 sleep(10);
                 kick.kick();
                 pos = 2;
+                break;
             case 2:
                 kick.retract();
                 sleep(10);
                 sorter.setOutC();
                 sleep(10);
                 kick.kick();
-                pos = 1;
+                pos = -1;
+                break;
+            default:
+                kick.retract();
+                sleep(10);
+                sorter.setIntakeA();
         }
     }
 
@@ -138,7 +144,9 @@ public class TeleOp extends LinearOpMode {
         switch (posP){
             case 0:
                 kick.retract();
+                sleep(10);
                 sorter.setOutA();
+                sleep(10);
                 if(colorSensor.detectColor().equals("Purple")){
                     kick.kick();
                 }else{
@@ -147,6 +155,7 @@ public class TeleOp extends LinearOpMode {
                 break;
             case 1:
                 sorter.setOutB();
+                sleep(10);
                 if(colorSensor.detectColor().equals("Purple")){
                 kick.kick();
             }else{
@@ -155,15 +164,15 @@ public class TeleOp extends LinearOpMode {
                 break;
             case 2:
                 sorter.setOutC();
+                sleep(10);
                 if(colorSensor.detectColor().equals("Purple")){
                     kick.kick();
                 }else{
-                    telemetry.addLine("ERROR");
+                    telemetry.addLine("SORTING ERROR");
                     posP = -1;
                 }
                 break;
             default:
-                sorter.setOutA();
                 posP = 0;
                 break;
         }
@@ -172,7 +181,9 @@ public class TeleOp extends LinearOpMode {
         switch (posG){
             case 0:
                 kick.retract();
+                sleep(10);
                 sorter.setOutA();
+                sleep(10);
                 if(colorSensor.detectColor().equals("Green")){
                     kick.kick();
                 }else{
@@ -181,6 +192,7 @@ public class TeleOp extends LinearOpMode {
                 break;
             case 1:
                 sorter.setOutB();
+                sleep(10);
                 if(colorSensor.detectColor().equals("Green")){
                     kick.kick();
                 }else{
@@ -189,6 +201,7 @@ public class TeleOp extends LinearOpMode {
                 break;
             case 2:
                 sorter.setOutC();
+                sleep(10);
                 if(colorSensor.detectColor().equals("Green")){
                     kick.kick();
                 }else{
@@ -196,8 +209,6 @@ public class TeleOp extends LinearOpMode {
                 }
                 break;
             default:
-                kick.retract();
-                sorter.setOutA();
                 posG = 0;
                 break;
         }
