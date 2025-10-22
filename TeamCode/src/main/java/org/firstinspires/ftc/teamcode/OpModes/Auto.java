@@ -1,138 +1,97 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
-import static org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit.MM;
+import static org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit.CM;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 
-/**
- * AutoPinpointStraight
- * Moves the robot in a straight line using GoBilda Pinpoint odometry.
- */
-@Autonomous(name = "AutoPinpointStraight", group = "Autonomous")
 public class Auto extends LinearOpMode {
-
     MecDrivebase mecDrivebase = new MecDrivebase();
     GoBildaPinpointDriver pinpoint;
-    ElapsedTime timer = new ElapsedTime();
 
     @Override
-    public void runOpMode() throws InterruptedException {
-        // --- Initialize drivebase and odometry ---
-        mecDrivebase.init(hardwareMap);
+    public void runOpMode(){
+        while(opModeIsActive() && !isStopRequested()){
 
-        pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
-        pinpoint.initialize();
+            mecDrivebase.init(hardwareMap);
+            pinpoint.setOffsets(10.1,17.5,DistanceUnit.CM);
+            pinpoint = hardwareMap.get(GoBildaPinpointDriver.class , "pinpoint");
 
-        // Adjust these offsets for your robot’s pinpoint mounting position
-        pinpoint.setOffsets(101.6, 177.8, MM);
+            pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED, GoBildaPinpointDriver.EncoderDirection.REVERSED);
+            pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
 
-        // Reset to 0,0,0 start position
-        pinpoint.resetPosAndIMU();
+            pinpoint.setPosition(new Pose2D(DistanceUnit.INCH, 0, 0, AngleUnit.DEGREES, 0));
 
-        telemetry.addLine("Init Active");
-        telemetry.update();
+            pinpoint.resetPosAndIMU();
 
-        waitForStart();
+            waitForStart();
 
-        // --- Move straight forward 500 mm (about 20 inches) ---
-        goToPoint(500.0, 0.0, 6.0);
+            driveToPos(1,1);
+            sleep(100);
 
-        stopDrive();
-
-        telemetry.addLine("Reached Target Position");
-        telemetry.update();
-        sleep(1000);
-    }
-
-    /**
-     * Moves robot to (targetX, targetY) in millimeters.
-     * Stops when close enough or after timeoutSeconds.
-     */
-    public void goToPoint(double targetX, double targetY, double timeoutSeconds) {
-        timer.reset();
-        boolean reached = false;
-
-        while (opModeIsActive() && !reached && timer.seconds() < timeoutSeconds) {
-            reached = driveToPos(targetX, targetY);
-            sleep(10); // Prevent high CPU load
         }
 
-        stopDrive();
-        sleep(50);
     }
-
-    /**
-     * Drives toward (targetX, targetY) using proportional control.
-     * Returns true when within distance threshold (mm).
-     */
-    public boolean driveToPos(double targetX, double targetY) {
+    public void driveToPos(double targetX, double targetY) {
         pinpoint.update();
+        boolean telemAdded = false;
 
-        double currentX = pinpoint.getPosX(MM);
-        double currentY = pinpoint.getPosY(MM);
+        while (opModeIsActive() &&
+                (Math.abs(targetX - pinpoint.getPosX(CM)) > 30 || Math.abs(targetY - pinpoint.getPosY(CM)) > 30)
+        ){
+            pinpoint.update();
 
-        double dx = targetX - currentX;
-        double dy = targetY - currentY;
-        double distance = Math.hypot(dx, dy);
+            double x = 0.001*(targetX - pinpoint.getPosX(CM));
+            double y = -0.001*(targetY - pinpoint.getPosY(CM));
 
-        // Stop when close enough
-        double distanceThreshold = 12.0; // mm (~0.5 inch)
-        if (distance <= distanceThreshold) {
-            stopDrive();
-            return true;
+            double botHeading = mecDrivebase.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);            double rotY = y * Math.cos(-botHeading) - x * Math.sin(-botHeading);
+            double rotX = y * Math.sin(-botHeading) + x * Math.cos(-botHeading);
+
+            if (!telemAdded) {
+                telemetry.addData("x: ", x);
+                telemetry.addData("y: ", y);
+                telemetry.addData("rotX: ", rotX);
+                telemetry.addData("rotY: ", rotY);
+                telemetry.update();
+                telemAdded = true;
+            }
+
+            if (Math.abs(rotX) < 0.15) {
+                rotX = Math.signum(rotX) * 0.15;
+            }
+
+            if (Math.abs(rotY) < 0.15) {
+                rotY = Math.signum(rotY) * 0.15;
+            }
+
+            double denominator = Math.max(Math.abs(y) + Math.abs(x), 1);
+            double frontLeftPower = (rotX + rotY)
+                    / denominator;
+            double backLeftPower = (rotX - rotY) / denominator;
+            double frontRightPower = (rotX - rotY) / denominator;
+            double backRightPower = (rotX + rotY) / denominator;
+
+            mecDrivebase.frontLeft.setPower(frontLeftPower);
+            mecDrivebase.backLeft.setPower(backLeftPower);
+            mecDrivebase.frontRight.setPower(frontRightPower);
+            mecDrivebase.backRight.setPower(backRightPower);
+
+            telemetry.addData("X: ", pinpoint.getPosX(CM));
+            telemetry.addData("Y: ", pinpoint.getPosY(CM));
+            telemetry.addData("Heading Odo: ", Math.toDegrees(pinpoint.getHeading(AngleUnit.DEGREES)));
+            telemetry.addData("Heading IMU: ", mecDrivebase.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+            telemetry.update();
         }
 
-        // Control constants (tune for your robot)
-        double kP = 0.0020;      // proportional gain
-        double powerScale = 0.45; // overall speed scaling
-        double smallDeadband = 0.05; // prevent twitch from tiny commands
-
-        // Compute movement vector in field coordinates
-        double x = kP * dx;
-        double y = -kP * dy; // negative Y to align with your setup
-
-        // Adjust for robot heading using IMU
-        double botHeading = mecDrivebase.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-        double rotY = y * Math.cos(-botHeading) - x * Math.sin(-botHeading);
-        double rotX = y * Math.sin(-botHeading) + x * Math.cos(-botHeading);
-
-        // Apply deadband
-        if (Math.abs(rotX) < smallDeadband) rotX = 0.0;
-        if (Math.abs(rotY) < smallDeadband) rotY = 0.0;
-
-        // Compute mecanum drive powers (no rotation)
-        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX), 1.0);
-        double frontLeftPower  = (rotY + rotX) / denominator;
-        double backLeftPower   = (rotY - rotX) / denominator;
-        double frontRightPower = (rotY - rotX) / denominator;
-        double backRightPower  = (rotY + rotX) / denominator;
-
-        // Apply power
-        mecDrivebase.frontLeft.setPower(frontLeftPower * powerScale);
-        mecDrivebase.backLeft.setPower(backLeftPower * powerScale);
-        mecDrivebase.frontRight.setPower(frontRightPower * powerScale);
-        mecDrivebase.backRight.setPower(backRightPower * powerScale);
-
-        // Telemetry for debugging
-        telemetry.addData("Target X (mm)", targetX);
-        telemetry.addData("Current X (mm)", currentX);
-        telemetry.addData("Distance (mm)", distance);
-        telemetry.update();
-
-        return false;
-    }
-
-    /** Stops all drive motors */
-    public void stopDrive() {
         mecDrivebase.frontLeft.setPower(0);
-        mecDrivebase.frontRight.setPower(0);
         mecDrivebase.backLeft.setPower(0);
+        mecDrivebase.frontRight.setPower(0);
         mecDrivebase.backRight.setPower(0);
     }
 }
