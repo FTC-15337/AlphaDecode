@@ -20,10 +20,10 @@ private DcMotor hoodMotor;
     }
 
     public void fireMotor(){
-        hoodMotor.setPower(Constants.testMotorPower);
+        hoodMotor.setPower(Constants.shooterMax);
 
     }
     public void stopMotor(){
-        hoodMotor.setPower(Constants.testMotorStop);
+        hoodMotor.setPower(Constants.shooterStop);
     }
 }
