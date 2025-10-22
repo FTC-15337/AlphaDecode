@@ -18,50 +18,42 @@ public class Auto extends LinearOpMode {
 
     @Override
     public void runOpMode(){
+
+        mecDrivebase.init(hardwareMap);
+        pinpoint = hardwareMap.get(GoBildaPinpointDriver.class , "pinpoint");
+        pinpoint.setOffsets(10.1,17.5,DistanceUnit.CM);
+
+        pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED, GoBildaPinpointDriver.EncoderDirection.REVERSED);
+        pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
+
+        pinpoint.setPosition(new Pose2D(CM, 0, 0, AngleUnit.DEGREES, 0));
+
+        pinpoint.resetPosAndIMU();
+
+        waitForStart();
+
         while(opModeIsActive() && !isStopRequested()){
 
-            mecDrivebase.init(hardwareMap);
-            pinpoint.setOffsets(10.1,17.5,DistanceUnit.CM);
-            pinpoint = hardwareMap.get(GoBildaPinpointDriver.class , "pinpoint");
+            driveToPos(100,0);
 
-            pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED, GoBildaPinpointDriver.EncoderDirection.REVERSED);
-            pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
-
-            pinpoint.setPosition(new Pose2D(DistanceUnit.INCH, 0, 0, AngleUnit.DEGREES, 0));
-
-            pinpoint.resetPosAndIMU();
-
-            waitForStart();
-
-            driveToPos(1,1);
-            sleep(100);
 
         }
 
     }
     public void driveToPos(double targetX, double targetY) {
         pinpoint.update();
-        boolean telemAdded = false;
 
-        while (opModeIsActive() &&
-                (Math.abs(targetX - pinpoint.getPosX(CM)) > 30 || Math.abs(targetY - pinpoint.getPosY(CM)) > 30)
+        if (opModeIsActive() &&
+                (Math.abs(targetX - pinpoint.getPosX(CM)) > 3 || Math.abs(targetY - pinpoint.getPosY(CM)) > 3)
         ){
             pinpoint.update();
 
             double x = 0.001*(targetX - pinpoint.getPosX(CM));
             double y = -0.001*(targetY - pinpoint.getPosY(CM));
 
-            double botHeading = mecDrivebase.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);            double rotY = y * Math.cos(-botHeading) - x * Math.sin(-botHeading);
+            double botHeading = mecDrivebase.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+            double rotY = y * Math.cos(-botHeading) - x * Math.sin(-botHeading);
             double rotX = y * Math.sin(-botHeading) + x * Math.cos(-botHeading);
-
-            if (!telemAdded) {
-                telemetry.addData("x: ", x);
-                telemetry.addData("y: ", y);
-                telemetry.addData("rotX: ", rotX);
-                telemetry.addData("rotY: ", rotY);
-                telemetry.update();
-                telemAdded = true;
-            }
 
             if (Math.abs(rotX) < 0.15) {
                 rotX = Math.signum(rotX) * 0.15;
@@ -87,12 +79,12 @@ public class Auto extends LinearOpMode {
             telemetry.addData("Y: ", pinpoint.getPosY(CM));
             telemetry.addData("Heading Odo: ", Math.toDegrees(pinpoint.getHeading(AngleUnit.DEGREES)));
             telemetry.addData("Heading IMU: ", mecDrivebase.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
-            telemetry.update();
-        }
+        }else {
 
-        mecDrivebase.frontLeft.setPower(0);
-        mecDrivebase.backLeft.setPower(0);
-        mecDrivebase.frontRight.setPower(0);
-        mecDrivebase.backRight.setPower(0);
+            mecDrivebase.frontLeft.setPower(0);
+            mecDrivebase.backLeft.setPower(0);
+            mecDrivebase.frontRight.setPower(0);
+            mecDrivebase.backRight.setPower(0);
+        }
     }
 }
