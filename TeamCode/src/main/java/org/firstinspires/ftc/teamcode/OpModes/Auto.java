@@ -68,7 +68,7 @@ public class Auto extends LinearOpMode {
 
         if (Math.abs(tx) < 0.5 && Math.abs(3.8 - ta) < 0.2) {
             mecDrivebase.drive(0, 0, 0);
-            telemetry.addLine("Tag aligned! Moving to next step...");
+            telemetry.addLine("Tag aligned! Moving to next step");
             telemetry.update();
             // you can now trigger next autonomous step here
         }
