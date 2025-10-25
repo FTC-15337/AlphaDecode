@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Auto")
 public class Auto extends LinearOpMode {
 
+
     private MecDrivebase mecDrivebase = new MecDrivebase();
     private LimelightForAuto ll;
     private ShooterConfig shooter = new ShooterConfig();

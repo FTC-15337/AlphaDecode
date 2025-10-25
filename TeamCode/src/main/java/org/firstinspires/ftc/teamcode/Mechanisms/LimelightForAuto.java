@@ -14,6 +14,7 @@ public class LimelightForAuto {
         limelight.start();
     }
 
+
     public boolean hasTarget() {
         LLResult result = limelight.getLatestResult();
         return result != null && result.isValid();
