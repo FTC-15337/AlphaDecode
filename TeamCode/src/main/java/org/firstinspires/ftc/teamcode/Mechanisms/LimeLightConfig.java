@@ -4,11 +4,11 @@ import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class LimelightForAuto {
+public class LimeLightConfig {
 
     private Limelight3A limelight;
 
-    public LimelightForAuto(HardwareMap hwMap) {
+    public LimeLightConfig(HardwareMap hwMap) {
         limelight = hwMap.get(Limelight3A.class, "limelight");
         limelight.pipelineSwitch(8);
         limelight.start();
