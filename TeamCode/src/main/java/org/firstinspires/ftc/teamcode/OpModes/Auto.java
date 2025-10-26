@@ -1,7 +1,8 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import org.firstinspires.ftc.teamcode.Mechanisms.LimeLightConfig;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.teamcode.Mechanisms.LimeLightConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
@@ -12,9 +13,8 @@ import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Auto")
 public class Auto extends LinearOpMode {
 
-
     private MecDrivebase mecDrivebase = new MecDrivebase();
-    private LimeLightConfig ll;
+    private LimeLightConfig ll = new LimeLightConfig();
     private ShooterConfig shooter = new ShooterConfig();
     private ServoKick kick = new ServoKick();
     private StorageConfig sorter = new StorageConfig();
@@ -24,7 +24,7 @@ public class Auto extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         mecDrivebase.init(hardwareMap);
-        ll = new LimeLightConfig(hardwareMap);
+        ll.init(hardwareMap);
         shooter.init(hardwareMap);
         kick.init(hardwareMap);
         sorter.init(hardwareMap);
@@ -38,21 +38,24 @@ public class Auto extends LinearOpMode {
 
         waitForStart();
 
-        while (opModeIsActive() && !isStopRequested()) {
+        while (opModeIsActive()) {
             autoAlignToTag();
-            sleep(20);
+            if (ll.getTa() >= 3.8) {
+                mecDrivebase.drive(0, 0, 0);
+                telemetry.addLine("Aligned to tag");
+                telemetry.update();
+                break;
+            }
         }
-
     }
-    public void autoAlignToTag () {
+
+    public void autoAlignToTag() {
         if (!ll.hasTarget()) {
-            // Slowly rotate in place until it finds a tag
-            mecDrivebase.drive(0, 0, 0.2); // rotate right slowly
-            telemetry.addLine("Searching for Tag...");
+            mecDrivebase.drive(0, 0, 0);
+            telemetry.addLine("No Tag Detected");
             telemetry.update();
             return;
         }
-
         double tx = ll.getTx();
         double ta = ll.getTa();
         double strafe = -tx * 0.03;
@@ -65,12 +68,5 @@ public class Auto extends LinearOpMode {
         telemetry.addData("Forward", forward);
         telemetry.addData("Strafe", strafe);
         telemetry.update();
-
-        if (Math.abs(tx) < 0.5 && Math.abs(3.8 - ta) < 0.2) {
-            mecDrivebase.drive(0, 0, 0);
-            telemetry.addLine("Tag aligned! Moving to next step");
-            telemetry.update();
-            // you can now trigger next autonomous step here
-        }
     }
 }

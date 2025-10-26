@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 
-@Autonomous(name = "AutoPinpointStraight")
+@Autonomous(name = "AutoPinpointStraightTest")
 public class TestAuto extends LinearOpMode {
 
     private MecDrivebase mecDrivebase = new MecDrivebase();

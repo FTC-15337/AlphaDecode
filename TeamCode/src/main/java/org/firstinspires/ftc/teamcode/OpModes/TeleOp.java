@@ -111,31 +111,24 @@ public class TeleOp extends LinearOpMode {
         switch (pos){
             case 0:
                 kick.retract();
-                sleep(10);
                 sorter.setOutA();
-                sleep(10);
                 kick.kick();
                 pos = 1;
                 break;
             case 1:
                 kick.retract();
-                sleep(10);
                 sorter.setOutB();
-                sleep(10);
                 kick.kick();
                 pos = 2;
                 break;
             case 2:
                 kick.retract();
-                sleep(10);
                 sorter.setOutC();
-                sleep(10);
                 kick.kick();
                 pos = -1;
                 break;
             default:
                 kick.retract();
-                sleep(10);
                 sorter.setIntakeA();
         }
     }
@@ -144,29 +137,28 @@ public class TeleOp extends LinearOpMode {
         switch (posP){
             case 0:
                 kick.retract();
-                sleep(10);
                 sorter.setOutA();
-                sleep(10);
                 if(colorSensor.detectColor().equals("Purple")){
-                    kick.kick();
+                    sorter.setOutA();
+                    telemetry.addLine("KICK");
                 }else{
                     posP = 1;
                 }
                 break;
             case 1:
                 sorter.setOutB();
-                sleep(10);
                 if(colorSensor.detectColor().equals("Purple")){
-                kick.kick();
+                    sorter.setOutB();
+                    telemetry.addLine("KICK");
             }else{
                     posP = 2;
                 }
                 break;
             case 2:
                 sorter.setOutC();
-                sleep(10);
                 if(colorSensor.detectColor().equals("Purple")){
-                    kick.kick();
+                    sorter.setOutC();
+                    telemetry.addLine("KICK");
                 }else{
                     telemetry.addLine("SORTING ERROR");
                     posP = -1;
@@ -181,29 +173,28 @@ public class TeleOp extends LinearOpMode {
         switch (posG){
             case 0:
                 kick.retract();
-                sleep(10);
                 sorter.setOutA();
-                sleep(10);
                 if(colorSensor.detectColor().equals("Green")){
-                    kick.kick();
+                    sorter.setOutA();
+                    telemetry.addLine("KICK");
                 }else{
                     posG = 1;
                 }
                 break;
             case 1:
                 sorter.setOutB();
-                sleep(10);
                 if(colorSensor.detectColor().equals("Green")){
-                    kick.kick();
+                    sorter.setOutB();
+                    telemetry.addLine("KICK");
                 }else{
                     posG = 2;
                 }
                 break;
             case 2:
                 sorter.setOutC();
-                sleep(10);
                 if(colorSensor.detectColor().equals("Green")){
-                    kick.kick();
+                    sorter.setOutC();
+                    telemetry.addLine("KICK");
                 }else{
                     posG = -1;
                 }

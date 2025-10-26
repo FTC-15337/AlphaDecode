@@ -8,12 +8,11 @@ public class LimeLightConfig {
 
     private Limelight3A limelight;
 
-    public LimeLightConfig(HardwareMap hwMap) {
+    public void init(HardwareMap hwMap) {
         limelight = hwMap.get(Limelight3A.class, "limelight");
-        limelight.pipelineSwitch(8);
+        limelight.pipelineSwitch(11);
         limelight.start();
     }
-
 
     public boolean hasTarget() {
         LLResult result = limelight.getLatestResult();
