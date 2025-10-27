@@ -26,15 +26,24 @@ public class Auto extends LinearOpMode
 {
     // get an instance of the "Robot" class.
     private Pinpoint robot = new Pinpoint(this);
-    private MecDrivebase drive = new MecDrivebase();
-    private ServoKick kick = new ServoKick();
-
-    private Limelight3A limelight;
 
     @Override public void runOpMode() throws InterruptedException {
         // Initialize the robot hardware & Turn on telemetry
         robot.init(true);
 
-        robot.drive(12, 1.0, 1.0);
+        robot.resetHeading();
+
+        telemetry.addLine("Initialized");
+        telemetry.update();
+
+        waitForStart();
+        // Reset heading to set a baseline for Auto
+
+        // Run Auto if stop was not pressed.
+        while (opModeIsActive() && !isStopRequested()) {
+            robot.drive(12, 1.0, 1.0);
+
+            telemetry.update();
+        }
     }
 }
