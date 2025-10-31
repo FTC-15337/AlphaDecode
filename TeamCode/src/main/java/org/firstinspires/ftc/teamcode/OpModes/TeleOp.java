@@ -22,12 +22,6 @@ public class TeleOp extends LinearOpMode {
     IntakeConfig intake = new IntakeConfig();
     ServoKick kick = new ServoKick();
 
-    int pos = 0;
-    int posP = 0;
-    int posG = 0;
-    boolean target1;
-    boolean target2;
-
     double forward, strafe, rotate;
     public void setDriver(){
         forward = -gamepad1.left_stick_y;
@@ -44,7 +38,6 @@ public class TeleOp extends LinearOpMode {
     public void setOperator(){
 
         if(gamepad2.right_trigger >= 0.7){
-            telemetry.addLine("FIRING");
             shooter.fireMotor();
         }else{
             shooter.stopMotor();
@@ -58,18 +51,22 @@ public class TeleOp extends LinearOpMode {
 
 
          if(gamepad2.left_trigger >= 0.7){
-             telemetry.addLine("Intaking");
              intake.IntakeMotorMax();
          }else{
-             //telemetry.addLine("Intake motor is not moving");
              intake.IntakeMotorStop();
          }
 
         if(gamepad2.right_bumper) {
             sortPurple();
+            kick.kick();
+            sleep(1500);
+            kick.retract();
         }
         if(gamepad2.left_bumper){
             sortGreen();
+            kick.kick();
+            sleep(1500);
+            kick.retract();
         }
 
 
@@ -97,35 +94,8 @@ public class TeleOp extends LinearOpMode {
             telemetry.addLine("Sorter OC");
             sorter.setOutC();
         }
+
         telemetry.update();
-    }
-
-    public void fireAtRandom(){
-        kick.retract();
-        sleep(750);
-        sorter.setOutA();
-        sleep(500);
-        telemetry.addLine("KICK");
-        sleep(1000);
-        kick.retract();
-        sleep(750);
-        sorter.setOutC();
-        sleep(500);
-        telemetry.addLine("KICK");
-        sleep(1000);
-        kick.retract();
-        sleep(750);
-        sorter.setOutB();
-        sleep(500);
-        telemetry.addLine("KICK");
-        sleep(1000);
-        kick.retract();
-        sleep(100);
-        sorter.setIntakeA();
-        telemetry.addLine("Firing sequence stopped");
-        sleep(5000);
-
-
     }
 
     public void sortPurple(){
@@ -134,21 +104,18 @@ public class TeleOp extends LinearOpMode {
         sleep(1000);
 
         if(colorSensor.detectColor().equals("Purple")){
-            telemetry.addLine("KICK in A");
             return;
         }else{
             sorter.setOutC();
             sleep(1000);
         }
         if(colorSensor.detectColor().equals("Purple")){
-            telemetry.addLine("KICK in C");
             return;
         }else{
             sorter.setOutB();
             sleep(1000);
         }
         if(colorSensor.detectColor().equals("Purple")){
-            telemetry.addLine("KICK in B");
             return;
         }else{
             telemetry.addLine("ERROR NONE FOUND");
@@ -159,22 +126,19 @@ public class TeleOp extends LinearOpMode {
         sorter.setOutA();
         sleep(1000);
 
-        if(colorSensor.detectColor().equals("Purple")){
-            telemetry.addLine("KICK in A");
+        if(colorSensor.detectColor().equals("Green")){
             return;
         }else{
             sorter.setOutC();
             sleep(1000);
         }
-        if(colorSensor.detectColor().equals("Purple")){
-            telemetry.addLine("KICK in C");
+        if(colorSensor.detectColor().equals("Green")){
             return;
         }else{
             sorter.setOutB();
             sleep(1000);
         }
-        if(colorSensor.detectColor().equals("Purple")){
-            telemetry.addLine("KICK in B");
+        if(colorSensor.detectColor().equals("Green")){
             return;
         }else{
             telemetry.addLine("ERROR NONE FOUND");
