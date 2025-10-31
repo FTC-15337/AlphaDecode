@@ -40,6 +40,10 @@ public class TeleOp extends LinearOpMode {
     }
     public void setOperator(){
 
+        telemetry.addData("Color sensor g" , colorSensor.getGreen());
+        telemetry.addData("Color sensor b" , colorSensor.getBlue());
+        telemetry.addData("Color sensor r" , colorSensor.getRed());
+
         if(gamepad2.right_trigger >= 0.7){
             telemetry.addLine("Hood motor is firing");
             shooter.fireMotor();
@@ -70,11 +74,11 @@ public class TeleOp extends LinearOpMode {
 
         if(gamepad2.left_bumper){
             telemetry.addLine("GREEN SORT");
-            setSorterGreen();
+            sortGreen();
         }
         if(gamepad2.right_bumper) {
             telemetry.addLine("PURPLE SORT");
-            setSorterPurple();
+            sortPurple();
         }
         if(gamepad2.dpad_up) {
             telemetry.addLine("Outtake Without Sort");
@@ -132,76 +136,52 @@ public class TeleOp extends LinearOpMode {
                 sorter.setIntakeA();
         }
     }
-
-    public void setSorterPurple(){
-        switch (posP){
-            case 0:
-                kick.retract();
-                sorter.setOutA();
-                if(colorSensor.detectColor().equals("Purple")){
-                    sorter.setOutA();
-                    telemetry.addLine("KICK");
-                }else{
-                    posP = 1;
-                }
-                break;
-            case 1:
-                sorter.setOutB();
-                if(colorSensor.detectColor().equals("Purple")){
-                    sorter.setOutB();
-                    telemetry.addLine("KICK");
-            }else{
-                    posP = 2;
-                }
-                break;
-            case 2:
-                sorter.setOutC();
-                if(colorSensor.detectColor().equals("Purple")){
-                    sorter.setOutC();
-                    telemetry.addLine("KICK");
-                }else{
-                    telemetry.addLine("SORTING ERROR");
-                    posP = -1;
-                }
-                break;
-            default:
-                posP = 0;
-                break;
+    public void sortPurple(){
+        sorter.setOutA();
+        if(colorSensor.detectColor().equals("Purple")){
+            telemetry.addLine("KICK");
+            sorter.setOutA();
+            sleep(100);
+        }else{
+            sorter.setOutB();
+        }
+        if(colorSensor.detectColor().equals("Purple")){
+            telemetry.addLine("KICK");
+            sorter.setOutB();
+            sleep(100);
+        }else{
+            sorter.setOutC();
+        }
+        if(colorSensor.detectColor().equals("Purple")){
+            telemetry.addLine("KICK");
+            sorter.setOutC();
+            sleep(100);
+        }else{
+            telemetry.addLine("ERROR");
         }
     }
-    public void setSorterGreen() {
-        switch (posG){
-            case 0:
-                kick.retract();
-                sorter.setOutA();
-                if(colorSensor.detectColor().equals("Green")){
-                    sorter.setOutA();
-                    telemetry.addLine("KICK");
-                }else{
-                    posG = 1;
-                }
-                break;
-            case 1:
-                sorter.setOutB();
-                if(colorSensor.detectColor().equals("Green")){
-                    sorter.setOutB();
-                    telemetry.addLine("KICK");
-                }else{
-                    posG = 2;
-                }
-                break;
-            case 2:
-                sorter.setOutC();
-                if(colorSensor.detectColor().equals("Green")){
-                    sorter.setOutC();
-                    telemetry.addLine("KICK");
-                }else{
-                    posG = -1;
-                }
-                break;
-            default:
-                posG = 0;
-                break;
+    public void sortGreen(){
+        sorter.setOutA();
+        if(colorSensor.detectColor().equals("Green")){
+            telemetry.addLine("KICK");
+            sorter.setOutA();
+            sleep(100);
+        }else{
+            sorter.setOutB();
+        }
+        if(colorSensor.detectColor().equals("Green")){
+            telemetry.addLine("KICK");
+            sorter.setOutB();
+            sleep(100);
+        }else{
+            sorter.setOutC();
+        }
+        if(colorSensor.detectColor().equals("Green")){
+            telemetry.addLine("KICK");
+            sorter.setOutC();
+            sleep(100);
+        }else{
+            telemetry.addLine("ERROR");
         }
     }
     @Override

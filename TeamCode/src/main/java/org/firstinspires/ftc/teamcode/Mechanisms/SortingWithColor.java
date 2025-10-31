@@ -14,25 +14,33 @@ public class SortingWithColor {
     }
 
     public int getRed() {
-        return colorSensor.red(); }
-    public int getGreen() {
-        return colorSensor.green(); }
-    public int getBlue() {
-        return colorSensor.blue(); }
+        return colorSensor.red();
+    }
 
-    public String detectColor(){
+    public int getGreen() {
+        return colorSensor.green();
+    }
+
+    public int getBlue() {
+        return colorSensor.blue();
+    }
+
+    public String detectColor() {
 
         int r = colorSensor.red();
         int b = colorSensor.blue();
         int g = colorSensor.green();
 
-
-        if(b < g && r < g) {
+        if (b < 100) {
+            return "Unkown";
+        }
+        if (b < g && r < g) {
             return "Green";
         } else if (r < b && g < b) {
             return "Purple";
         }
-        return "Unknown"     ;
-        }
+        return "Unkown";
+
+    }
 }
 
