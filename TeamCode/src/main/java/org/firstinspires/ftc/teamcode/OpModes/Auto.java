@@ -47,14 +47,14 @@ public class Auto extends LinearOpMode{
         while (opModeIsActive() && !isStopRequested()) {
             LimeLightScan();
 
-            driveToPos(100,0);
-            turnToAngle(90);
+            DriveToPos(100,0);
+            TurnToAngle(90);
 
             telemetry.update();
         }
         limelight.stop();
     }
-    public void turnToAngle(double turnAngle) {
+    public void TurnToAngle(double turnAngle) {
         double error, currentHeadingAngle, driveMotorsPower;
         drive.imu.resetYaw();
 
@@ -95,7 +95,7 @@ public class Auto extends LinearOpMode{
         drive.frontRight.setPower(0);
         drive.backRight.setPower(0);
     }
-    public void driveToPos(double targetX, double targetY) {
+    public void DriveToPos(double targetX, double targetY) {
         pinpoint.update();
 
         while (opModeIsActive() && ((Math.abs(targetX - pinpoint.getPosX(DistanceUnit.MM)) > 50)
@@ -143,24 +143,20 @@ public class Auto extends LinearOpMode{
     }
 
     public void LimeLightScan() {
-        while (opModeIsActive()) {
+        LLResult result = limelight.getLatestResult();
+        if (result.isValid()) {
+            telemetry.addData("tx", result.getTx());
+            telemetry.addData("ta", result.getTa());
+            telemetry.addData("ty", result.getTy());
 
-            LLResult result = limelight.getLatestResult();
-            if (result.isValid()) {
-
-                telemetry.addData("tx", result.getTx());
-                telemetry.addData("ta" , result.getTa());
-                telemetry.addData("ty", result.getTy());
-
-                List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
-                for (LLResultTypes.FiducialResult fr : fiducialResults) {
-                    telemetry.addData("Fiducial", "ID: %d, Family: %s, X: %.2f, Y: %.2f", fr.getFiducialId(), fr.getFamily(), fr.getTargetXDegrees(), fr.getTargetYDegrees());
-                }
-            } else {
-                telemetry.addData("Limelight", "No data available");
+            List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
+            for (LLResultTypes.FiducialResult fr : fiducialResults) {
+                telemetry.addData("Fiducial", "ID: %d, Family: %s, X: %.2f, Y: %.2f", fr.getFiducialId(), fr.getFamily(), fr.getTargetXDegrees(), fr.getTargetYDegrees());
             }
-            telemetry.update();
+        } else {
+            telemetry.addData("Limelight", "No data available");
         }
-        limelight.stop();
+        telemetry.update();
     }
+
 }
