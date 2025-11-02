@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Mechanisms;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -10,11 +11,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 
 public class MecDrivebase {
     public DcMotor frontLeft, backLeft, frontRight, backRight;
     public IMU imu;
+    //private LinearOpMode linearOpMode;
 
     public void init(HardwareMap hwMap) {
         frontLeft = hwMap.get(DcMotor.class, "frontLeft");
@@ -27,6 +30,11 @@ public class MecDrivebase {
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -37,6 +45,8 @@ public class MecDrivebase {
                 RevHubOrientationOnRobot.UsbFacingDirection.UP);
 
         imu.initialize(new IMU.Parameters(RevOrientation));
+        imu.resetYaw();
+
     }
 
     public void drive(double forward, double strafe, double rotate) {
@@ -70,17 +80,5 @@ public class MecDrivebase {
 
         this.drive(newForward, newStrafe, rotate);
     }
-
-    //Rotate method for auto rotation
-    /*public void autoRotate(double xPower, double yPower) {
-
-        frontLeft.setPower(xPower);
-        backLeft.setPower(xPower);
-        frontRight.setPower(yPower);
-        backRight.setPower(yPower);
-    }*/
-    /*strafe not working as both go outwards.
-        for left and inwards for right
-     */
 
 }
