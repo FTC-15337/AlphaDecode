@@ -17,7 +17,6 @@ import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 public class MecDrivebase {
     public DcMotor frontLeft, backLeft, frontRight, backRight;
     public IMU imu;
-    //private LinearOpMode linearOpMode;
 
     public void init(HardwareMap hwMap) {
         frontLeft = hwMap.get(DcMotor.class, "frontLeft");
@@ -45,8 +44,6 @@ public class MecDrivebase {
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
 
         imu.initialize(new IMU.Parameters(RevOrientation));
-        imu.resetYaw();
-
     }
 
     public void drive(double forward, double strafe, double rotate) {
@@ -80,5 +77,4 @@ public class MecDrivebase {
 
         this.drive(newForward, newStrafe, rotate);
     }
-
 }

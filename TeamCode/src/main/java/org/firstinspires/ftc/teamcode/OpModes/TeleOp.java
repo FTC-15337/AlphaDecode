@@ -54,12 +54,11 @@ public class TeleOp extends LinearOpMode {
             kick.retract();
         }
 
-
-         if(gamepad2.left_trigger >= 0.7){
+        if(gamepad2.left_trigger >= 0.7){
              intake.IntakeMotorMax();
-         }else{
+        }else{
              intake.IntakeMotorStop();
-         }
+        }
 
         if(gamepad2.right_bumper) {
             sortPurple();
@@ -67,13 +66,13 @@ public class TeleOp extends LinearOpMode {
             sleep(1500);
             kick.retract();
         }
+
         if(gamepad2.left_bumper){
             sortGreen();
             kick.kick();
             sleep(1500);
             kick.retract();
         }
-
 
         if(gamepad2.dpad_down) {
             telemetry.addLine("Sorter IA");
@@ -101,42 +100,22 @@ public class TeleOp extends LinearOpMode {
         }
         telemetry.update();
     }
-
-    /*public void fire(){
-        while(gamepad2.right_trigger > 0.7){
-            if(gamepad2.dpad_up ){
-                shooter.setPower1();
-            }
-            if(gamepad2.dpad_left){
-                shooter.setPower2();
-            }
-            if(gamepad2.dpad_right){
-                shooter.setPower3();
-
-            }
-            if(gamepad2.dpad_down){
-                shooter.setPower4();
-            }
-        }
-        shooter.stopMotor();
-
-    }*/
     public void sortPurple(){
 
         sorter.setOutA();
-        sleep(1000);
+        sleep(800);
 
         if(colorSensor.detectColor().equals("Purple")){
             return;
         }else{
             sorter.setOutC();
-            sleep(1000);
+            sleep(800);
         }
         if(colorSensor.detectColor().equals("Purple")){
             return;
         }else{
             sorter.setOutB();
-            sleep(1000);
+            sleep(800);
         }
         if(colorSensor.detectColor().equals("Purple")){
             return;
@@ -147,19 +126,19 @@ public class TeleOp extends LinearOpMode {
     public void sortGreen(){
 
         sorter.setOutA();
-        sleep(1000);
+        sleep(800);
 
         if(colorSensor.detectColor().equals("Green")){
             return;
         }else{
             sorter.setOutC();
-            sleep(1000);
+            sleep(800);
         }
         if(colorSensor.detectColor().equals("Green")){
             return;
         }else{
             sorter.setOutB();
-            sleep(1000);
+            sleep(800);
         }
         if(colorSensor.detectColor().equals("Green")){
             return;
@@ -184,8 +163,8 @@ public class TeleOp extends LinearOpMode {
         waitForStart();
 
         while(!isStopRequested() && opModeIsActive()) {
-                setDriver();
-                setOperator();
+            setDriver();
+            setOperator();
         }
     }
 }

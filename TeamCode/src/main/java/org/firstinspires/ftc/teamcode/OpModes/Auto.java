@@ -56,7 +56,7 @@ public class Auto extends LinearOpMode {
 
         while (opModeIsActive() && !isStopRequested()) {
             // Example test sequence:
-            driveToPos(100, 0);
+            driveToPos(500, 0);
         }
         limelight.stop();
     }
@@ -104,7 +104,6 @@ public class Auto extends LinearOpMode {
     }
     private void driveToPos(double targetX, double targetY) {
         pinpoint.update();
-        boolean telemAdded = false;
 
         while (opModeIsActive() && ((Math.abs(targetX - pinpoint.getPosX(MM)) > 50)
                 || (Math.abs(targetY - pinpoint.getPosY(MM))) > 50)) {
@@ -117,15 +116,6 @@ public class Auto extends LinearOpMode {
 
             double rotY = y * Math.cos(-botHeading) - x * Math.sin(-botHeading);
             double rotX = y * Math.sin(-botHeading) + x * Math.cos(-botHeading);
-
-            if (!telemAdded) {
-                telemetry.addData("x: ", x);
-                telemetry.addData("y: ", y);
-                telemetry.addData("rotX: ", rotX);
-                telemetry.addData("rotY: ", rotY);
-                telemetry.update();
-                telemAdded = true;
-            }
 
             if (Math.abs(rotX) < 0.15) {
                 rotX = Math.signum(rotX) * 0.15;
