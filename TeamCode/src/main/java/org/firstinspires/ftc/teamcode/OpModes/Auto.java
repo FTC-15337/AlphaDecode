@@ -1,26 +1,32 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import static org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit.MM;
+
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
+import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
+import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
+import java.nio.channels.FileChannel;
 import java.util.List;
 
-
 @Autonomous(name = "Autonomous")
-public class Auto extends LinearOpMode{
+public class Auto extends LinearOpMode {
 
     MecDrivebase drive = new MecDrivebase();
     public GoBildaPinpointDriver pinpoint;
     public Limelight3A limelight;
-
+    StorageConfig sorter = new StorageConfig();
+    ServoKick kick = new ServoKick();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -29,33 +35,34 @@ public class Auto extends LinearOpMode{
         pinpoint = hardwareMap.get(GoBildaPinpointDriver.class , "odo");
 
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
+
+        sorter.init(hardwareMap);
         limelight.pipelineSwitch(0);
         limelight.start();
 
-        pinpoint.setOffsets(130, 215, DistanceUnit.MM);
+        pinpoint.setOffsets(110, 170, MM);
         pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
-        pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED,
-                GoBildaPinpointDriver.EncoderDirection.REVERSED);
+        pinpoint.setEncoderDirections(
+                GoBildaPinpointDriver.EncoderDirection.REVERSED,
+                GoBildaPinpointDriver.EncoderDirection.REVERSED
+        );
         pinpoint.resetPosAndIMU();
 
-
-
         telemetry.addLine("Initialized");
+        sorter.setOutA();
         telemetry.update();
 
         waitForStart();
+
         while (opModeIsActive() && !isStopRequested()) {
-            LimeLightScan();
-
-            DriveToPos(100,0);
-            TurnToAngle(90);
-
-            telemetry.update();
+            // Example test sequence:
+            driveToPos(100, 0);
         }
         limelight.stop();
     }
-    public void TurnToAngle(double turnAngle) {
-        double error, currentHeadingAngle, driveMotorsPower;
+
+    private void gyroTurnToAngle(double turnAngle) {
+        double error, currentHeadingAngle, drivesPower;
         drive.imu.resetYaw();
 
         error = turnAngle;
@@ -63,29 +70,29 @@ public class Auto extends LinearOpMode{
         while (opModeIsActive() && ((error > 1) || (error < -1))) {
             pinpoint.update();
             telemetry.addData("X: ", pinpoint.getPosX(DistanceUnit.MM));
-            telemetry.addData("Y: ", pinpoint.getPosY(DistanceUnit.MM));
-            telemetry.addData("Heading pinpoint: ", Math.toDegrees(pinpoint.getHeading(AngleUnit.DEGREES)));
+            telemetry.addData("Y: ", pinpoint.getPosY(MM));
+            telemetry.addData("Heading pinpoint: ", Math.toDegrees(pinpoint.getHeading(AngleUnit.RADIANS)));
             telemetry.addData("Heading IMU: ", drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
             telemetry.update();
 
-            driveMotorsPower = error / 50;
+            drivesPower = error / 50;
 
-            if ((driveMotorsPower < 0.2) && (driveMotorsPower > 0)) {
-                driveMotorsPower = 0.2;
-            } else if ((driveMotorsPower > -0.2) && (driveMotorsPower < 0)) {
-                driveMotorsPower = -0.2;
+            if ((drivesPower < 0.2) && (drivesPower > 0)) {
+                drivesPower = 0.2;
+            } else if ((drivesPower > -0.2) && (drivesPower < 0)) {
+                drivesPower = -0.2;
             }
 
-            if ((driveMotorsPower < 0.35) && (driveMotorsPower > 0)) {
-                driveMotorsPower = 0.35;
-            } else if ((driveMotorsPower > -0.35) && (driveMotorsPower < 0)) {
-                driveMotorsPower = -0.35;
+            if ((drivesPower < 0.35) && (drivesPower > 0)) {
+                drivesPower = 0.35;
+            } else if ((drivesPower > -0.35) && (drivesPower < 0)) {
+                drivesPower = -0.35;
             }
             // Positive power causes left turn
-            drive.frontLeft.setPower(-driveMotorsPower);
-            drive.backLeft.setPower(-driveMotorsPower);
-            drive.frontRight.setPower(driveMotorsPower);
-            drive.backRight.setPower(driveMotorsPower);
+            drive.frontLeft.setPower(-drivesPower);
+            drive.backLeft.setPower(-drivesPower);
+            drive.frontRight.setPower(drivesPower);
+            drive.backRight.setPower(drivesPower);
 
             currentHeadingAngle = drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
             error = turnAngle - currentHeadingAngle;
@@ -95,20 +102,30 @@ public class Auto extends LinearOpMode{
         drive.frontRight.setPower(0);
         drive.backRight.setPower(0);
     }
-    public void DriveToPos(double targetX, double targetY) {
+    private void driveToPos(double targetX, double targetY) {
         pinpoint.update();
+        boolean telemAdded = false;
 
-        while (opModeIsActive() && ((Math.abs(targetX - pinpoint.getPosX(DistanceUnit.MM)) > 50)
-                || (Math.abs(targetY - pinpoint.getPosY(DistanceUnit.MM))) > 50)) {
+        while (opModeIsActive() && ((Math.abs(targetX - pinpoint.getPosX(MM)) > 50)
+                || (Math.abs(targetY - pinpoint.getPosY(MM))) > 50)) {
             pinpoint.update();
 
-            double x = 0.001*(targetX - pinpoint.getPosX(DistanceUnit.MM));
-            double y = -0.001*(targetY - pinpoint.getPosY(DistanceUnit.MM));
+            double x = 0.001*(targetX - pinpoint.getPosX(MM));
+            double y = -0.001*(targetY - pinpoint.getPosY(MM));
 
-            double botHeading = pinpoint.getHeading(AngleUnit.DEGREES);
+            double botHeading = pinpoint.getHeading(AngleUnit.RADIANS);
 
             double rotY = y * Math.cos(-botHeading) - x * Math.sin(-botHeading);
             double rotX = y * Math.sin(-botHeading) + x * Math.cos(-botHeading);
+
+            if (!telemAdded) {
+                telemetry.addData("x: ", x);
+                telemetry.addData("y: ", y);
+                telemetry.addData("rotX: ", rotX);
+                telemetry.addData("rotY: ", rotY);
+                telemetry.update();
+                telemAdded = true;
+            }
 
             if (Math.abs(rotX) < 0.15) {
                 rotX = Math.signum(rotX) * 0.15;
@@ -129,11 +146,11 @@ public class Auto extends LinearOpMode{
             drive.frontRight.setPower(frontRightPower);
             drive.backRight.setPower(backRightPower);
 
-                telemetry.addData("X: ", pinpoint.getPosX(DistanceUnit.MM));
-                telemetry.addData("Y: ", pinpoint.getPosY(DistanceUnit.MM));
-                telemetry.addData("Heading pinpoint: ", Math.toDegrees(pinpoint.getHeading(AngleUnit.DEGREES)));
-                telemetry.addData("Heading IMU: ", drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
-                telemetry.update();
+            telemetry.addData("X: ", pinpoint.getPosX(MM));
+            telemetry.addData("Y: ", pinpoint.getPosY(MM));
+            telemetry.addData("Heading pinpoint: ", Math.toDegrees(pinpoint.getHeading(AngleUnit.RADIANS)));
+            telemetry.addData("Heading IMU: ", drive.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+            telemetry.update();
         }
 
         drive.frontLeft.setPower(0);
@@ -141,22 +158,5 @@ public class Auto extends LinearOpMode{
         drive.frontRight.setPower(0);
         drive.backRight.setPower(0);
     }
-
-    public void LimeLightScan() {
-        LLResult result = limelight.getLatestResult();
-        if (result.isValid()) {
-            telemetry.addData("tx", result.getTx());
-            telemetry.addData("ta", result.getTa());
-            telemetry.addData("ty", result.getTy());
-
-            List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
-            for (LLResultTypes.FiducialResult fr : fiducialResults) {
-                telemetry.addData("Fiducial", "ID: %d, Family: %s, X: %.2f, Y: %.2f", fr.getFiducialId(), fr.getFamily(), fr.getTargetXDegrees(), fr.getTargetYDegrees());
-            }
-        } else {
-            telemetry.addData("Limelight", "No data available");
-        }
-        telemetry.update();
-    }
-
 }
+    

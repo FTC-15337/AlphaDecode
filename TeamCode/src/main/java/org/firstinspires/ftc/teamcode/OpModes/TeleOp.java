@@ -12,8 +12,7 @@ import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
 import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp")
-
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp
 public class TeleOp extends LinearOpMode {
     MecDrivebase drive = new MecDrivebase();
     StorageConfig sorter = new StorageConfig();
@@ -34,14 +33,20 @@ public class TeleOp extends LinearOpMode {
         } else {
             Constants.driveMaxSpeed = 1.0;
         }
-    }
-    public void setOperator(){
 
-        if(gamepad2.right_trigger >= 0.7){
-            shooter.fireMotor();
+        if(gamepad1.right_trigger >= 0.7 && gamepad1.dpad_up) {
+            shooter.setPower1();
+        } else if (gamepad1.right_trigger >= 0.7 && gamepad1.dpad_left) {
+            shooter.setPower2();
+        } else if (gamepad1.right_trigger >= 0.7 && gamepad1.dpad_right) {
+            shooter.setPower3();
+        } else if (gamepad1.right_trigger >= 0.7 && gamepad1.dpad_down) {
+            shooter.setPower4();
         }else{
             shooter.stopMotor();
         }
+    }
+    public void setOperator(){
 
         if(gamepad2.y){
             kick.kick();
@@ -94,10 +99,28 @@ public class TeleOp extends LinearOpMode {
             telemetry.addLine("Sorter OC");
             sorter.setOutC();
         }
-
         telemetry.update();
     }
 
+    /*public void fire(){
+        while(gamepad2.right_trigger > 0.7){
+            if(gamepad2.dpad_up ){
+                shooter.setPower1();
+            }
+            if(gamepad2.dpad_left){
+                shooter.setPower2();
+            }
+            if(gamepad2.dpad_right){
+                shooter.setPower3();
+
+            }
+            if(gamepad2.dpad_down){
+                shooter.setPower4();
+            }
+        }
+        shooter.stopMotor();
+
+    }*/
     public void sortPurple(){
 
         sorter.setOutA();
