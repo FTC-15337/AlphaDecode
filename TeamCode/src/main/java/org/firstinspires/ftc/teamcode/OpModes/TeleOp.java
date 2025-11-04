@@ -34,9 +34,10 @@ public class TeleOp extends LinearOpMode {
             Constants.driveMaxSpeed = 1.0;
         }
 
-        if(gamepad1.right_trigger >= 0.7 && gamepad1.dpad_up) {
-            shooter.setPower1();
-        } else if (gamepad1.right_trigger >= 0.7 && gamepad1.dpad_left) {
+//        if(gamepad1.right_trigger >= 0.7 && gamepad1.dpad_up) {
+//            shooter.setPower1();
+//        } else
+        if (gamepad1.right_trigger >= 0.7 && gamepad1.dpad_left) {
             shooter.setPower2();
         } else if (gamepad1.right_trigger >= 0.7 && gamepad1.dpad_right) {
             shooter.setPower3();

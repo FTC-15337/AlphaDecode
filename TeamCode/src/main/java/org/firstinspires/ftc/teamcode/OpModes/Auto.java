@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Mechanisms.AutoConfig;
+import org.firstinspires.ftc.teamcode.Mechanisms.LimelightConfig;
 
 /*
  * This OpMode illustrates an autonomous opmode using simple Odometry
@@ -23,11 +24,13 @@ public class Auto extends LinearOpMode
 {
     // get an instance of the "Robot" class.
     private AutoConfig robot = new AutoConfig(this);
+    LimelightConfig ll = new LimelightConfig();
 
     @Override
     public void runOpMode() throws InterruptedException {
         // Initialize the robot hardware & Turn on telemetry
         robot.initialize(true);
+        ll.init(hardwareMap);
 
         // Wait for driver to press start
 
@@ -45,6 +48,8 @@ public class Auto extends LinearOpMode
             robot.drive(12, 0.3, 0.25);
             robot.strafe(12, 0.3, 0.25);
             robot.turnTo(180, 0.3, 0.25);
+
+            telemetry.addData("Tag ID is " , ll.getId());
         }
     }
 }

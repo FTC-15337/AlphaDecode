@@ -22,7 +22,7 @@ private DcMotor hoodMotor;
     public void stopMotor(){
         hoodMotor.setPower(0.0);
     }
-    public void setPower1(){hoodMotor.setPower(Constants.outPos1);}
+    //public void setPower1(){hoodMotor.setPower(Constants.outPos1);}
     public void setPower2(){hoodMotor.setPower(Constants.outPos2);}
     public void setPower3(){hoodMotor.setPower(Constants.outPos3);}
     public void setPower4(){hoodMotor.setPower(Constants.outPos4);}
