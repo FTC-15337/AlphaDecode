@@ -30,7 +30,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
 TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode.Mechanisms;
 
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
@@ -75,5 +75,12 @@ public class LimelightConfig {
             linearOpMode.telemetry.update();
         }
         limelight.stop();
+    }
+
+    public int getId() {
+        LLResult result = limelight.getLatestResult();
+
+        List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
+        return fiducialResults.get(0).getFiducialId();
     }
 }
