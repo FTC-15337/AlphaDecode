@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 import org.firstinspires.ftc.teamcode.Mechanisms.IntakeConfig;
@@ -33,17 +32,19 @@ public class TeleOp extends LinearOpMode {
         } else {
             Constants.driveMaxSpeed = 1.0;
         }
-
-//        if(gamepad1.right_trigger >= 0.7 && gamepad1.dpad_up) {
-//            shooter.setPower1();
-//        } else
         if (gamepad1.right_trigger >= 0.7 && gamepad1.dpad_left) {
             shooter.setPower2();
-        } else if (gamepad1.right_trigger >= 0.7 && gamepad1.dpad_right) {
+        } else {
+            shooter.stopMotor();
+        }
+        if (gamepad1.right_trigger >= 0.7 && gamepad1.dpad_right) {
             shooter.setPower3();
-        } else if (gamepad1.right_trigger >= 0.7 && gamepad1.dpad_down) {
+        } else {
+            shooter.stopMotor();
+        }
+        if (gamepad1.right_trigger >= 0.7 && gamepad1.dpad_down) {
             shooter.setPower4();
-        }else{
+        } else {
             shooter.stopMotor();
         }
     }
@@ -90,58 +91,63 @@ public class TeleOp extends LinearOpMode {
         if(gamepad2.a) {
             telemetry.addLine("Sorter OA");
             sorter.setOutA();
+            telemetry.update();
         }
         if(gamepad2.b) {
             telemetry.addLine("Sorter OB");
             sorter.setOutB();
+            telemetry.update();
         }
         if(gamepad2.x) {
             telemetry.addLine("Sorter OC");
             sorter.setOutC();
+            telemetry.update();
         }
         telemetry.update();
     }
+
     public void sortPurple(){
 
         sorter.setOutA();
-        sleep(800);
+        sleep(1000);
 
-        if(colorSensor.detectColor().equals("Purple")){
+        if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.PURPLE){
             return;
         }else{
             sorter.setOutC();
-            sleep(800);
+            sleep(1000);
         }
-        if(colorSensor.detectColor().equals("Purple")){
+        if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.PURPLE){
             return;
         }else{
             sorter.setOutB();
-            sleep(800);
+            sleep(1000);
         }
-        if(colorSensor.detectColor().equals("Purple")){
+        if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.PURPLE){
             return;
         }else{
             telemetry.addLine("ERROR NONE FOUND");
         }
     }
+
     public void sortGreen(){
 
         sorter.setOutA();
-        sleep(800);
+        sleep(1000);
 
-        if(colorSensor.detectColor().equals("Green")){
+        if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.GREEN){
             return;
         }else{
             sorter.setOutC();
-            sleep(800);
+            sleep(1000);
         }
-        if(colorSensor.detectColor().equals("Green")){
+        if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.GREEN){
             return;
         }else{
             sorter.setOutB();
-            sleep(800);
+            sleep(1000);
         }
-        if(colorSensor.detectColor().equals("Green")){
+        if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.GREEN){
             return;
         }else{
             telemetry.addLine("ERROR NONE FOUND");
@@ -166,6 +172,11 @@ public class TeleOp extends LinearOpMode {
         while(!isStopRequested() && opModeIsActive()) {
             setDriver();
             setOperator();
+
+            colorSensor.getDetectedColor(telemetry);
+            telemetry.addData("Detected color", colorSensor.getDetectedColor(telemetry));
+
+            telemetry.update();
         }
     }
 }

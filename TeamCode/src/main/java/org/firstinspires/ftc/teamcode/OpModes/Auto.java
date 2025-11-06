@@ -11,6 +11,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Mechanisms.AutoConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.LimelightConfig;
+import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
+import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
+import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
+import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
 /*
  * This OpMode illustrates an autonomous opmode using simple Odometry
@@ -24,15 +28,26 @@ public class Auto extends LinearOpMode
 {
     // get an instance of the "Robot" class.
     private AutoConfig robot = new AutoConfig(this);
-    LimelightConfig ll = new LimelightConfig();
+    private LimelightConfig ll = new LimelightConfig();
+    private ShooterConfig shooter = new ShooterConfig();
+
+    private SortingWithColor colorSensor = new SortingWithColor();
+    private StorageConfig sorter = new StorageConfig();
+    private ServoKick kick = new ServoKick();
 
     @Override
     public void runOpMode() throws InterruptedException {
         // Initialize the robot hardware & Turn on telemetry
         robot.initialize(true);
         ll.init(hardwareMap);
+        sorter.init(hardwareMap);
+        kick.init(hardwareMap);
+        shooter.init(hardwareMap);
+        colorSensor.init(hardwareMap);
 
-        // Wait for driver to press start
+        sorter.setIntakeA();
+        kick.retract();
+
 
         telemetry.addData(">", "Touch Play to run Auto");
         telemetry.update();
@@ -42,14 +57,139 @@ public class Auto extends LinearOpMode
 
         // Run Auto if stop was not pressed.
         if (opModeIsActive() && !isStopRequested()) {
-            robot.drive(12, 0.5, 0.25);
-            robot.strafe(12, 0.5, 0.25);
-            robot.turnTo(180, 0.3, 0.25);
-            robot.drive(12, 0.3, 0.25);
-            robot.strafe(12, 0.3, 0.25);
-            robot.turnTo(180, 0.3, 0.25);
+            robot.drive(112, 0.75, 0.05);
+            robot.turnTo(-15, 1.0, 1.0);
 
-            telemetry.addData("Tag ID is " , ll.getId());
+            if(ll.getId() == 23) {
+                robot.turnTo(47, 0.75, 0.25);
+                PPG();
+            }
+            if (ll.getId() == 22) {
+                robot.turnTo(47, 0.75, 0.25);
+                PGP();
+            }
+            if(ll.getId() == 21) {
+                robot.turnTo(47, 0.75, 0.25);
+                GPP();
+            }
+            if(ll.getId() != 21 && ll.getId()!= 22 && ll.getId() != 23){
+                telemetry.addLine("No Tag Detected");
+            }
+            sleep(500);
+            robot.turnTo(-5, 0.75, 0.05);
+            robot.drive(70, 0.75, 1.0);
+            telemetry.update();
+        }
+    }
+
+    public void PPG() {
+        shooter.setPower2();
+        sleep(500);
+        sortPurple();
+        sleep(400);
+        kick.kick();
+        sleep(400);
+        kick.retract();
+        sortPurple();
+        sleep(400);
+        kick.kick();
+        sleep(400);
+        kick.retract();
+        sortGreen();
+        sleep(400);
+        kick.kick();
+        sleep(400);
+        kick.retract();
+        shooter.stopMotor();
+    }
+
+    public void GPP() {
+        shooter.setPower2();
+        sleep(500);
+        sortGreen();
+        sleep(400);
+        kick.kick();
+        sleep(400);
+        kick.retract();
+        sortPurple();
+        sleep(400);
+        kick.kick();
+        sleep(400);
+        kick.retract();
+        sortPurple();
+        sleep(400);
+        kick.kick();
+        sleep(400);
+        kick.retract();
+        shooter.stopMotor();
+    }
+
+    public void PGP() {
+        shooter.setPower2();
+        sleep(1000);
+        sortPurple();
+        sleep(400);
+        kick.kick();
+        sleep(400);
+        kick.retract();
+        sortGreen();
+        sleep(400);
+        kick.kick();
+        sleep(400);
+        kick.retract();
+        sortPurple();
+        sleep(400);
+        kick.kick();
+        sleep(400);
+        kick.retract();
+        shooter.stopMotor();
+    }
+
+    public void sortPurple(){
+
+        sorter.setOutA();
+        sleep(800);
+
+        if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.PURPLE){
+            return;
+        }else{
+            sorter.setOutC();
+            sleep(800);
+        }
+        if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.PURPLE){
+            return;
+        }else{
+            sorter.setOutB();
+            sleep(800);
+        }
+        if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.PURPLE){
+            return;
+        }else{
+            telemetry.addLine("ERROR NONE FOUND");
+        }
+    }
+
+    public void sortGreen(){
+
+        sorter.setOutA();
+        sleep(800);
+
+        if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.GREEN){
+            return;
+        }else{
+            sorter.setOutC();
+            sleep(800);
+        }
+        if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.GREEN){
+            return;
+        }else{
+            sorter.setOutB();
+            sleep(800);
+        }
+        if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.GREEN){
+            return;
+        }else{
+            telemetry.addLine("ERROR NONE FOUND");
         }
     }
 }

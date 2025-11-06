@@ -10,12 +10,12 @@ public class Constants {
     public static double sorterOutTakeB = 0.0;
     public static double sorterOutTakeC = 0.07;
     public static double intakeStop = 0.0;
-    public static double intakeMax = 0.5;
-    public static double kick = 0.5;
+    public static double intakeMax = 1.0;
+    public static double kick = 0.7;
     public static double retract = 1.0;
 
     public static double outPos1 = 1.0;
-    public static double outPos2 = 0.8; //med
+    public static double outPos2 = 0.75; //med
     public static double outPos3 = 0.865; //far
     public static double outPos4 = 0.7; //close
 }

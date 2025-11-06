@@ -7,26 +7,31 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class IntakeConfig {
-    private DcMotor intakeMotor;
+    private DcMotor intakeMotorRight;
+    private DcMotor intakeMotorLeft;
 
     StorageConfig sorter = new StorageConfig();
 
     public void init(HardwareMap hwMap){
 
-        intakeMotor = hwMap.get(DcMotor.class , "intakeMotor");
+        intakeMotorRight = hwMap.get(DcMotor.class , "intakeMotorR");
+        intakeMotorLeft = hwMap.get(DcMotor.class , "odoY");
 
-        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        intakeMotorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        intakeMotorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        intakeMotorRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        intakeMotorLeft.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public void IntakeMotorStop(){
-        intakeMotor.setPower(Constants.intakeStop);
+        intakeMotorRight.setPower(Constants.intakeStop);
+        intakeMotorLeft.setPower(Constants.intakeStop);
     }
 
     public void IntakeMotorMax(){
-        intakeMotor.setPower(Constants.intakeMax);
+        intakeMotorRight.setPower(Constants.intakeMax);
+        intakeMotorLeft.setPower(Constants.intakeMax);
     }
     public void intake(){
         ElapsedTime timer = new ElapsedTime();

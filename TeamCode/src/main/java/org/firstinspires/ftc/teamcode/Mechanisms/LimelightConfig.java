@@ -45,17 +45,27 @@ import java.util.List;
 public class LimelightConfig {
 
     private Limelight3A limelight;
-    private LinearOpMode linearOpMode;
+    //private LinearOpMode linearOpMode;
 
     public void init(HardwareMap hwMap) {
         limelight = hwMap.get(Limelight3A.class, "limelight");
-        linearOpMode.telemetry.setMsTransmissionInterval(11);
         limelight.pipelineSwitch(0);
         limelight.start();
-        linearOpMode.telemetry.update();
+    }
+    public int getId() {
+
+        LLResult result = limelight.getLatestResult();
+
+        if(result.isValid()) {
+
+            List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
+            return fiducialResults.get(0).getFiducialId();
+        }else{
+            return 0;
+        }
     }
 
-    public void LimeLightScan() {
+    /*public void LimeLightScan() {
         while (linearOpMode.opModeIsActive()) {
 
             LLResult result = limelight.getLatestResult();
@@ -75,12 +85,5 @@ public class LimelightConfig {
             linearOpMode.telemetry.update();
         }
         limelight.stop();
-    }
-
-    public int getId() {
-        LLResult result = limelight.getLatestResult();
-
-        List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
-        return fiducialResults.get(0).getFiducialId();
-    }
+    }*/
 }

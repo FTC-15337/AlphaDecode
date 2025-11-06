@@ -1,46 +1,57 @@
 package org.firstinspires.ftc.teamcode.Mechanisms;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 
 public class SortingWithColor {
-    private ColorSensor colorSensor;
-
+    private NormalizedColorSensor colorSensor;
+    public enum DetectedColor {
+        PURPLE,
+        GREEN,
+        UNKNOWN
+    }
     public void init(HardwareMap hwMap) {
-        colorSensor = hwMap.get(ColorSensor.class, "ColorSensor");
+        colorSensor = hwMap.get(NormalizedColorSensor.class, "ColorSensor");
     }
 
-    public int getRed() {
-        return colorSensor.red();
-    }
+    public DetectedColor getDetectedColor(Telemetry telemetry) {
 
-    public int getGreen() {
-        return colorSensor.green();
-    }
+        boolean g;
+        boolean p;
+        boolean u;
 
-    public int getBlue() {
-        return colorSensor.blue();
-    }
+        g = false;
+        p = false;
+        u = false;
 
-    public String detectColor() {
+        NormalizedRGBA colors = colorSensor.getNormalizedColors(); //returns red, green, blue and alpha(how bright)
 
-        int r = colorSensor.red();
-        int b = colorSensor.blue();
-        int g = colorSensor.green();
+        float normRed, normGreen, normBlue;
 
-        if (b < 100) {
-            return "Unkown";
+        normRed = colors.red / colors.alpha;
+        normGreen = colors.green / colors.alpha;
+        normBlue = colors.blue / colors.alpha;
+
+        telemetry.addData("Red", normRed);
+        telemetry.addData("Green", normGreen);
+        telemetry.addData("Blue", normBlue);
+
+        if(normGreen > normRed && normGreen > normBlue && normGreen < 0.02) {
+            g = true;
+            return DetectedColor.GREEN;
         }
-        if (b < g && r < g) {
-            return "Green";
-        } else if (r < b && g < b) {
-            return "Purple";
+        if(normBlue > normRed && normBlue > normGreen && normBlue < 0.03) {
+            p = true;
+            return DetectedColor.PURPLE;
         }
-        return "Unkown";
-
+        if(normGreen > 0.037 && normBlue > 0.033 && normRed > 0.0215){
+            u = true;
+            return DetectedColor.UNKNOWN;
+        }
+        return DetectedColor.UNKNOWN;
     }
 }
-
