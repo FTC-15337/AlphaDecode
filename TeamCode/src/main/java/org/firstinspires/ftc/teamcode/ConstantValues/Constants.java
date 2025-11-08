@@ -11,7 +11,7 @@ public class Constants {
     public static double sorterOutTakeC = 0.07;
     public static double intakeStop = 0.0;
     public static double intakeMax = 1.0;
-    public static double kick = 0.7;
+    public static double kick = 0.5;
     public static double retract = 1.0;
 
     public static double outPos1 = 1.0;

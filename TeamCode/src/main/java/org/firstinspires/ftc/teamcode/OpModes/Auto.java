@@ -57,8 +57,8 @@ public class Auto extends LinearOpMode
 
         // Run Auto if stop was not pressed.
         if (opModeIsActive() && !isStopRequested()) {
-            robot.drive(112, 0.75, 0.05);
-            robot.turnTo(-15, 1.0, 1.0);
+            robot.drive(118, 1.0, 0.25);
+            robot.turnTo(-10, 1.0, 1.0);
 
             if(ll.getId() == 23) {
                 robot.turnTo(47, 0.75, 0.25);
@@ -76,71 +76,71 @@ public class Auto extends LinearOpMode
                 telemetry.addLine("No Tag Detected");
             }
             sleep(500);
-            robot.turnTo(-5, 0.75, 0.05);
-            robot.drive(70, 0.75, 1.0);
+            robot.turnTo(10, 0.75, 0.25);
+            robot.drive(-18, 0.75, 1.0);
             telemetry.update();
         }
     }
 
     public void PPG() {
-        shooter.setPower2();
-        sleep(500);
+        shooter.setPower3();
+        sleep(1000);
         sortPurple();
-        sleep(400);
+        sleep(500);
         kick.kick();
-        sleep(400);
+        sleep(500);
         kick.retract();
         sortPurple();
-        sleep(400);
+        sleep(500);
         kick.kick();
-        sleep(400);
+        sleep(500);
         kick.retract();
         sortGreen();
-        sleep(400);
+        sleep(500);
         kick.kick();
-        sleep(400);
+        sleep(500);
         kick.retract();
         shooter.stopMotor();
     }
 
     public void GPP() {
-        shooter.setPower2();
-        sleep(500);
+        shooter.setPower3();
+        sleep(1000);
         sortGreen();
-        sleep(400);
+        sleep(500);
         kick.kick();
-        sleep(400);
+        sleep(500);
         kick.retract();
         sortPurple();
-        sleep(400);
+        sleep(500);
         kick.kick();
-        sleep(400);
+        sleep(500);
         kick.retract();
         sortPurple();
-        sleep(400);
+        sleep(500);
         kick.kick();
-        sleep(400);
+        sleep(500);
         kick.retract();
         shooter.stopMotor();
     }
 
     public void PGP() {
-        shooter.setPower2();
+        shooter.setPower3();
         sleep(1000);
         sortPurple();
-        sleep(400);
+        sleep(500);
         kick.kick();
-        sleep(400);
+        sleep(500);
         kick.retract();
         sortGreen();
-        sleep(400);
+        sleep(500);
         kick.kick();
-        sleep(400);
+        sleep(500);
         kick.retract();
         sortPurple();
-        sleep(400);
+        sleep(500);
         kick.kick();
-        sleep(400);
+        sleep(500);
         kick.retract();
         shooter.stopMotor();
     }
@@ -148,19 +148,19 @@ public class Auto extends LinearOpMode
     public void sortPurple(){
 
         sorter.setOutA();
-        sleep(800);
+        sleep(1500);
 
         if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.PURPLE){
             return;
         }else{
             sorter.setOutC();
-            sleep(800);
+            sleep(1500);
         }
         if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.PURPLE){
             return;
         }else{
             sorter.setOutB();
-            sleep(800);
+            sleep(1500);
         }
         if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.PURPLE){
             return;
@@ -172,19 +172,19 @@ public class Auto extends LinearOpMode
     public void sortGreen(){
 
         sorter.setOutA();
-        sleep(800);
+        sleep(1500);
 
         if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.GREEN){
             return;
         }else{
             sorter.setOutC();
-            sleep(800);
+            sleep(1500);
         }
         if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.GREEN){
             return;
         }else{
             sorter.setOutB();
-            sleep(800);
+            sleep(1500);
         }
         if(colorSensor.getDetectedColor(telemetry) == SortingWithColor.DetectedColor.GREEN){
             return;
