@@ -3,55 +3,58 @@ package org.firstinspires.ftc.teamcode.Mechanisms;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
-
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 
 public class SortingWithColor {
     private NormalizedColorSensor colorSensor;
+
     public enum DetectedColor {
         PURPLE,
         GREEN,
         UNKNOWN
     }
+
     public void init(HardwareMap hwMap) {
         colorSensor = hwMap.get(NormalizedColorSensor.class, "ColorSensor");
     }
 
     public DetectedColor getDetectedColor(Telemetry telemetry) {
+        // Read normalized colors
+        NormalizedRGBA colors = colorSensor.getNormalizedColors();
+        float r = colors.red;
+        float g = colors.green;
+        float b = colors.blue;
 
-        boolean g;
-        boolean p;
-        boolean u;
+        // Compute total intensity to get ratios
+        float total = r + g + b;
+        if (total == 0) return DetectedColor.UNKNOWN; // Avoid divide-by-zero
 
-        g = false;
-        p = false;
-        u = false;
+        float redRatio = r / total;
+        float greenRatio = g / total;
+        float blueRatio = b / total;
 
-        NormalizedRGBA colors = colorSensor.getNormalizedColors(); //returns red, green, blue and alpha(how bright)
+        // Telemetry for tuning
+        telemetry.addData("Red Ratio", redRatio);
+        telemetry.addData("Green Ratio", greenRatio);
+        telemetry.addData("Blue Ratio", blueRatio);
 
-        float normRed, normGreen, normBlue;
-
-        normRed = colors.red / colors.alpha;
-        normGreen = colors.green / colors.alpha;
-        normBlue = colors.blue / colors.alpha;
-
-        telemetry.addData("Red", normRed);
-        telemetry.addData("Green", normGreen);
-        telemetry.addData("Blue", normBlue);
-
-        if(normGreen > normRed && normGreen > normBlue && normGreen < 0.02) {
-            g = true;
+        // 2. Colors too close together (ambiguous)
+        // --- GREEN CHECK ---
+        if (greenRatio > 0.44 && greenRatio < 0.47 && redRatio < 0.15) {
             return DetectedColor.GREEN;
         }
-        if(normBlue > normRed && normBlue > normGreen && normBlue < 0.03) {
-            p = true;
-            return DetectedColor.PURPLE;
-        }
-        if(normGreen > 0.037 && normBlue > 0.033 && normRed > 0.0215){
-            u = true;
+
+        if(blueRatio < 0.36 && blueRatio > 0.28){
             return DetectedColor.UNKNOWN;
         }
+
+        // --- PURPLE CHECK ---
+        if (greenRatio > 0.25 && greenRatio < 0.29 && blueRatio > 0.4) {
+            return DetectedColor.PURPLE;
+        }
+
+        // --- FALLBACK ---
         return DetectedColor.UNKNOWN;
     }
 }
+

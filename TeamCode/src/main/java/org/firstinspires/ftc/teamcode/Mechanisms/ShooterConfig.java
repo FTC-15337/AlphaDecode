@@ -1,31 +1,34 @@
 package org.firstinspires.ftc.teamcode.Mechanisms;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 
 public class ShooterConfig {
-private DcMotor hoodMotor;
+private DcMotorEx hoodMotor;
 
     public void init(HardwareMap hwMap){
-        hoodMotor = hwMap.get(DcMotor.class , "shooter");
+        hoodMotor = hwMap.get(DcMotorEx.class , "shooter");
 
-        hoodMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        hoodMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
         hoodMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        hoodMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hoodMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
     }
 
     public void stopMotor(){
-        hoodMotor.setPower(0.0);
+        hoodMotor.setVelocity(0.0);
     }
-    //public void setPower1(){hoodMotor.setPower(Constants.outPos1);}
-    public void setPower2(){hoodMotor.setPower(Constants.outPos2);}
-    public void setPower3(){hoodMotor.setPower(Constants.outPos3);}
-    public void setPower4(){hoodMotor.setPower(Constants.outPos4);}
+    //public void setPower1(){hoodMotor.setVelocity(Constants.outPos1);}
+    public void setPower2()
+    {
+        hoodMotor.setVelocity(2100);
+    }
+    public void setPower3(){hoodMotor.setVelocity(1960);}
+    public void setPower4(){hoodMotor.setVelocity(2422);}
+    public void setHP(){hoodMotor.setVelocity(-280);}
+    public double getVelocity(){return hoodMotor.getVelocity();}
 }

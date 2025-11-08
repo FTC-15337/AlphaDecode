@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
 import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp (name= "TELEOP")
 public class TeleOp extends LinearOpMode {
     MecDrivebase drive = new MecDrivebase();
     StorageConfig sorter = new StorageConfig();
@@ -27,29 +27,34 @@ public class TeleOp extends LinearOpMode {
         rotate = gamepad1.right_stick_x;
         drive.driveFieldRelative(forward, strafe, rotate);
 
+
+        telemetry.addData("Velocity" , shooter.getVelocity());
         if(gamepad1.right_trigger == 1.0) {
             Constants.driveMaxSpeed = 0.3;
         } else {
             Constants.driveMaxSpeed = 1.0;
         }
-        if (gamepad1.right_trigger >= 0.7 && gamepad1.dpad_left) {
+        if (gamepad1.dpad_left) {
             shooter.setPower2();
-        } else {
-            shooter.stopMotor();
         }
-        if (gamepad1.right_trigger >= 0.7 && gamepad1.dpad_right) {
+        if (gamepad1.x) {
             shooter.setPower3();
-        } else {
-            shooter.stopMotor();
         }
-        if (gamepad1.right_trigger >= 0.7 && gamepad1.dpad_down) {
+        if (gamepad1.b) {
             shooter.setPower4();
-        } else {
-            shooter.stopMotor();
         }
+
+        telemetry.update();
     }
     public void setOperator(){
+        telemetry.addData("Color is" , colorSensor.getDetectedColor(telemetry));
 
+
+        if(gamepad2.right_trigger > 0.7){
+            shooter.setHP();
+        }else{
+            shooter.stopMotor();
+        }
         if(gamepad2.y){
             kick.kick();
         }else{

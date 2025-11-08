@@ -23,8 +23,8 @@ import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
  * The IMU gyro is used to stabilize the heading during all motions
  */
 
-@Autonomous(name= "Autonomous")
-public class Auto extends LinearOpMode
+@Autonomous(name= "BLUE AUTO")
+public class BlueAuto extends LinearOpMode
 {
     // get an instance of the "Robot" class.
     private AutoConfig robot = new AutoConfig(this);
@@ -76,73 +76,71 @@ public class Auto extends LinearOpMode
                 telemetry.addLine("No Tag Detected");
             }
             sleep(500);
-            robot.turnTo(10, 0.75, 0.25);
             robot.drive(-18, 0.75, 1.0);
+            robot.turnTo(137,0.75,1.0);
             telemetry.update();
         }
     }
 
     public void PPG() {
-        shooter.setPower3();
+        shooter.setPower2();
         sleep(1000);
-        sortPurple();
-        sleep(500);
+        sorter.setOutA();
+        sleep(400);
         kick.kick();
         sleep(500);
         kick.retract();
-        sortPurple();
-        sleep(500);
+        sorter.setOutB();
+        sleep(400);
         kick.kick();
         sleep(500);
         kick.retract();
-        sortGreen();
-        sleep(500);
+        sorter.setOutC();
+        sleep(400);
         kick.kick();
         sleep(500);
         kick.retract();
-        shooter.stopMotor();
     }
 
     public void GPP() {
-        shooter.setPower3();
+        shooter.setPower2();
         sleep(1000);
-        sortGreen();
-        sleep(500);
+        sorter.setOutC();
+        sleep(400);
         kick.kick();
         sleep(500);
         kick.retract();
-        sortPurple();
-        sleep(500);
+        sorter.setOutB();
+        sleep(400);
         kick.kick();
         sleep(500);
         kick.retract();
-        sortPurple();
-        sleep(500);
+        sorter.setOutA();
+        sleep(400);
         kick.kick();
         sleep(500);
         kick.retract();
-        shooter.stopMotor();
     }
 
     public void PGP() {
-        shooter.setPower3();
+
+        shooter.setPower2();
         sleep(1000);
-        sortPurple();
-        sleep(500);
+        sorter.setOutA();
+        sleep(400);
         kick.kick();
         sleep(500);
         kick.retract();
-        sortGreen();
-        sleep(500);
+        sorter.setOutC();
+        sleep(400);
         kick.kick();
         sleep(500);
         kick.retract();
-        sortPurple();
-        sleep(500);
+        sorter.setOutB();
+        sleep(400);
         kick.kick();
         sleep(500);
         kick.retract();
-        shooter.stopMotor();
     }
 
     public void sortPurple(){
