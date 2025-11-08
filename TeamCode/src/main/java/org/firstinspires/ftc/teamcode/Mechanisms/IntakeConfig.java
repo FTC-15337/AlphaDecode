@@ -33,6 +33,11 @@ public class IntakeConfig {
         intakeMotorRight.setPower(Constants.intakeMax);
         intakeMotorLeft.setPower(Constants.intakeMax);
     }
+
+    public void OutIntake(){
+        intakeMotorRight.setPower(Constants.intakeRev);
+        intakeMotorLeft.setPower(Constants.intakeRev);
+    }
     public void intake(){
         ElapsedTime timer = new ElapsedTime();
         IntakeMotorMax();

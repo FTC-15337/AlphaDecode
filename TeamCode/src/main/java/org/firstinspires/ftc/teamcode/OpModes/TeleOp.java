@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
 import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp (name= "TELEOP")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp (name= "TeleOp")
 public class TeleOp extends LinearOpMode {
     MecDrivebase drive = new MecDrivebase();
     StorageConfig sorter = new StorageConfig();
@@ -27,34 +27,23 @@ public class TeleOp extends LinearOpMode {
         rotate = gamepad1.right_stick_x;
         drive.driveFieldRelative(forward, strafe, rotate);
 
-
-        telemetry.addData("Velocity" , shooter.getVelocity());
         if(gamepad1.right_trigger == 1.0) {
             Constants.driveMaxSpeed = 0.3;
         } else {
             Constants.driveMaxSpeed = 1.0;
         }
-        if (gamepad1.dpad_left) {
-            shooter.setPower2();
+        if(gamepad1.a) {
+            shooter.MaxOut();
+        }else if(gamepad1.b) {
+            shooter.HalfOut();
+        } else {
+            shooter.Stop();
         }
-        if (gamepad1.x) {
-            shooter.setPower3();
-        }
-        if (gamepad1.b) {
-            shooter.setPower4();
-        }
-
         telemetry.update();
     }
     public void setOperator(){
         telemetry.addData("Color is" , colorSensor.getDetectedColor(telemetry));
 
-
-        if(gamepad2.right_trigger > 0.7){
-            shooter.setHP();
-        }else{
-            shooter.stopMotor();
-        }
         if(gamepad2.y){
             kick.kick();
         }else{
@@ -92,6 +81,9 @@ public class TeleOp extends LinearOpMode {
         if(gamepad2.dpad_left) {
             telemetry.addLine("Sorter IB");
             sorter.setIntakeC();
+        }
+        if (gamepad2.dpad_up) {
+            intake.OutIntake();
         }
         if(gamepad2.a) {
             telemetry.addLine("Sorter OA");
@@ -177,9 +169,6 @@ public class TeleOp extends LinearOpMode {
         while(!isStopRequested() && opModeIsActive()) {
             setDriver();
             setOperator();
-
-            colorSensor.getDetectedColor(telemetry);
-            telemetry.addData("Detected color", colorSensor.getDetectedColor(telemetry));
 
             telemetry.update();
         }

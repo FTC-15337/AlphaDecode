@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Mechanisms.AutoConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.LimelightConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
+//import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
@@ -83,7 +84,7 @@ public class RedAuto extends LinearOpMode
     }
 
     public void PPG() {
-        shooter.setPower2();
+        //shooter.setPower2();
         sleep(1000);
         sorter.setOutA();
         sleep(400);
@@ -103,7 +104,7 @@ public class RedAuto extends LinearOpMode
     }
 
     public void GPP() {
-        shooter.setPower2();
+        //shooter.setPower2();
         sleep(1000);
         sorter.setOutC();
         sleep(400);
@@ -124,7 +125,7 @@ public class RedAuto extends LinearOpMode
 
     public void PGP() {
 
-        shooter.setPower2();
+        //shooter.setPower2();
         sleep(1000);
         sorter.setOutA();
         sleep(400);
