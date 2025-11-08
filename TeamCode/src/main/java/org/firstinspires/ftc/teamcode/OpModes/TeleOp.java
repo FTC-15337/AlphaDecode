@@ -33,9 +33,11 @@ public class TeleOp extends LinearOpMode {
             Constants.driveMaxSpeed = 1.0;
         }
         if(gamepad1.a) {
-            shooter.MaxOut();
+            shooter.FarOut();
+        }else if(gamepad1.x){
+            shooter.CloseOut();
         }else if(gamepad1.b) {
-            shooter.HalfOut();
+            shooter.MedOut();
         } else {
             shooter.Stop();
         }
@@ -48,6 +50,12 @@ public class TeleOp extends LinearOpMode {
             kick.kick();
         }else{
             kick.retract();
+        }
+
+        if(gamepad2.right_trigger > 0.3){
+            shooter.HPIn();
+        }else{
+            shooter.Stop();
         }
 
         if(gamepad2.left_trigger >= 0.7){

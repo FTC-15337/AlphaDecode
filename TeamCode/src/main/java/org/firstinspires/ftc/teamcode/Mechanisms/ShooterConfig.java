@@ -16,14 +16,20 @@ public class ShooterConfig {
         shooter.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
     }
 
-    public void MaxOut() {
+    public void FarOut() {
         shooter.setVelocity(2800);
     }
 
-    public void HalfOut() {
+    public void MedOut() {
         shooter.setVelocity(1400);
     }
     public void Stop() {
         shooter.setVelocity(0);
+    }
+    public void CloseOut(){
+        shooter.setVelocity(700);
+    }
+    public void HPIn(){
+        shooter.setVelocity(-280);
     }
 }
