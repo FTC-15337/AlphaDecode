@@ -167,6 +167,7 @@ public class TeleOp extends LinearOpMode {
         kick.init(hardwareMap);
 
         kick.retract();
+        drive.imu.resetYaw();
 
         sorter.resetToIntake();
 

@@ -62,7 +62,7 @@ public class BlueAutoTop extends LinearOpMode {
             }
             sleep(500);
             shooter.Stop();
-            robot.turnTo(-45,0.75,0.25);
+            robot.turnTo(45,0.75,0.25);
             robot.strafe(-36, 0.75, 0.25);
             telemetry.update();
         }
