@@ -12,7 +12,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Mechanisms.AutoConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.LimelightConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
-//import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
@@ -24,8 +23,8 @@ import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
  * The IMU gyro is used to stabilize the heading during all motions
  */
 
-@Autonomous(name= "RED AUTO")
-public class RedAuto extends LinearOpMode
+@Autonomous(name= "RED AUTO BACK")
+public class RedAutoBack extends LinearOpMode
 {
     // get an instance of the "Robot" class.
     private AutoConfig robot = new AutoConfig(this);
@@ -58,89 +57,91 @@ public class RedAuto extends LinearOpMode
 
         // Run Auto if stop was not pressed.
         if (opModeIsActive() && !isStopRequested()) {
-            robot.drive(118, 1.0, 0.25);
-            robot.turnTo(-10, 1.0, 1.0);
+            robot.drive(118, 0.7, 0.25);
+            robot.turnTo(14, 0.7, 1.0);
 
             if(ll.getId() == 23) {
-                robot.turnTo(47, 0.75, 0.25);
+                robot.turnTo(-45, 0.75, 0.25);
                 PPG();
             }
             if (ll.getId() == 22) {
-                robot.turnTo(47, 0.75, 0.25);
+                robot.turnTo(-45, 0.75, 0.25);
                 PGP();
             }
             if(ll.getId() == 21) {
-                robot.turnTo(47, 0.75, 0.25);
+                robot.turnTo(-45, 0.75, 0.25);
                 GPP();
             }
             if(ll.getId() != 21 && ll.getId()!= 22 && ll.getId() != 23){
                 telemetry.addLine("No Tag Detected");
             }
             sleep(500);
-            robot.drive(-18, 0.75, 1.0);
-            robot.turnTo(137,0.75,1.0);
+            shooter.Stop();
+            robot.drive(-18, 0.75, 0.25);
+            robot.turnTo(-90,0.75,0.25);
+            robot.strafe(-32, 0.75, 0.25);
+            robot.drive(12, 0.75, 1.0);
             telemetry.update();
         }
     }
 
     public void PPG() {
-        //shooter.setPower2();
-        sleep(1000);
+        shooter.MedOut();
+        sleep(1500);
         sorter.setOutA();
-        sleep(400);
+        sleep(1250);
         kick.kick();
-        sleep(500);
+        sleep(1250);
         kick.retract();
         sorter.setOutB();
-        sleep(400);
+        sleep(1250);
         kick.kick();
-        sleep(500);
+        sleep(1250);
         kick.retract();
         sorter.setOutC();
-        sleep(400);
+        sleep(1250);
         kick.kick();
-        sleep(500);
+        sleep(1250);
         kick.retract();
     }
 
     public void GPP() {
-        //shooter.setPower2();
-        sleep(1000);
+        shooter.MedOut();
+        sleep(1500);
         sorter.setOutC();
-        sleep(400);
+        sleep(1250);
         kick.kick();
-        sleep(500);
+        sleep(1250);
         kick.retract();
         sorter.setOutB();
-        sleep(400);
+        sleep(1250);
         kick.kick();
-        sleep(500);
+        sleep(1250);
         kick.retract();
         sorter.setOutA();
-        sleep(400);
+        sleep(1250);
         kick.kick();
-        sleep(500);
+        sleep(1250);
         kick.retract();
     }
 
     public void PGP() {
-
-        //shooter.setPower2();
-        sleep(1000);
+        shooter.MedOut();
+        sleep(1500);
         sorter.setOutA();
-        sleep(400);
+        sleep(1250);
         kick.kick();
-        sleep(500);
+        sleep(1250);
         kick.retract();
         sorter.setOutC();
-        sleep(400);
+        sleep(1250);
         kick.kick();
-        sleep(500);
+        sleep(1250);
         kick.retract();
         sorter.setOutB();
-        sleep(400);
+        sleep(1250);
         kick.kick();
-        sleep(500);
+        sleep(1250);
         kick.retract();
     }
 

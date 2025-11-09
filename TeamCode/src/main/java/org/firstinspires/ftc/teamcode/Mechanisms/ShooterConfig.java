@@ -17,19 +17,19 @@ public class ShooterConfig {
     }
 
     public void FarOut() {
-        shooter.setVelocity(2800);
+        shooter.setVelocity(1625);
     }
 
     public void MedOut() {
-        shooter.setVelocity(1400);
+        shooter.setVelocity(1316);
     }
     public void Stop() {
         shooter.setVelocity(0);
     }
-    public void CloseOut(){
-        shooter.setVelocity(700);
-    }
     public void HPIn(){
         shooter.setVelocity(-280);
+    }
+    public double GetVelocity() {
+        return shooter.getVelocity();
     }
 }
