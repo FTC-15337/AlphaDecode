@@ -1,15 +1,18 @@
 package org.firstinspires.ftc.teamcode.Mechanisms;
 
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-/*public class SortingWithColor {
-private NormalizedColorSensor colorSensor;
+public class SortingWithColor {
+    private NormalizedColorSensor colorSensor;
 
 
-StorageConfig sorter = new StorageConfig();
+    StorageConfig sorter = new StorageConfig();
+    private DistanceSensor distance;
 
     public enum DetectedColor {
         PURPLE,
@@ -19,7 +22,8 @@ StorageConfig sorter = new StorageConfig();
 
 
     public void init(HardwareMap hwMap) {
-        colorSensor = hwMap.get(NormalizedColorSensor.class, "ColorSensor");
+        colorSensor = hwMap.get(NormalizedColorSensor.class, "colorSensor");
+        distance = hwMap.get(DistanceSensor.class , "distance");
     }
 
     public DetectedColor getDetectedColor(Telemetry telemetry) {
@@ -31,7 +35,6 @@ StorageConfig sorter = new StorageConfig();
 
         // Compute total intensity to get ratios
         float total = r + g + b;
-        if (total == 0) return DetectedColor.UNKNOWN; // Avoid divide-by-zero
 
         float redRatio = r / total;
         float greenRatio = g / total;
@@ -41,17 +44,22 @@ StorageConfig sorter = new StorageConfig();
         telemetry.addData("Red Ratio", redRatio);
         telemetry.addData("Green Ratio", greenRatio);
         telemetry.addData("Blue Ratio", blueRatio);
-
-        //Colors too close together
-        if (greenRatio > 0.4 && greenRatio < 0.44 && redRatio > 0.2 && redRatio < 0.21 && blueRatio > 0.35 && blueRatio < 0.38) {
-            return DetectedColor.GREEN;
-        } else if (redRatio > 0.23 && redRatio < 0.24 && greenRatio < 0.38 && blueRatio < 0.4) {
-            return DetectedColor.PURPLE;
-        } else {
-            return DetectedColor.UNKNOWN;
+        if (GetDistance() < 12.0) {
+            //Colors too close together
+            if (greenRatio > 0.4 && greenRatio < 0.44 && redRatio > 0.15 && redRatio < 0.20) {
+                return DetectedColor.GREEN;
+            } else {
+                return DetectedColor.PURPLE;
+            }
         }
+        return DetectedColor.UNKNOWN;
     }
-}*/
+
+    public double GetDistance(){
+        return distance.getDistance(DistanceUnit.CM);
+    }
+
+}
 
     /*if(redRatio < 0.23 && blueRatio > 0.34){
             return DetectedColor.UNKNOWN;

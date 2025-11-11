@@ -4,27 +4,29 @@ package org.firstinspires.ftc.teamcode.OpModes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
-import org.firstinspires.ftc.teamcode.Mechanisms.DistanceSensor;
 import org.firstinspires.ftc.teamcode.Mechanisms.IntakeConfig;
 //import org.firstinspires.ftc.teamcode.Mechanisms.LedConfig;
+import org.firstinspires.ftc.teamcode.Mechanisms.Led;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
 //import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
+import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp (name= "TeleOp")
 public class TeleOp extends LinearOpMode {
     MecDrivebase drive = new MecDrivebase();
     StorageConfig sorter = new StorageConfig();
-    //SortingWithColor colorSensor = new SortingWithColor();
+    SortingWithColor colorSensor = new SortingWithColor();
     ShooterConfig shooter = new ShooterConfig();
     IntakeConfig intake = new IntakeConfig();
     ServoKick kick = new ServoKick();
-    DistanceSensor distanceSensor = new DistanceSensor();
+    Led led = new Led();
 
     double forward, strafe, rotate;
     public void setDriver(){
+        led.startLed();
         forward = -gamepad1.left_stick_y;
         strafe = gamepad1.left_stick_x;
         rotate = gamepad1.right_stick_x;
@@ -158,13 +160,12 @@ public class TeleOp extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         drive.init(hardwareMap);
-        //colorSensor.init(hardwareMap);
+        colorSensor.init(hardwareMap);
         intake.init(hardwareMap);
         sorter.init(hardwareMap);
         shooter.init(hardwareMap);
         kick.init(hardwareMap);
-        distanceSensor.init(hardwareMap);
-        //led.init(hardwareMap);
+        led.init(hardwareMap);
 
         kick.retract();
         drive.imu.resetYaw();
@@ -174,13 +175,14 @@ public class TeleOp extends LinearOpMode {
         waitForStart();
 
         while(!isStopRequested() && opModeIsActive()) {
-            //telemetry.addData("Color is ", colorSensor.getDetectedColor(telemetry));
-            telemetry.addData("Distance is ", distanceSensor.GetDistance());
+            telemetry.addData("Color is ", colorSensor.getDetectedColor(telemetry));
+            telemetry.addData("Distance is ", colorSensor.GetDistance());
 
             setDriver();
             setOperator();
 
             telemetry.update();
         }
+
     }
 }
