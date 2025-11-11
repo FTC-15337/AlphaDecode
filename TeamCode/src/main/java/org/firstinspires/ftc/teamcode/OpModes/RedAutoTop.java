@@ -8,10 +8,10 @@ import org.firstinspires.ftc.teamcode.Mechanisms.AutoConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.LimelightConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
 import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
-import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
+//import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
-@Autonomous(name = "RED AUTO TOP")
+/*@Autonomous(name = "RED AUTO TOP")
 public class RedAutoTop extends LinearOpMode {
     private AutoConfig robot = new AutoConfig(this);
     private LimelightConfig ll = new LimelightConfig();
@@ -127,4 +127,4 @@ public class RedAutoTop extends LinearOpMode {
         sleep(1250);
         kick.retract();
     }
-}
+}*/

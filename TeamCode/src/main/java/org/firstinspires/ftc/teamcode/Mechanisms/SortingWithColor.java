@@ -5,14 +5,18 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class SortingWithColor {
-    private NormalizedColorSensor colorSensor;
+/*public class SortingWithColor {
+private NormalizedColorSensor colorSensor;
+
+
+StorageConfig sorter = new StorageConfig();
 
     public enum DetectedColor {
         PURPLE,
         GREEN,
-        UNKNOWN
+        UNKNOWN;
     }
+
 
     public void init(HardwareMap hwMap) {
         colorSensor = hwMap.get(NormalizedColorSensor.class, "ColorSensor");
@@ -38,23 +42,18 @@ public class SortingWithColor {
         telemetry.addData("Green Ratio", greenRatio);
         telemetry.addData("Blue Ratio", blueRatio);
 
-        // 2. Colors too close together (ambiguous)
-        // --- GREEN CHECK ---
-        if (greenRatio > 0.44 && greenRatio < 0.47 && redRatio < 0.15) {
+        //Colors too close together
+        if (greenRatio > 0.4 && greenRatio < 0.44 && redRatio > 0.2 && redRatio < 0.21 && blueRatio > 0.35 && blueRatio < 0.38) {
             return DetectedColor.GREEN;
-        }
-
-        if(blueRatio < 0.36 && blueRatio > 0.28){
+        } else if (redRatio > 0.23 && redRatio < 0.24 && greenRatio < 0.38 && blueRatio < 0.4) {
+            return DetectedColor.PURPLE;
+        } else {
             return DetectedColor.UNKNOWN;
         }
-
-        // --- PURPLE CHECK ---
-        if (greenRatio > 0.25 && greenRatio < 0.29 && blueRatio > 0.4) {
-            return DetectedColor.PURPLE;
-        }
-
-        // --- FALLBACK ---
-        return DetectedColor.UNKNOWN;
     }
-}
+}*/
+
+    /*if(redRatio < 0.23 && blueRatio > 0.34){
+            return DetectedColor.UNKNOWN;
+        }*/
 

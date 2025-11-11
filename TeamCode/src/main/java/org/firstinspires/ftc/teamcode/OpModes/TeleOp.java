@@ -4,22 +4,24 @@ package org.firstinspires.ftc.teamcode.OpModes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
+import org.firstinspires.ftc.teamcode.Mechanisms.DistanceSensor;
 import org.firstinspires.ftc.teamcode.Mechanisms.IntakeConfig;
 //import org.firstinspires.ftc.teamcode.Mechanisms.LedConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
-import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
+//import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp (name= "TeleOp")
 public class TeleOp extends LinearOpMode {
     MecDrivebase drive = new MecDrivebase();
     StorageConfig sorter = new StorageConfig();
-    SortingWithColor colorSensor = new SortingWithColor();
+    //SortingWithColor colorSensor = new SortingWithColor();
     ShooterConfig shooter = new ShooterConfig();
     IntakeConfig intake = new IntakeConfig();
     ServoKick kick = new ServoKick();
+    DistanceSensor distanceSensor = new DistanceSensor();
 
     double forward, strafe, rotate;
     public void setDriver(){
@@ -45,7 +47,6 @@ public class TeleOp extends LinearOpMode {
         telemetry.update();
     }
     public void setOperator(){
-        telemetry.addData("Color is" , colorSensor.getDetectedColor(telemetry));
 
         if(gamepad2.y){
             kick.kick();
@@ -59,19 +60,19 @@ public class TeleOp extends LinearOpMode {
              intake.IntakeMotorStop();
         }
 
-        if(gamepad2.right_bumper) {
+        /*if(gamepad2.right_bumper) {
             sortPurple();
             kick.kick();
             sleep(1500);
             kick.retract();
-        }
+        }*/
 
-        if(gamepad2.left_bumper){
+        /*if(gamepad2.left_bumper){
             sortGreen();
             kick.kick();
             sleep(1500);
             kick.retract();
-        }
+        }*/
 
         if(gamepad2.dpad_down) {
             telemetry.addLine("Sorter IA");
@@ -106,7 +107,7 @@ public class TeleOp extends LinearOpMode {
         telemetry.update();
     }
 
-    public void sortPurple(){
+    /*public void sortPurple(){
 
         sorter.setOutA();
         sleep(1000);
@@ -152,16 +153,17 @@ public class TeleOp extends LinearOpMode {
         }else{
             telemetry.addLine("ERROR NONE FOUND");
         }
-    }
+    }*/
     @Override
     public void runOpMode() throws InterruptedException {
 
         drive.init(hardwareMap);
-        colorSensor.init(hardwareMap);
+        //colorSensor.init(hardwareMap);
         intake.init(hardwareMap);
         sorter.init(hardwareMap);
         shooter.init(hardwareMap);
         kick.init(hardwareMap);
+        distanceSensor.init(hardwareMap);
         //led.init(hardwareMap);
 
         kick.retract();
@@ -172,6 +174,9 @@ public class TeleOp extends LinearOpMode {
         waitForStart();
 
         while(!isStopRequested() && opModeIsActive()) {
+            //telemetry.addData("Color is ", colorSensor.getDetectedColor(telemetry));
+            telemetry.addData("Distance is ", distanceSensor.GetDistance());
+
             setDriver();
             setOperator();
 

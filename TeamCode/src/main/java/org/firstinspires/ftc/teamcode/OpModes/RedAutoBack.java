@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Mechanisms.AutoConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.LimelightConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
 import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
-import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
+//import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
 /*
@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
  * The IMU gyro is used to stabilize the heading during all motions
  */
 
-@Autonomous(name= "RED AUTO BACK")
+/*@Autonomous(name= "RED AUTO BACK")
 public class RedAutoBack extends LinearOpMode
 {
     // get an instance of the "Robot" class.
@@ -192,4 +192,4 @@ public class RedAutoBack extends LinearOpMode
             telemetry.addLine("ERROR NONE FOUND");
         }
     }
-}
+}*/

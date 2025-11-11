@@ -8,10 +8,10 @@ import org.firstinspires.ftc.teamcode.Mechanisms.AutoConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.LimelightConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
 import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
-import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
+//import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
-@Autonomous(name = "BLUE AUTO TOP")
+/*@Autonomous(name = "BLUE AUTO TOP")
 public class BlueAutoTop extends LinearOpMode {
     //input: strafe + is left //turn + is left
     //input: strafe - is right //turn - is right
@@ -129,4 +129,4 @@ public class BlueAutoTop extends LinearOpMode {
         sleep(1250);
         kick.retract();
     }
-}
+}*/

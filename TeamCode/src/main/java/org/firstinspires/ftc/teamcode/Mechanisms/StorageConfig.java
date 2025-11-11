@@ -46,5 +46,9 @@ public class StorageConfig {
         storageServo.setPosition(Constants.sorterIntakeA);
     }
 
+    public double GetServoPos() {
+        return storageServo.getPosition();
+    }
+
 
 }

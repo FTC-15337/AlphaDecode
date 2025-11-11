@@ -9,10 +9,10 @@ import org.firstinspires.ftc.teamcode.Mechanisms.IntakeConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.LimelightConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
 import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
-import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
+//import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
-    @Autonomous(name = "RED AUTO FROM BACK")
+    /*@Autonomous(name = "RED AUTO FROM BACK")
     public class RedAutoFromBack extends LinearOpMode {
         //input: strafe + is left //turn + is left
         //input: strafe - is right //turn - is right
@@ -138,6 +138,4 @@ import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
             sleep(1250);
             kick.retract();
         }
-    }
-
-}
+    }*/
