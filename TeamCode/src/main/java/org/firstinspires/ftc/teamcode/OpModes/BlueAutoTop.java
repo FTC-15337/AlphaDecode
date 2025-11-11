@@ -13,6 +13,8 @@ import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
 @Autonomous(name = "BLUE AUTO TOP")
 public class BlueAutoTop extends LinearOpMode {
+    //input: strafe + is left //turn + is left
+    //input: strafe - is right //turn - is right
     private AutoConfig robot = new AutoConfig(this);
     private LimelightConfig ll = new LimelightConfig();
     private ShooterConfig shooter = new ShooterConfig();
@@ -44,7 +46,7 @@ public class BlueAutoTop extends LinearOpMode {
             robot.drive(76, 0.75, 0.25);
             robot.turnTo(120, 0.5   , 1.0);
             if(ll.getId() == 23) {
-                robot.turnTo(180, 0.5, 0.25);
+                robot.turnTo(-180, 0.5, 0.25);
                 PPG();
             }
             if (ll.getId() == 22) {
@@ -62,8 +64,8 @@ public class BlueAutoTop extends LinearOpMode {
             }
             sleep(500);
             shooter.Stop();
-            robot.turnTo(45,0.75,0.25);
-            robot.strafe(-36, 0.75, 0.25);
+            robot.turnTo(-135,0.75,0.25);
+            robot.strafe(30, 0.75, 1.0);
             telemetry.update();
         }
     }

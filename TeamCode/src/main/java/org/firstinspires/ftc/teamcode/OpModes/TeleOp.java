@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 import org.firstinspires.ftc.teamcode.Mechanisms.IntakeConfig;
-import org.firstinspires.ftc.teamcode.Mechanisms.LedConfig;
+//import org.firstinspires.ftc.teamcode.Mechanisms.LedConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
@@ -20,7 +20,6 @@ public class TeleOp extends LinearOpMode {
     ShooterConfig shooter = new ShooterConfig();
     IntakeConfig intake = new IntakeConfig();
     ServoKick kick = new ServoKick();
-    LedConfig led = new LedConfig();
 
     double forward, strafe, rotate;
     public void setDriver(){
@@ -36,16 +35,12 @@ public class TeleOp extends LinearOpMode {
         }
         if(gamepad1.a) {
             shooter.MedOut();
-            led.lightOn(true);
         } else if(gamepad1.b) {
             shooter.FarOut();
-            led.lightOn(true);
         } else if (gamepad1.left_trigger >= 0.7) {
             shooter.HPIn();
-            led.lightOn(true);
         } else {
             shooter.Stop();
-            led.lightOn(false);
         }
         telemetry.update();
     }
@@ -167,7 +162,7 @@ public class TeleOp extends LinearOpMode {
         sorter.init(hardwareMap);
         shooter.init(hardwareMap);
         kick.init(hardwareMap);
-        led.init(hardwareMap);
+        //led.init(hardwareMap);
 
         kick.retract();
         drive.imu.resetYaw();

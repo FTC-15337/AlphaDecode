@@ -62,8 +62,8 @@ public class RedAutoTop extends LinearOpMode {
             }
             sleep(500);
             shooter.Stop();
-            robot.turnTo(-45,0.75,0.25);
-            robot.strafe(36, 0.75, 0.25);
+            robot.turnTo(135,0.75,0.25);
+            robot.strafe(-30, 0.75, 1.0);
             telemetry.update();
         }
     }
