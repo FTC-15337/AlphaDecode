@@ -15,9 +15,21 @@ public class SortingWithColor {
     private DistanceSensor distance;
 
     public enum DetectedColor {
-        PURPLE,
-        GREEN,
-        UNKNOWN;
+        PURPLE(1),
+        GREEN(2),
+        UNKNOWN(3);
+
+        private final int code; // Field to store the numeric value
+
+        // Constructor to initialize the code
+        DetectedColor(int code) {
+            this.code = code;
+        }
+
+        // Getter method to retrieve the code
+        public int getCode() {
+            return code;
+        }
     }
 
 
@@ -41,9 +53,9 @@ public class SortingWithColor {
         float blueRatio = b / total;
 
         // Telemetry for tuning
-        telemetry.addData("Red Ratio", redRatio);
-        telemetry.addData("Green Ratio", greenRatio);
-        telemetry.addData("Blue Ratio", blueRatio);
+//        telemetry.addData("Red Ratio", redRatio);
+//        telemetry.addData("Green Ratio", greenRatio);
+//        telemetry.addData("Blue Ratio", blueRatio);
         if (GetDistance() < 12.0) {
             //Colors too close together
             if (greenRatio > 0.4 && greenRatio < 0.44 && redRatio > 0.15 && redRatio < 0.20) {
