@@ -32,11 +32,11 @@ public class SortingWithColor {
         }
     }
 
-
     public void init(HardwareMap hwMap) {
         colorSensor = hwMap.get(NormalizedColorSensor.class, "colorSensor");
         distance = hwMap.get(DistanceSensor.class , "distance");
     }
+
 
     public DetectedColor getDetectedColor(Telemetry telemetry) {
         // Read normalized colors
@@ -52,13 +52,12 @@ public class SortingWithColor {
         float greenRatio = g / total;
         float blueRatio = b / total;
 
-        // Telemetry for tuning
-//        telemetry.addData("Red Ratio", redRatio);
-//        telemetry.addData("Green Ratio", greenRatio);
-//        telemetry.addData("Blue Ratio", blueRatio);
+        telemetry.addData("Red Ratio", redRatio);
+        telemetry.addData("Green Ratio", greenRatio);
+        telemetry.addData("Blue Ratio", blueRatio);
         if (GetDistance() < 12.0) {
             //Colors too close together
-            if (greenRatio > 0.4 && greenRatio < 0.44 && redRatio > 0.15 && redRatio < 0.20) {
+            if (greenRatio > 0.4 && greenRatio < 0.45 && redRatio > 0.13 && redRatio < 0.20) {
                 return DetectedColor.GREEN;
             } else {
                 return DetectedColor.PURPLE;
