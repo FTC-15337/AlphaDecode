@@ -116,17 +116,14 @@ public class TeleOp extends LinearOpMode {
         if (Math.abs(servoValue - 0.03) < 0.005) {
             sortingValues[0][0] = detectedColor.getCode();
             sortingValues[0][1] = Constants.sorterOutTakeA;
-            sleep(10);
         } else if (Math.abs(servoValue - 0.105) < 0.005) {
             sortingValues[1][0] = detectedColor.getCode();
             sortingValues[1][1] = Constants.sorterOutTakeB;
-            sleep(10);
+
             //sorter.setIntakeC();
         } else if (Math.abs(servoValue - 0.17) < 0.005) {
             sortingValues[2][0] = detectedColor.getCode();
             sortingValues[2][1] = Constants.sorterOutTakeC;
-            sleep(10);
-            //sorter.resetToIntake();
         }
     }
 
@@ -152,6 +149,7 @@ public class TeleOp extends LinearOpMode {
         waitForStart();
 
         while(!isStopRequested() && opModeIsActive()) {
+            telemetry.addData("Color" , colorSensor.getDetectedColor(telemetry));
             setDriver();
             setOperator();
 
