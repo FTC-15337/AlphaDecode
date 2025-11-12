@@ -37,7 +37,7 @@ public class RedAutoFromBack extends LinearOpMode {
         kick.init(hardwareMap);
         shooter.init(hardwareMap);
         colorSensor.init(hardwareMap);
-
+        intake.init(hardwareMap);
         sorter.setIntakeA();
         kick.retract();
 
@@ -57,11 +57,9 @@ public class RedAutoFromBack extends LinearOpMode {
                 PPG();
             }
             if (ll.getId() == 22) {
-
                 PGP();
             }
             if(ll.getId() == 21) {
-
                 GPP();
             }
             if(ll.getId() != 21 && ll.getId()!= 22 && ll.getId() != 23){
@@ -73,78 +71,50 @@ public class RedAutoFromBack extends LinearOpMode {
             shooter.Stop();
             telemetry.update();
         }
-
-
-
     }
 
 
     public void PPG() {
-        robot.drive(18, 0.75, 0.25);
-        sleep(500);
+        robot.drive(18, 0.75, 0.0);
+        //sleep(500);
 
-            robot.turnTo(-30, 0.5, 0.25);
-            sleep(500);
-            shooter.FarOut();
-            sleep(1500);
-            sorter.setOutA();
-        sleep(1250);
-        kick.kick();
-        sleep(1250);
-        kick.retract();
-        sorter.setOutB();
-        sleep(1250);
-        kick.kick();
-        sleep(1250);
-        kick.retract();
-        sorter.setOutC();
-        sleep(1250);
-        kick.kick();
-        sleep(1250);
-        kick.retract();
-        robot.turnTo(-70, 0.5, 0.25);
-        robot.drive(35.3,0.3, 0.25);
-        intake.IntakeMotorMax();
-        robot.drive(43, 0.3, 0.25);
-        sorter.setIntakeC();
-        robot.drive(7.5, 0.3, 0.25);
-        sorter.setIntakeB();
-        robot.drive(7.5, 0.3, 0.25);
-        sorter.setIntakeA();
-        intake.IntakeMotorStop();
-        robot.drive(-57.5, 0.75, 0.25);
-        robot.turnTo(90, 0.5, 0.25);
-        robot.drive(-34.5, 0.75, 0.25);
-        robot.turnTo(30, 0.5, 0.25);
+        robot.turnTo(-27, 0.75, 0.0);
+        //sleep(500);
         shooter.FarOut();
-        sleep(1500);
+        sleep(500);
         sorter.setOutA();
-        sleep(1500);
+        sleep(1250);
         kick.kick();
-        sleep(1500);
+        sleep(1250);
+        kick.retract();
         sorter.setOutB();
-        sleep(1500);
+        sleep(1250);
         kick.kick();
-        sleep(1500);
-        sleep(1500);
+        sleep(1250);
+        kick.retract();
         sorter.setOutC();
-        sleep(1500);
+        sleep(1250);
         kick.kick();
-        robot.drive(67.5,0.5, 0.25);
-        robot.turnTo(-90, 0.5, 0.25);
-        robot.drive(434, 0.75, 0.25);
+        sleep(1250);
+        kick.retract();
+        shooter.Stop();
+        robot.drive(18, 0.75, 0.0);
+        robot.turnTo(-88, 0.75, 0.10);
+        intake.IntakeMotorMax();
+        sorter.setIntakeA();
+        robot.drive(28, 0.2, 0.0);
+        sorter.setIntakeB();
+
     }
 
     public void GPP() {
         robot.drive(18, 0.75, 0.25);
         sleep(500);
-        while (robot.is_driving) {
-            robot.turnTo(-30, 0.5, 0.25);
-            sleep(500);
-            shooter.FarOut();
-            sleep(1500);
-            sorter.setOutA();
-        }
+        robot.turnTo(-30, 0.5, 0.25);
+        sleep(500);
+        shooter.FarOut();
+        sleep(1500);
+        sorter.setOutA();
         sleep(1250);
         kick.kick();
         sleep(1250);
@@ -191,19 +161,18 @@ public class RedAutoFromBack extends LinearOpMode {
         robot.drive(67.5,0.5, 0.25);
         robot.turnTo(-90, 0.5, 0.25);
         robot.drive(434, 0.75, 0.25);
-    }
-
+        }
 
     public void PGP() {
         robot.drive(18, 0.75, 0.25);
         sleep(500);
-        while (robot.is_driving) {
-            robot.turnTo(-30, 0.5, 0.25);
-            sleep(500);
-            shooter.FarOut();
-            sleep(1500);
-            sorter.setOutA();
-        }
+
+        robot.turnTo(-30, 0.5, 0.25);
+        sleep(500);
+        shooter.FarOut();
+        sleep(1500);
+        sorter.setOutA();
+
         sleep(1250);
         kick.kick();
         sleep(1250);
@@ -218,6 +187,8 @@ public class RedAutoFromBack extends LinearOpMode {
         kick.kick();
         sleep(1250);
         kick.retract();
+        robot.turnTo(30, 0.5, 0.25);
+        robot.drive(46, 0.5, 0.25);
         robot.turnTo(30, 0.5, 0.25);
         robot.drive(35.3,0.75, 0.25);
         robot.turnTo(-90, 0.5, 0.25);
@@ -252,3 +223,5 @@ public class RedAutoFromBack extends LinearOpMode {
         robot.drive(434, 0.75, 0.25);
     }
 }
+
+

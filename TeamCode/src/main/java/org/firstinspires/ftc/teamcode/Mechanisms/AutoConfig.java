@@ -53,7 +53,6 @@ public class AutoConfig{
     public double driveDistance     = 0; // scaled axial distance (+ = forward)
     public double strafeDistance    = 0; // scaled lateral distance (+ = left)
     public double heading           = 0; // Latest Robot heading from IMU
-    public boolean is_driving       = false;
 
     // Establish a proportional controller for each axis to calculate the required power to achieve a setpoint.
     public ProportionalControl driveController     = new ProportionalControl(DRIVE_GAIN, DRIVE_ACCEL, DRIVE_MAX_AUTO, DRIVE_TOLERANCE, DRIVE_DEADBAND, false);
@@ -186,7 +185,6 @@ public class AutoConfig{
     public void drive(double distanceInches, double power, double holdTime) {
 
         power = Math.abs(power);
-        is_driving = true;
         resetOdometry();
 
         driveController.reset(distanceInches, power);   // achieve desired drive distance
