@@ -104,9 +104,16 @@ public class TeleOp extends LinearOpMode {
             sorter.setOutC();
             //telemetry.update();
         }
+        double i = 0.0;
+        if(gamepad2.right_stick_button){
+            i += 0.1;
+
+        }else if(gamepad2.left_stick_button){
+            i-=0.1;
+        }
+        shooter.setHood(i);
         //telemetry.update();
     }
-
     public void intake(){
         intake.IntakeMotorMax();
         SortingWithColor.DetectedColor detectedColor = colorSensor.getDetectedColor(telemetry);
