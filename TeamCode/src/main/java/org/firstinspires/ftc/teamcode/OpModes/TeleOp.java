@@ -26,9 +26,7 @@ public class TeleOp extends LinearOpMode {
 
     double forward, strafe, rotate;
     double servoValue;
-    double [][] sortingValues = new double [3][2];
-
-
+    double [] sortingValues = new double [3];
     public void setDriver(){
         led.startLed();
         forward = -gamepad1.left_stick_y;
@@ -56,15 +54,11 @@ public class TeleOp extends LinearOpMode {
 
         if(gamepad2.y){
             telemetry.addLine("Inside Y");
-            telemetry.addData("Array value for First INTAKE A", sortingValues[0][0]);
-            telemetry.addData("Array value for Second ", sortingValues[0][1]);
-            telemetry.addData("Array value for First INTAKE B", sortingValues[1][0]);
-            telemetry.addData("Array value for Second ", sortingValues[1][1]);
-            telemetry.addData("Array value for First INTAKE C", sortingValues[2][0]);
-            telemetry.addData("Array value for Second ", sortingValues[2][1]);
+            telemetry.addData("Array value for First INTAKE A", sortingValues[0]);
+            telemetry.addData("Array value for First INTAKE B", sortingValues[1]);
+            telemetry.addData("Array value for First INTAKE C", sortingValues[2]);
 
-
-            //telemetry.update();
+            telemetry.update();
 
 
             /*kick.kick();
@@ -72,49 +66,31 @@ public class TeleOp extends LinearOpMode {
             kick.retract();*/
         }
 
-        if(gamepad2.left_trigger >= 0.7){
-             intake.IntakeMotorMax();
+        if(gamepad2.left_trigger >= 0.7) {
+            intake.IntakeMotorMax();
+            int detectedColor = colorSensor.getDetectedColor(telemetry).getCode();
+            servoValue = sorter.GetServoPos();
+            telemetry.addData("Detected Color ", detectedColor);
+            telemetry.addData("Servo Value ", servoValue);
 
-            if(colorSensor.getDetectedColor(telemetry) != SortingWithColor.DetectedColor.UNKNOWN) {
-                servoValue = sorter.GetServoPos();
-                telemetry.addData("InsideLeftTrigger. SevoPos is ", servoValue);
-                int detectedColor = colorSensor.getDetectedColor(telemetry).getCode();
-
-
-                if (servoValue == Constants.sorterIntakeA)
-                {
-                    telemetry.addData("InsideLeftTrigger. Code value is", colorSensor.getDetectedColor(telemetry).getCode());
-                    sortingValues[0][0] = detectedColor;
-                    sortingValues[0][1] = Constants.sorterOutTakeA;
-                    telemetry.addData("Array value for First INTAKE A", sortingValues[0][0]);
-                    telemetry.addData("Array value for Second ", sortingValues[0][1]);
-                    //telemetry.update();
-
-                } else if (servoValue == Constants.sorterIntakeB)
-                {
-                    sortingValues[1][0] = detectedColor;
-                    sortingValues[1][1] = Constants.sorterOutTakeB;
-                    telemetry.addData("Array value for First INTAKE B", sortingValues[1][0]);
-                    telemetry.addData("Array value for Second ", sortingValues[1][1]);
-                    //telemetry.update();
-
-                } else if (servoValue == Constants.sorterIntakeC)
-                {
-                    sortingValues[2][0] = detectedColor;
-                    sortingValues[2][1] = Constants.sorterOutTakeC;
-                    telemetry.addData("Array value for First INTAKE C", sortingValues[2][0]);
-                    telemetry.addData("Array value for Second ", sortingValues[2][1]);
-                    //telemetry.update();
-
+            if (detectedColor != 3) {
+                if (servoValue == Constants.sorterIntakeA) {
+                    if (sortingValues[0] != 0)
+                        sortingValues[0] = detectedColor;
+                } else if (servoValue == Constants.sorterIntakeB) {
+                    if (sortingValues[1] != 0)
+                        sortingValues[1] = detectedColor;
+                } else if (servoValue == Constants.sorterIntakeC) {
+                    if (sortingValues[2] != 0)
+                        sortingValues[2] = detectedColor;
+                } else {
+                    telemetry.addLine("Did not go inside correct ServoValue");
                 }
+                sleep(1250);
+            } else {
+                intake.IntakeMotorStop();
             }
-
-            telemetry.update();
-
-        }else{
-             intake.IntakeMotorStop();
         }
-
         /*if(gamepad2.right_bumper) {
             sortPurple();
             kick.kick();

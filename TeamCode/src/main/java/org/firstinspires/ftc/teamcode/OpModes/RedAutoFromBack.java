@@ -85,7 +85,7 @@ public class RedAutoFromBack extends LinearOpMode {
         sorter.setOutA();
         sleep(1250);
         kick.kick();
-        sleep(1250);
+        sleep(1500);
         kick.retract();
         sorter.setOutB();
         sleep(1250);
@@ -99,11 +99,17 @@ public class RedAutoFromBack extends LinearOpMode {
         kick.retract();
         shooter.Stop();
         robot.drive(20, 0.75, 0.0);
-        robot.turnTo(-88, 0.75, 0.10);
+        robot.turnTo(-90, 0.75, 0.10);
         intake.IntakeMotorMax();
-        sorter.setIntakeA();
-        robot.drive(34, 0.2, 0.25);
+        sorter.setIntakeC();
+        robot.drive(27, 0.5, 0.10);
         sorter.setIntakeB();
+        robot.drive(10, 0.2, 0.25);
+        sorter.setIntakeA();
+        robot.drive(10, 0.2, 0.25);
+        robot.drive(-36, 0.5, 0.0);
+        robot.turnTo(15, 0.75, 0.0);
+        robot.drive(-20, 0.75, 0.25);
     }
 
     public void GPP() {
