@@ -25,6 +25,10 @@ public class TeleOp extends LinearOpMode {
     Led led = new Led();
 
     double forward, strafe, rotate;
+    double servoValue;
+    double [][] sortingValues = new double [3][2];
+
+
     public void setDriver(){
         led.startLed();
         forward = -gamepad1.left_stick_y;
@@ -46,18 +50,67 @@ public class TeleOp extends LinearOpMode {
         } else {
             shooter.Stop();
         }
-        telemetry.update();
+        //telemetry.update();
     }
     public void setOperator(){
 
         if(gamepad2.y){
-            kick.kick();
+            telemetry.addLine("Inside Y");
+            telemetry.addData("Array value for First INTAKE A", sortingValues[0][0]);
+            telemetry.addData("Array value for Second ", sortingValues[0][1]);
+            telemetry.addData("Array value for First INTAKE B", sortingValues[1][0]);
+            telemetry.addData("Array value for Second ", sortingValues[1][1]);
+            telemetry.addData("Array value for First INTAKE C", sortingValues[2][0]);
+            telemetry.addData("Array value for Second ", sortingValues[2][1]);
+
+
+            //telemetry.update();
+
+
+            /*kick.kick();
         }else{
-            kick.retract();
+            kick.retract();*/
         }
 
         if(gamepad2.left_trigger >= 0.7){
              intake.IntakeMotorMax();
+
+            if(colorSensor.getDetectedColor(telemetry) != SortingWithColor.DetectedColor.UNKNOWN) {
+                servoValue = sorter.GetServoPos();
+                telemetry.addData("InsideLeftTrigger. SevoPos is ", servoValue);
+                int detectedColor = colorSensor.getDetectedColor(telemetry).getCode();
+
+
+                if (servoValue == Constants.sorterIntakeA)
+                {
+                    telemetry.addData("InsideLeftTrigger. Code value is", colorSensor.getDetectedColor(telemetry).getCode());
+                    sortingValues[0][0] = detectedColor;
+                    sortingValues[0][1] = Constants.sorterOutTakeA;
+                    telemetry.addData("Array value for First INTAKE A", sortingValues[0][0]);
+                    telemetry.addData("Array value for Second ", sortingValues[0][1]);
+                    //telemetry.update();
+
+                } else if (servoValue == Constants.sorterIntakeB)
+                {
+                    sortingValues[1][0] = detectedColor;
+                    sortingValues[1][1] = Constants.sorterOutTakeB;
+                    telemetry.addData("Array value for First INTAKE B", sortingValues[1][0]);
+                    telemetry.addData("Array value for Second ", sortingValues[1][1]);
+                    //telemetry.update();
+
+                } else if (servoValue == Constants.sorterIntakeC)
+                {
+                    sortingValues[2][0] = detectedColor;
+                    sortingValues[2][1] = Constants.sorterOutTakeC;
+                    telemetry.addData("Array value for First INTAKE C", sortingValues[2][0]);
+                    telemetry.addData("Array value for Second ", sortingValues[2][1]);
+                    //telemetry.update();
+
+                }
+            }
+
+            telemetry.update();
+
         }else{
              intake.IntakeMotorStop();
         }
@@ -77,36 +130,36 @@ public class TeleOp extends LinearOpMode {
         }*/
 
         if(gamepad2.dpad_down) {
-            telemetry.addLine("Sorter IA");
+            //telemetry.addLine("Sorter IA");
             sorter.setIntakeA();
         }
         if(gamepad2.dpad_right) {
-            telemetry.addLine("Sorter IC");
+            //telemetry.addLine("Sorter IC");
             sorter.setIntakeB();
         }
         if(gamepad2.dpad_left) {
-            telemetry.addLine("Sorter IB");
+            //telemetry.addLine("Sorter IB");
             sorter.setIntakeC();
         }
         if (gamepad2.dpad_up) {
             intake.OutIntake();
         }
         if(gamepad2.a) {
-            telemetry.addLine("Sorter OA");
+            //telemetry.addLine("Sorter OA");
             sorter.setOutA();
-            telemetry.update();
+            //telemetry.update();
         }
         if(gamepad2.b) {
-            telemetry.addLine("Sorter OB");
+            //telemetry.addLine("Sorter OB");
             sorter.setOutB();
-            telemetry.update();
+            //telemetry.update();
         }
         if(gamepad2.x) {
-            telemetry.addLine("Sorter OC");
+            //telemetry.addLine("Sorter OC");
             sorter.setOutC();
-            telemetry.update();
+            //telemetry.update();
         }
-        telemetry.update();
+        //telemetry.update();
     }
 
     /*public void sortPurple(){
@@ -175,8 +228,8 @@ public class TeleOp extends LinearOpMode {
         waitForStart();
 
         while(!isStopRequested() && opModeIsActive()) {
-            telemetry.addData("Color is ", colorSensor.getDetectedColor(telemetry));
-            telemetry.addData("Distance is ", colorSensor.GetDistance());
+            //telemetry.addData("Color is ", colorSensor.getDetectedColor(telemetry));
+            //telemetry.addData("Distance is ", colorSensor.GetDistance());
 
             setDriver();
             setOperator();
