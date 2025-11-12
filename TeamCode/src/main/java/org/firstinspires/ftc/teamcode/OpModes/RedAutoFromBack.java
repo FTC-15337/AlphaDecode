@@ -166,7 +166,7 @@ public class RedAutoFromBack extends LinearOpMode {
         robot.drive(67.5,0.5, 0.25);
         robot.turnTo(-90, 0.5, 0.25);
         robot.drive(434, 0.75, 0.25);
-        }
+    }
 
     public void PGP() {
         robot.drive(18, 0.75, 0.25);

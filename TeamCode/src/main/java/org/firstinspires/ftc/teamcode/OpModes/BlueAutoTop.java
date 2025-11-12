@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Mechanisms.AutoConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.LimelightConfig;
@@ -68,7 +67,11 @@ public class BlueAutoTop extends LinearOpMode {
             robot.strafe(30, 0.75, 1.0);
             telemetry.update();
         }
+
+
+
     }
+
 
     public void PPG() {
         shooter.MedOut();
