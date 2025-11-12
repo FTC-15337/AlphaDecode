@@ -45,7 +45,7 @@ public class AutoConfig{
 
     private static final double YAW_GAIN            = 0.018;    // Strength of Yaw position control
     private static final double YAW_ACCEL           = 3.0;     // Acceleration limit.  Percent Power change per second.  1.0 = 0-100% power in 1 sec.
-    private static final double YAW_TOLERANCE       = 1.0;     // Controller is is "inPosition" if position error is < +/- this amount
+    private static final double YAW_TOLERANCE       = 5.0;     // Controller is is "inPosition" if position error is < +/- this amount
     private static final double YAW_DEADBAND        = 0.25;    // Error less than this causes zero output.  Must be smaller than DRIVE_TOLERANCE
     private static final double YAW_MAX_AUTO        = 0.6;     // "default" Maximum Yaw power limit during autonomous
 
@@ -53,6 +53,7 @@ public class AutoConfig{
     public double driveDistance     = 0; // scaled axial distance (+ = forward)
     public double strafeDistance    = 0; // scaled lateral distance (+ = left)
     public double heading           = 0; // Latest Robot heading from IMU
+    public boolean is_driving       = false;
 
     // Establish a proportional controller for each axis to calculate the required power to achieve a setpoint.
     public ProportionalControl driveController     = new ProportionalControl(DRIVE_GAIN, DRIVE_ACCEL, DRIVE_MAX_AUTO, DRIVE_TOLERANCE, DRIVE_DEADBAND, false);
@@ -185,6 +186,7 @@ public class AutoConfig{
     public void drive(double distanceInches, double power, double holdTime) {
 
         power = Math.abs(power);
+        is_driving = true;
         resetOdometry();
 
         driveController.reset(distanceInches, power);   // achieve desired drive distance
