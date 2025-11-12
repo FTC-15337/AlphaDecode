@@ -17,7 +17,7 @@ public class ShooterConfig {
     }
 
     public void FarOut() {
-        shooter.setVelocity(1625);
+        shooter.setVelocity(1525);
     }
 
     public void MedOut() {
