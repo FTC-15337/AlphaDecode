@@ -22,7 +22,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import java.util.List;
 
 public class AutoConfig{
-
+    //Changed new Auto
     //Desired distance = 2/3 * input distance
     MecDrivebase driver = new MecDrivebase();
 
