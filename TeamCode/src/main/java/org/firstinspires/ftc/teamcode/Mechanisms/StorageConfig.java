@@ -50,5 +50,10 @@ public class StorageConfig {
         return storageServo.getPosition();
     }
 
+    public void setServo(double pos) {
+        storageServo.setPosition(pos);
+    }
+
+
 
 }

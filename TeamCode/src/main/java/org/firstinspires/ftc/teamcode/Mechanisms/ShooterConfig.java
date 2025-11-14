@@ -4,18 +4,20 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class ShooterConfig {
     private DcMotorEx shooter;
+    private Servo hood;
 
     public void init(HardwareMap hwMap) {
         shooter = hwMap.get(DcMotorEx.class, "shooter");
         shooter.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         shooter.setDirection(DcMotorSimple.Direction.FORWARD);
         shooter.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        hood = hwMap.get(Servo.class , "hood");
     }
-
     public void FarOut() {
         shooter.setVelocity(1525);
     }
@@ -31,5 +33,11 @@ public class ShooterConfig {
     }
     public double GetVelocity() {
         return shooter.getVelocity();
+    }
+    public void setHood(double power){
+        hood.setPosition(power);
+    }
+    public double returnVal(){
+        return hood.getPosition();
     }
 }
