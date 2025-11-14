@@ -18,12 +18,10 @@ public class ShooterConfig {
         shooter.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         hood = hwMap.get(Servo.class , "hood");
     }
-    public void FarOut() {
-        shooter.setVelocity(1525);
-    }
+    public void FarOut() {shooter.setVelocity(1600);}
 
     public void MedOut() {
-        shooter.setVelocity(1316);
+        shooter.setVelocity(1320);
     }
     public void Stop() {
         shooter.setVelocity(0);

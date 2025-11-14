@@ -25,7 +25,6 @@ public class TeleOp extends LinearOpMode {
     double forward, strafe, rotate;
     double servoValue;
     static double[][] sortingValues;
-    double i = 0;
 
     public void setDriver(){
         led.startLed();
@@ -58,7 +57,7 @@ public class TeleOp extends LinearOpMode {
         }
 
         if(gamepad2.left_trigger >= 0.7) {
-            intake();
+            Intake();
             telemetry.update();
         } else {
             intake.IntakeMotorStop();
@@ -99,8 +98,6 @@ public class TeleOp extends LinearOpMode {
         }
 
         telemetry.addData("HOOD POS IS", shooter.returnVal());
-
-        shooter.setHood(i);
         telemetry.addData("HOOD POS IS" , shooter.returnVal());
         telemetry.update();
 
@@ -111,7 +108,8 @@ public class TeleOp extends LinearOpMode {
         }
     }
 
-    public void intake(){
+    public void Intake(){
+        sorter.setIntakeA();
         intake.IntakeMotorMax();
         SortingWithColor.DetectedColor detectedColor = colorSensor.getDetectedColor(telemetry);
         servoValue = sorter.GetServoPos();
@@ -120,28 +118,14 @@ public class TeleOp extends LinearOpMode {
         if (Math.abs(servoValue - 0.03) < 0.005) {
             sortingValues[0][0] = detectedColor.getCode();
             sortingValues[0][1] = Constants.sorterOutTakeA;
-            sleep(100);
-            if(colorSensor.GetDistance() < 12){
-                sorter.setIntakeB();
-                sleep(750);
-            }
+
         } else if (Math.abs(servoValue - 0.105) < 0.005) {
             sortingValues[1][0] = detectedColor.getCode();
             sortingValues[1][1] = Constants.sorterOutTakeB;
-            sleep(100);
-            if(colorSensor.GetDistance() < 12){
-                sorter.setIntakeC();
-                sleep(750);
-            }
 
         } else if (Math.abs(servoValue - 0.17) < 0.005) {
             sortingValues[2][0] = detectedColor.getCode();
             sortingValues[2][1] = Constants.sorterOutTakeC;
-            sleep(100);
-            if(colorSensor.GetDistance() < 12){
-                sorter.resetToIntake();
-                sleep(750);
-            }
         }
     }
 
@@ -166,7 +150,6 @@ public class TeleOp extends LinearOpMode {
                 return;
             }
         }
-
     }
 
 
