@@ -25,6 +25,7 @@ public class TeleOp extends LinearOpMode {
     double forward, strafe, rotate;
     double servoValue;
     static double[][] sortingValues;
+    double i = 0;
 
     public void setDriver(){
         led.startLed();
@@ -52,16 +53,14 @@ public class TeleOp extends LinearOpMode {
     public void setOperator(){
         if(gamepad2.y){
             telemetry.addLine("Inside Y");
-            telemetry.addData("Array value for First INTAKE A", sortingValues[0][0]);
-            telemetry.addData("Array value for First INTAKE A.1", sortingValues[0][1]);
-            telemetry.addData("Array value for First INTAKE B", sortingValues[1][0]);
-            telemetry.addData("Array value for First INTAKE B.1", sortingValues[1][1]);
-            telemetry.addData("Array value for First INTAKE C", sortingValues[2][0]);
-            telemetry.addData("Array value for First INTAKE C,1", sortingValues[2][1]);
+            telemetry.addData("Array value for COLOR A", sortingValues[0][0]);
+            telemetry.addData("Array value for OUT VAL A", sortingValues[0][1]);
+            telemetry.addData("Array value for COLOR B", sortingValues[1][0]);
+            telemetry.addData("Array value for OUT VAL B", sortingValues[1][1]);
+            telemetry.addData("Array value for COLOR C", sortingValues[2][0]);
+            telemetry.addData("Array value for OUT VAL C", sortingValues[2][1]);
 
             telemetry.update();
-
-
             /*kick.kick();
         }else{
             kick.retract();*/
@@ -104,16 +103,25 @@ public class TeleOp extends LinearOpMode {
             sorter.setOutC();
             //telemetry.update();
         }
-        double i = 0.0;
-        if(gamepad2.right_stick_button){
-            i += 0.1;
-
-        }else if(gamepad2.left_stick_button){
-            i-=0.1;
+        if (gamepad2.right_stick_button) {
+            shooter.setHood(0.7);
         }
+
+// keep it between 0 and
+
+        telemetry.addData("HOOD POS IS", shooter.returnVal());
+
         shooter.setHood(i);
-        //telemetry.update();
+        telemetry.addData("HOOD POS IS" , shooter.returnVal());
+        telemetry.update();
+
+        if(gamepad2.left_bumper){
+            outtakeColor(2);
+        }else if(gamepad2.right_bumper){
+            outtakeColor(1);
+        }
     }
+
     public void intake(){
         intake.IntakeMotorMax();
         SortingWithColor.DetectedColor detectedColor = colorSensor.getDetectedColor(telemetry);
@@ -133,6 +141,37 @@ public class TeleOp extends LinearOpMode {
             sortingValues[2][1] = Constants.sorterOutTakeC;
         }
     }
+
+    public void outtakeColor(int targetColor) {
+        // Loop through all 3 stored pixels
+        for (int index = 0; index < 3; index++) {
+
+            double storedColor = sortingValues[index][0];
+            double outPos = sortingValues[index][1];
+
+            // If this slot contains the color we're looking for
+            if (storedColor == targetColor) {
+
+                // Move sorter to correct outtake position
+                sorter.setServo(outPos);
+
+                sleep(750);   // let servo move
+                kick.kick();  // kick pixel out
+                sleep(1500);
+                kick.retract();
+
+                // EMPTY ONLY THIS ENTRY (not whole array)
+                sortingValues[index][0] = 0;
+                sortingValues[index][1] = 0;
+
+                return; // stop after removing one match
+            }
+        }
+
+        // If no more of that color are found
+        telemetry.addLine("No more of that color stored.");
+    }
+
 
 
     @Override
@@ -155,8 +194,8 @@ public class TeleOp extends LinearOpMode {
 
         waitForStart();
 
-        while(!isStopRequested() && opModeIsActive()) {
-            telemetry.addData("Color" , colorSensor.getDetectedColor(telemetry));
+        while (!isStopRequested() && opModeIsActive()) {
+            telemetry.addData("Color", colorSensor.getDetectedColor(telemetry));
             setDriver();
             setOperator();
 
