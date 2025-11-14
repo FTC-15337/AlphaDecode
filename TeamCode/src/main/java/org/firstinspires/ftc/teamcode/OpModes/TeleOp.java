@@ -52,18 +52,9 @@ public class TeleOp extends LinearOpMode {
 
     public void setOperator(){
         if(gamepad2.y){
-            telemetry.addLine("Inside Y");
-            telemetry.addData("Array value for COLOR A", sortingValues[0][0]);
-            telemetry.addData("Array value for OUT VAL A", sortingValues[0][1]);
-            telemetry.addData("Array value for COLOR B", sortingValues[1][0]);
-            telemetry.addData("Array value for OUT VAL B", sortingValues[1][1]);
-            telemetry.addData("Array value for COLOR C", sortingValues[2][0]);
-            telemetry.addData("Array value for OUT VAL C", sortingValues[2][1]);
-
-            telemetry.update();
-            /*kick.kick();
+            kick.kick();
         }else{
-            kick.retract();*/
+            kick.retract();
         }
 
         if(gamepad2.left_trigger >= 0.7) {
@@ -107,8 +98,6 @@ public class TeleOp extends LinearOpMode {
             shooter.setHood(0.7);
         }
 
-// keep it between 0 and
-
         telemetry.addData("HOOD POS IS", shooter.returnVal());
 
         shooter.setHood(i);
@@ -131,45 +120,53 @@ public class TeleOp extends LinearOpMode {
         if (Math.abs(servoValue - 0.03) < 0.005) {
             sortingValues[0][0] = detectedColor.getCode();
             sortingValues[0][1] = Constants.sorterOutTakeA;
+            sleep(100);
+            if(colorSensor.GetDistance() < 12){
+                sorter.setIntakeB();
+                sleep(750);
+            }
         } else if (Math.abs(servoValue - 0.105) < 0.005) {
             sortingValues[1][0] = detectedColor.getCode();
             sortingValues[1][1] = Constants.sorterOutTakeB;
+            sleep(100);
+            if(colorSensor.GetDistance() < 12){
+                sorter.setIntakeC();
+                sleep(750);
+            }
 
-            //sorter.setIntakeC();
         } else if (Math.abs(servoValue - 0.17) < 0.005) {
             sortingValues[2][0] = detectedColor.getCode();
             sortingValues[2][1] = Constants.sorterOutTakeC;
+            sleep(100);
+            if(colorSensor.GetDistance() < 12){
+                sorter.resetToIntake();
+                sleep(750);
+            }
         }
     }
 
     public void outtakeColor(int targetColor) {
-        // Loop through all 3 stored pixels
         for (int index = 0; index < 3; index++) {
 
             double storedColor = sortingValues[index][0];
             double outPos = sortingValues[index][1];
 
-            // If this slot contains the color we're looking for
             if (storedColor == targetColor) {
 
-                // Move sorter to correct outtake position
                 sorter.setServo(outPos);
 
-                sleep(750);   // let servo move
-                kick.kick();  // kick pixel out
-                sleep(1500);
+                sleep(700);
+                kick.kick();
+                sleep(1000);
                 kick.retract();
 
-                // EMPTY ONLY THIS ENTRY (not whole array)
                 sortingValues[index][0] = 0;
                 sortingValues[index][1] = 0;
 
-                return; // stop after removing one match
+                return;
             }
         }
 
-        // If no more of that color are found
-        telemetry.addLine("No more of that color stored.");
     }
 
 
