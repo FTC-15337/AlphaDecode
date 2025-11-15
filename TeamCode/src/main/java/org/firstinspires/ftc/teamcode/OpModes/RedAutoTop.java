@@ -32,6 +32,7 @@ public class RedAutoTop extends LinearOpMode {
         kick.init(hardwareMap);
         shooter.init(hardwareMap);
         colorSensor.init(hardwareMap);
+        intake.init(hardwareMap);
 
         sorter.setIntakeA();
         kick.retract();
@@ -89,6 +90,7 @@ public class RedAutoTop extends LinearOpMode {
         shooter.Stop();
         robot.turnTo(135,0.75,0.25);
         //robot.strafe(-30, 0.75, 1.0);
+        robot.strafe(5, 1.0, 0.25);
         intake.IntakeMotorMax();
         sorter.setIntakeA();
         robot.drive(46, 0.3, 0.25);
