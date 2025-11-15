@@ -1,11 +1,16 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
 
+import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 import org.firstinspires.ftc.teamcode.Mechanisms.IntakeConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.Led;
+import org.firstinspires.ftc.teamcode.Mechanisms.LimelightConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.MecDrivebase;
 import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
@@ -21,6 +26,7 @@ public class TeleOp extends LinearOpMode {
     IntakeConfig intake = new IntakeConfig();
     ServoKick kick = new ServoKick();
     Led led = new Led();
+    LimelightConfig limelight = new LimelightConfig();
 
     double forward, strafe, rotate;
     double servoValue;
@@ -47,6 +53,16 @@ public class TeleOp extends LinearOpMode {
         } else {
             shooter.Stop();
         }
+
+        if(gamepad1.dpad_down) {
+            shooter.hoodZero();
+        }
+        if(gamepad1.dpad_left) {
+            shooter.hoodMed();
+        }
+        if(gamepad1.dpad_right) {
+            shooter.hoodMax();
+        }
     }
 
     public void setOperator(){
@@ -57,8 +73,8 @@ public class TeleOp extends LinearOpMode {
         }
 
         if(gamepad2.left_trigger >= 0.7) {
-            Intake();
-            telemetry.update();
+            intake.IntakeMotorMax();
+            //telemetry.update();
         } else {
             intake.IntakeMotorStop();
         }
@@ -94,7 +110,7 @@ public class TeleOp extends LinearOpMode {
             //telemetry.update();
         }
         if (gamepad2.right_stick_button) {
-            shooter.setHood(0.7);
+            shooter.hoodMed();
         }
 
         telemetry.addData("HOOD POS IS", shooter.returnVal());
@@ -109,7 +125,6 @@ public class TeleOp extends LinearOpMode {
     }
 
     public void Intake(){
-        sorter.setIntakeA();
         intake.IntakeMotorMax();
         SortingWithColor.DetectedColor detectedColor = colorSensor.getDetectedColor(telemetry);
         servoValue = sorter.GetServoPos();
@@ -152,8 +167,6 @@ public class TeleOp extends LinearOpMode {
         }
     }
 
-
-
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -164,6 +177,7 @@ public class TeleOp extends LinearOpMode {
         shooter.init(hardwareMap);
         kick.init(hardwareMap);
         led.init(hardwareMap);
+        limelight.init(hardwareMap);
 
         kick.retract();
         drive.imu.resetYaw();
@@ -176,11 +190,12 @@ public class TeleOp extends LinearOpMode {
 
         while (!isStopRequested() && opModeIsActive()) {
             telemetry.addData("Color", colorSensor.getDetectedColor(telemetry));
+            //limelight.TargetArea();
             setDriver();
             setOperator();
+            telemetry.addData("Hood Pos", shooter.returnVal());
 
             telemetry.update();
         }
-
     }
 }

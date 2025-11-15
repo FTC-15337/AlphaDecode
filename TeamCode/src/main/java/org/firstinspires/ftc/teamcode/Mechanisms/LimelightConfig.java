@@ -1,35 +1,3 @@
-/*
-Copyright (c) 2024 Limelight Vision
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification,
-are permitted (subject to the limitations in the disclaimer below) provided that
-the following conditions are met:
-
-Redistributions of source code must retain the above copyright notice, this list
-of conditions and the following disclaimer.
-
-Redistributions in binary form must reproduce the above copyright notice, this
-list of conditions and the following disclaimer in the documentation and/or
-other materials provided with the distribution.
-
-Neither the name of FIRST nor the names of its contributors may be used to
-endorse or promote products derived from this software without specific prior
-written permission.
-
-NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
-LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
-TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
 package org.firstinspires.ftc.teamcode.Mechanisms;
 
 import com.qualcomm.hardware.limelightvision.LLResult;
@@ -38,14 +6,19 @@ import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 import java.util.List;
 
 @Autonomous
-public class LimelightConfig {
+public class LimelightConfig{
 
     private Limelight3A limelight;
-    //private LinearOpMode linearOpMode;
+    MecDrivebase drive = new MecDrivebase();
+    private LinearOpMode myOpMode;
+    private double distance;
 
     public void init(HardwareMap hwMap) {
         limelight = hwMap.get(Limelight3A.class, "limelight");
@@ -64,6 +37,28 @@ public class LimelightConfig {
             return 0;
         }
     }
+
+    /*public void TargetArea() {
+
+        YawPitchRollAngles orientation = drive.getOrientation();
+        limelight.updateRobotOrientation(orientation.getYaw(AngleUnit.DEGREES));
+
+        LLResult llResult = limelight.getLatestResult();
+        if(llResult.isValid()) {
+            Pose3D botpose = llResult.getBotpose_MT2();
+            //distance = Distance(llResult.getTa());
+            //myOpMode.telemetry.addData("Distance", distance);
+            myOpMode.telemetry.addData("Target X", llResult.getTx());
+            myOpMode.telemetry.addData("Target Area", llResult.getTa());
+            myOpMode.telemetry.addData("Botpose", botpose.toString());
+        }
+    }*/
+
+    /*public double Distance(double ta){
+        double scale = 30665.95;
+        double distance = (scale / ta);
+        return distance;
+    }*/
 
     /*public void LimeLightScan() {
         while (linearOpMode.opModeIsActive()) {
