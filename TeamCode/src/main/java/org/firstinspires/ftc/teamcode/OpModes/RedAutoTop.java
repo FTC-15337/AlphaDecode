@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Mechanisms.AutoConfig;
+import org.firstinspires.ftc.teamcode.Mechanisms.IntakeConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.LimelightConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
 import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
@@ -20,6 +21,7 @@ public class RedAutoTop extends LinearOpMode {
     private SortingWithColor colorSensor = new SortingWithColor();
     private StorageConfig sorter = new StorageConfig();
     private ServoKick kick = new ServoKick();
+    private IntakeConfig intake = new IntakeConfig();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -62,9 +64,6 @@ public class RedAutoTop extends LinearOpMode {
                 telemetry.addData("Tag", ll.getId());
             }
             sleep(500);
-            shooter.Stop();
-            robot.turnTo(135,0.75,0.25);
-            robot.strafe(-30, 0.75, 1.0);
             telemetry.update();
         }
     }
@@ -87,6 +86,39 @@ public class RedAutoTop extends LinearOpMode {
         kick.kick();
         sleep(1250);
         kick.retract();
+        shooter.Stop();
+        robot.turnTo(135,0.75,0.25);
+        //robot.strafe(-30, 0.75, 1.0);
+        intake.IntakeMotorMax();
+        sorter.setIntakeA();
+        robot.drive(46, 0.3, 0.25);
+        sorter.setIntakeB();
+        robot.drive(7.5, 0.3, 0.25);
+        sorter.setIntakeC();
+        robot.drive(7.5, 0.3, 0.25);
+        intake.IntakeMotorStop();
+        robot.drive(-45, 1.0, 0.25);
+        robot.turnTo(-135, 1.0, 0.25);
+        shooter.MedOut();
+        sleep(1500);
+        sorter.setOutA();
+        sleep(1250);
+        kick.kick();
+        sleep(1250);
+        kick.retract();
+        sorter.setOutB();
+        sleep(1250);
+        kick.kick();
+        sleep(1250);
+        kick.retract();
+        sorter.setOutC();
+        sleep(1250);
+        kick.kick();
+        sleep(1250);
+        kick.retract();
+        shooter.Stop();
+        robot.turnTo(135,0.75,0.25);
+        robot.strafe(-30, 0.75, 1.0);
     }
 
     public void GPP() {
@@ -107,6 +139,39 @@ public class RedAutoTop extends LinearOpMode {
         kick.kick();
         sleep(1250);
         kick.retract();
+        shooter.Stop();
+        robot.turnTo(135,0.75,0.25);
+        //robot.strafe(-30, 0.75, 1.0);
+        intake.IntakeMotorMax();
+        sorter.setIntakeA();
+        robot.drive(46, 0.3, 0.25);
+        sorter.setIntakeB();
+        robot.drive(7.5, 0.3, 0.25);
+        sorter.setIntakeC();
+        robot.drive(7.5, 0.3, 0.25);
+        intake.IntakeMotorStop();
+        robot.drive(-45, 1.0, 0.25);
+        robot.turnTo(-135, 1.0, 0.25);
+        shooter.MedOut();
+        sleep(1500);
+        sorter.setOutC();
+        sleep(1250);
+        kick.kick();
+        sleep(1250);
+        kick.retract();
+        sorter.setOutB();
+        sleep(1250);
+        kick.kick();
+        sleep(1250);
+        kick.retract();
+        sorter.setOutA();
+        sleep(1250);
+        kick.kick();
+        sleep(1250);
+        kick.retract();
+        shooter.Stop();
+        robot.turnTo(135,0.75,0.25);
+        robot.strafe(-30, 0.75, 1.0);
     }
 
     public void PGP() {
@@ -127,5 +192,38 @@ public class RedAutoTop extends LinearOpMode {
         kick.kick();
         sleep(1250);
         kick.retract();
+        shooter.Stop();
+        robot.turnTo(135,0.75,0.25);
+        //robot.strafe(-30, 0.75, 1.0);
+        intake.IntakeMotorMax();
+        sorter.setIntakeA();
+        robot.drive(46, 0.3, 0.25);
+        sorter.setIntakeB();
+        robot.drive(7.5, 0.3, 0.25);
+        sorter.setIntakeC();
+        robot.drive(7.5, 0.3, 0.25);
+        intake.IntakeMotorStop();
+        robot.drive(-45, 1.0, 0.25);
+        robot.turnTo(-135, 1.0, 0.25);
+        shooter.MedOut();
+        sleep(1500);
+        sorter.setOutA();
+        sleep(1250);
+        kick.kick();
+        sleep(1250);
+        kick.retract();
+        sorter.setOutC();
+        sleep(1250);
+        kick.kick();
+        sleep(1250);
+        kick.retract();
+        sorter.setOutB();
+        sleep(1250);
+        kick.kick();
+        sleep(1250);
+        kick.retract();
+        shooter.Stop();
+        robot.turnTo(135,0.75,0.25);
+        robot.strafe(-30, 0.75, 1.0);
     }
 }
