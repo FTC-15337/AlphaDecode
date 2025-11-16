@@ -140,6 +140,7 @@ public class BlueAutoBack extends LinearOpMode {
         shooter.Stop();
         robot.drive(18, 1.0, 0.0);
         robot.turnTo(90, 1.0, 0.0);
+        sleep(500);
     }
 
     public void GPP() {
@@ -200,6 +201,7 @@ public class BlueAutoBack extends LinearOpMode {
         shooter.Stop();
         robot.drive(18, 1.0, 0.0);
         robot.turnTo(90, 1.0, 0.0);
+        sleep(500);
     }
 
     public void PGP() {
@@ -260,6 +262,7 @@ public class BlueAutoBack extends LinearOpMode {
         shooter.Stop();
         robot.drive(18, 1.0, 0.0);
         robot.turnTo(90, 1.0, 0.0);
+        sleep(500);
     }
 
     public void Intake(){
