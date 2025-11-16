@@ -42,7 +42,7 @@ public class RedAutoBack extends LinearOpMode {
         shooter.init(hardwareMap);
         colorSensor.init(hardwareMap);
         intake.init(hardwareMap);
-        sorter.setIntakeA();
+        sorter.setOutA();
         kick.retract();
         led.init(hardwareMap);
 
@@ -86,8 +86,6 @@ public class RedAutoBack extends LinearOpMode {
         shooter.FarOut();
         sleep(800);
         robot.turnTo(-22, 1.0, 0.0);
-        sorter.setOutA();
-        sleep(750);
         kick.kick();
         sleep(1000);
         kick.retract();
@@ -208,8 +206,6 @@ public class RedAutoBack extends LinearOpMode {
         shooter.FarOut();
         sleep(800);
         robot.turnTo(-22, 1.0, 0.0);
-        sorter.setOutA();
-        sleep(750);
         kick.kick();
         sleep(1000);
         kick.retract();

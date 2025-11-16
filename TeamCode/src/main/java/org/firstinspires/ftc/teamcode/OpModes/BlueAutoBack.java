@@ -42,7 +42,7 @@ public class BlueAutoBack extends LinearOpMode {
         shooter.init(hardwareMap);
         colorSensor.init(hardwareMap);
         intake.init(hardwareMap);
-        sorter.setIntakeA();
+        sorter.setOutA();
         kick.retract();
         led.init(hardwareMap);
 
@@ -63,7 +63,6 @@ public class BlueAutoBack extends LinearOpMode {
 
         if(opModeIsActive() && !isStopRequested()){
             robot.drive(6, 1.0, 0.0);
-            //robot.turnTo(-7, 1.0, 0.25);
             if(ll.getId() == 23) {
                 PPG();
             }
@@ -86,8 +85,6 @@ public class BlueAutoBack extends LinearOpMode {
         shooter.FarOut();
         sleep(800);
         robot.turnTo(22, 1.0, 0.0);
-        sorter.setOutA();
-        sleep(750);
         kick.kick();
         sleep(1000);
         kick.retract();
@@ -208,8 +205,6 @@ public class BlueAutoBack extends LinearOpMode {
         shooter.FarOut();
         sleep(800);
         robot.turnTo(22, 1.0, 0.0);
-        sorter.setOutA();
-        sleep(750);
         kick.kick();
         sleep(1000);
         kick.retract();

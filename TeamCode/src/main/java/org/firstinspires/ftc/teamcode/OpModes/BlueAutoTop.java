@@ -4,13 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Mechanisms.AutoConfig;
+import org.firstinspires.ftc.teamcode.Mechanisms.IntakeConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.LimelightConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
 import org.firstinspires.ftc.teamcode.Mechanisms.ShooterConfig;
-//import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
+import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
-/*@Autonomous(name = "BLUE AUTO TOP")
+@Autonomous(name = "BLUE AUTO TOP")
 public class BlueAutoTop extends LinearOpMode {
     //input: strafe + is left //turn + is left
     //input: strafe - is right //turn - is right
@@ -20,6 +21,7 @@ public class BlueAutoTop extends LinearOpMode {
     private SortingWithColor colorSensor = new SortingWithColor();
     private StorageConfig sorter = new StorageConfig();
     private ServoKick kick = new ServoKick();
+    private IntakeConfig intake = new IntakeConfig();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -30,8 +32,10 @@ public class BlueAutoTop extends LinearOpMode {
         kick.init(hardwareMap);
         shooter.init(hardwareMap);
         colorSensor.init(hardwareMap);
+        intake.init(hardwareMap);
 
-        sorter.setIntakeA();
+        sorter.setOutA();
+        shooter.hoodMed();
         kick.retract();
 
 
@@ -42,18 +46,16 @@ public class BlueAutoTop extends LinearOpMode {
         robot.resetHeading();
 
         if(opModeIsActive() && !isStopRequested()){
-            robot.drive(76, 0.75, 0.25);
-            robot.turnTo(120, 0.5   , 1.0);
+            shooter.MedOut();
+            robot.strafe(-50, 1.0, 0.0);
+            robot.turnTo(-25, 1.0, 0.25);
             if(ll.getId() == 23) {
-                robot.turnTo(-180, 0.5, 0.25);
                 PPG();
             }
             if (ll.getId() == 22) {
-                robot.turnTo(180, 0.5, 0.25);
                 PGP();
             }
             if(ll.getId() == 21) {
-                robot.turnTo(180, 0.5, 0.25);
                 GPP();
             }
             if(ll.getId() != 21 && ll.getId()!= 22 && ll.getId() != 23){
@@ -61,10 +63,7 @@ public class BlueAutoTop extends LinearOpMode {
             } else {
                 telemetry.addData("Tag", ll.getId());
             }
-            sleep(500);
             shooter.Stop();
-            robot.turnTo(-135,0.75,0.25);
-            robot.strafe(30, 0.75, 1.0);
             telemetry.update();
         }
 
@@ -74,23 +73,27 @@ public class BlueAutoTop extends LinearOpMode {
 
 
     public void PPG() {
-        shooter.MedOut();
-        sleep(1500);
-        sorter.setOutA();
-        sleep(1250);
+        robot.turnTo(60, 1.0, 0.0);
         kick.kick();
-        sleep(1250);
+        sleep(1000);
         kick.retract();
+        sleep(200);
         sorter.setOutB();
-        sleep(1250);
+        sleep(750);
         kick.kick();
-        sleep(1250);
+        sleep(1000);
         kick.retract();
+        sleep(200);
         sorter.setOutC();
-        sleep(1250);
+        sleep(750);
         kick.kick();
-        sleep(1250);
+        sleep(1000);
         kick.retract();
+        shooter.Stop();
+        sleep(500);
+        sorter.setIntakeA();
+        robot.turnTo(90, 1.0, 0.0);
+        robot.strafe(27, 1.0, 0.0);
     }
 
     public void GPP() {
@@ -132,4 +135,4 @@ public class BlueAutoTop extends LinearOpMode {
         sleep(1250);
         kick.retract();
     }
-}*/
+}
