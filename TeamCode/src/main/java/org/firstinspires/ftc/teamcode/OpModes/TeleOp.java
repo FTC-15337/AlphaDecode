@@ -1,12 +1,8 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
 
-import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
-import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 import org.firstinspires.ftc.teamcode.Mechanisms.IntakeConfig;
 import org.firstinspires.ftc.teamcode.Mechanisms.Led;
@@ -55,13 +51,13 @@ public class TeleOp extends LinearOpMode {
         }
 
         if(gamepad1.dpad_down) {
-            shooter.hoodZero();
+            shooter.hoodFar();
         }
         if(gamepad1.dpad_left) {
             shooter.hoodMed();
         }
         if(gamepad1.dpad_right) {
-            shooter.hoodMax();
+            shooter.hoodClose();
         }
     }
 
@@ -73,10 +69,14 @@ public class TeleOp extends LinearOpMode {
         }
 
         if(gamepad2.left_trigger >= 0.7) {
-            intake.IntakeMotorMax();
-            //telemetry.update();
+            Intake();
+            telemetry.update();
         } else {
             intake.IntakeMotorStop();
+        }
+
+        if(gamepad2.left_stick_button){
+
         }
 
         if(gamepad2.dpad_down) {
@@ -114,7 +114,6 @@ public class TeleOp extends LinearOpMode {
         }
 
         telemetry.addData("HOOD POS IS", shooter.returnVal());
-        telemetry.addData("HOOD POS IS" , shooter.returnVal());
         telemetry.update();
 
         if(gamepad2.left_bumper){
