@@ -35,7 +35,7 @@ public class RedAutoBack extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Initialize the robot hardware & Turn on telemetry
-        robot.initialize(true);
+        robot.initialize(false);
         ll.init(hardwareMap);
         sorter.init(hardwareMap);
         kick.init(hardwareMap);
@@ -46,13 +46,14 @@ public class RedAutoBack extends LinearOpMode {
         kick.retract();
         led.init(hardwareMap);
 
+        shooter.hoodClose();
 
         telemetry.addData(">", "Touch Play to run Auto");
         telemetry.update();
 
         sortingValues = new double[3][2];
 
-        shooter.hoodMed();
+        shooter.hoodFar();
 
         waitForStart();
         robot.resetHeading();
@@ -61,10 +62,8 @@ public class RedAutoBack extends LinearOpMode {
 
 
         if(opModeIsActive() && !isStopRequested()){
-            telemetry.addData("Hood Pos is:", shooter.returnVal());
-            led.startLed();
             robot.drive(6, 1.0, 0.0);
-            robot.turnTo(7, 1.0, 0.25);
+            //robot.turnTo(-7, 1.0, 0.25);
             if(ll.getId() == 23) {
                 PPG();
             }
@@ -76,10 +75,7 @@ public class RedAutoBack extends LinearOpMode {
             }
             if(ll.getId() != 21 && ll.getId()!= 22 && ll.getId() != 23){
                 telemetry.addLine("No Tag Detected");
-            } else {
-                telemetry.addData("Tag", ll.getId());
             }
-            sleep(500);
             shooter.Stop();
             telemetry.update();
         }
@@ -87,9 +83,9 @@ public class RedAutoBack extends LinearOpMode {
 
 
     public void PPG() {
-        robot.turnTo(-21, 1.0, 0.0);
         shooter.FarOut();
-        sleep(1700);
+        sleep(800);
+        robot.turnTo(-22, 1.0, 0.0);
         sorter.setOutA();
         sleep(750);
         kick.kick();
@@ -110,21 +106,20 @@ public class RedAutoBack extends LinearOpMode {
         shooter.Stop();
         sorter.setIntakeC();
         intake.IntakeMotorMax();
-        robot.drive(35, 0.5, 0.10);
+        robot.drive(36, 0.5, 0.10);
         robot.turnTo(-90, 1.0, 0.0);
-        robot.drive(15, 0.2, 0.10);
+        robot.drive(15.5, 0.2, 0.10);
         sorter.setIntakeB();
-        sleep(750);
-        robot.drive(7, 0.2, 0.25);
-        sleep(850);
+        sleep(200); //325
+        robot.drive(8, 0.2, 0.25);
+        sleep(200); //425
         sorter.setIntakeA();
         robot.drive(10, 0.2, 0.10);
+        shooter.FarOut();
         robot.drive(-30, 1.0, 0.0);
-        robot.turnTo(-21, 1.0, 0.0);
+        robot.turnTo(-22, 1.0, 0.0);
         robot.drive(-30, 1.0, 0.0);
         intake.IntakeMotorStop();
-        shooter.FarOut();
-        sleep(1700);
         sorter.setOutA();
         sleep(750);
         kick.kick();
@@ -144,168 +139,132 @@ public class RedAutoBack extends LinearOpMode {
         kick.retract();
         shooter.Stop();
         robot.drive(18, 1.0, 0.0);
-        robot.turnTo(-90, 0.75, 0.0);
+        robot.turnTo(-90, 1.0, 0.0);
+        sleep(500);
     }
 
     public void GPP() {
-        robot.drive(18, 0.75, 0.25);
-        sleep(500);
-        robot.turnTo(-30, 0.5, 0.25);
-        sleep(500);
         shooter.FarOut();
-        sleep(1500);
-        sorter.setOutA();
-        sleep(1250);
-        kick.kick();
-        sleep(1250);
-        kick.retract();
-        sorter.setOutB();
-        sleep(1250);
-        kick.kick();
-        sleep(1250);
-        kick.retract();
+        sleep(800);
+        robot.turnTo(-22, 1.0, 0.0);
         sorter.setOutC();
-        sleep(1250);
+        sleep(750);
         kick.kick();
-        sleep(1250);
+        sleep(1000);
         kick.retract();
-        robot.turnTo(30, 0.5, 0.25);
-        robot.drive(35.3,0.75, 0.25);
-        robot.turnTo(-90, 0.5, 0.25);
-        intake.IntakeMotorMax();
-        robot.drive(43, 0.3, 0.25);
+        sleep(200);
+        sorter.setOutB();
+        sleep(750);
+        kick.kick();
+        sleep(1000);
+        kick.retract();
+        sleep(200);
+        sorter.setOutA();
+        sleep(750);
+        kick.kick();
+        sleep(1000);
+        kick.retract();
+        shooter.Stop();
         sorter.setIntakeC();
-        robot.drive(7.5, 0.3, 0.25);
+        intake.IntakeMotorMax();
+        robot.drive(36, 0.5, 0.10);
+        robot.turnTo(-90, 1.0, 0.0);
+        robot.drive(15.5, 0.2, 0.10);
         sorter.setIntakeB();
-        robot.drive(7.5, 0.3, 0.25);
+        sleep(200); //325
+        robot.drive(8, 0.2, 0.25);
+        sleep(200); //425
         sorter.setIntakeA();
-        intake.IntakeMotorStop();
-        robot.drive(-57.5, 0.75, 0.25);
-        robot.turnTo(90, 0.5, 0.25);
-        robot.drive(-34.5, 0.75, 0.25);
-        robot.turnTo(30, 0.5, 0.25);
+        robot.drive(10, 0.2, 0.10);
         shooter.FarOut();
-        sleep(1500);
+        robot.drive(-30, 1.0, 0.0);
+        robot.turnTo(-22, 1.0, 0.0);
+        robot.drive(-30, 1.0, 0.0);
+        intake.IntakeMotorStop();
         sorter.setOutC();
-        sleep(1500);
+        sleep(750);
         kick.kick();
-        sleep(1500);
+        sleep(1000);
+        kick.retract();
+        sleep(200);
         sorter.setOutB();
-        sleep(1500);
+        sleep(750);
         kick.kick();
-        sleep(1500);
-        sleep(1500);
+        sleep(1000);
+        kick.retract();
+        sleep(200);
         sorter.setOutA();
-        sleep(1500);
+        sleep(750);
         kick.kick();
-        robot.drive(67.5,0.5, 0.25);
-        robot.turnTo(-90, 0.5, 0.25);
-        robot.drive(434, 0.75, 0.25);
+        sleep(1000);
+        kick.retract();
+        shooter.Stop();
+        robot.drive(18, 1.0, 0.0);
+        robot.turnTo(-90, 1.0, 0.0);
+        sleep(500);
     }
 
     public void PGP() {
-        robot.drive(18, 0.75, 0.25);
-        sleep(500);
-
-        robot.turnTo(-30, 0.5, 0.25);
-        sleep(500);
         shooter.FarOut();
-        sleep(1500);
+        sleep(800);
+        robot.turnTo(-22, 1.0, 0.0);
         sorter.setOutA();
-
-        sleep(1250);
+        sleep(750);
         kick.kick();
-        sleep(1250);
+        sleep(1000);
         kick.retract();
-        sorter.setOutB();
-        sleep(1250);
-        kick.kick();
-        sleep(1250);
-        kick.retract();
+        sleep(200);
         sorter.setOutC();
-        sleep(1250);
+        sleep(750);
         kick.kick();
-        sleep(1250);
+        sleep(1000);
         kick.retract();
-        robot.turnTo(30, 0.5, 0.25);
-        robot.drive(46, 0.5, 0.25);
-        robot.turnTo(30, 0.5, 0.25);
-        robot.drive(35.3, 0.75, 0.25);
-        robot.turnTo(-90, 0.5, 0.25);
-        intake.IntakeMotorMax();
-        robot.drive(43, 0.3, 0.25);
+        sleep(200);
+        sorter.setOutB();
+        sleep(750);
+        kick.kick();
+        sleep(1000);
+        kick.retract();
+        shooter.Stop();
         sorter.setIntakeC();
-        robot.drive(7.5, 0.3, 0.25);
-        sorter.setIntakeB();
-        robot.drive(7.5, 0.3, 0.25);
-        sorter.setIntakeA();
-        intake.IntakeMotorStop();
-        robot.drive(-57.5, 0.75, 0.25);
-        robot.turnTo(90, 0.5, 0.25);
-        robot.drive(-34.5, 0.75, 0.25);
-        robot.turnTo(30, 0.5, 0.25);
-        shooter.FarOut();
-        sleep(1500);
-        sorter.setOutA();
-        sleep(1500);
-        kick.kick();
-        sleep(1500);
-        sorter.setOutC();
-        sleep(1500);
-        kick.kick();
-        sleep(1500);
-        sleep(1500);
-        sorter.setOutB();
-        sleep(1500);
-        kick.kick();
-        robot.drive(67.5, 0.5, 0.25);
-        robot.turnTo(-90, 0.5, 0.25);
-        robot.drive(434, 0.75, 0.25);
-    }
-
-    public void Intake(){
-        sorter.setIntakeA();
         intake.IntakeMotorMax();
-        SortingWithColor.DetectedColor detectedColor = colorSensor.getDetectedColor(telemetry);
-        servoValue = sorter.GetServoPos();
-        telemetry.addData("Detected Color ", detectedColor);
-        telemetry.addData("Servo Value ", servoValue);
-        if (Math.abs(servoValue - 0.03) < 0.005) {
-            sortingValues[0][0] = detectedColor.getCode();
-            sortingValues[0][1] = Constants.sorterOutTakeA;
-
-        } else if (Math.abs(servoValue - 0.105) < 0.005) {
-            sortingValues[1][0] = detectedColor.getCode();
-            sortingValues[1][1] = Constants.sorterOutTakeB;
-
-        } else if (Math.abs(servoValue - 0.17) < 0.005) {
-            sortingValues[2][0] = detectedColor.getCode();
-            sortingValues[2][1] = Constants.sorterOutTakeC;
-        }
+        robot.drive(36, 0.5, 0.10);
+        robot.turnTo(-90, 1.0, 0.0);
+        robot.drive(15.5, 0.2, 0.10);
+        sorter.setIntakeB();
+        sleep(200); //325
+        robot.drive(8, 0.2, 0.25);
+        sleep(200); //425
+        sorter.setIntakeA();
+        robot.drive(10, 0.2, 0.10);
+        shooter.FarOut();
+        robot.drive(-30, 1.0, 0.0);
+        robot.turnTo(-22, 1.0, 0.0);
+        robot.drive(-30, 1.0, 0.0);
+        intake.IntakeMotorStop();
+        sorter.setOutA();
+        sleep(750);
+        kick.kick();
+        sleep(1000);
+        kick.retract();
+        sleep(200);
+        sorter.setOutC();
+        sleep(750);
+        kick.kick();
+        sleep(1000);
+        kick.retract();
+        sleep(200);
+        sorter.setOutB();
+        sleep(750);
+        kick.kick();
+        sleep(1000);
+        kick.retract();
+        shooter.Stop();
+        robot.drive(18, 1.0, 0.0);
+        robot.turnTo(-90, 1.0, 0.0);
+        sleep(500);
     }
 
-    public void OuttakeColor(int targetColor) {
-        for (int index = 0; index < 3; index++) {
-
-            double storedColor = sortingValues[index][0];
-            double outPos = sortingValues[index][1];
-
-            if (storedColor == targetColor) {
-
-                sorter.setServo(outPos);
-
-                sleep(700);
-                kick.kick();
-                sleep(1000);
-                kick.retract();
-
-                sortingValues[index][0] = 0;
-                sortingValues[index][1] = 0;
-
-                return;
-            }
-        }
-    }
 
     /*robot.drive(18, 0.75, 0.0);
         //sleep(500);

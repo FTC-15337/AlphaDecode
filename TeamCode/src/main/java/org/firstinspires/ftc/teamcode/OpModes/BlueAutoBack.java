@@ -265,50 +265,6 @@ public class BlueAutoBack extends LinearOpMode {
         sleep(500);
     }
 
-    public void Intake(){
-        sorter.setIntakeA();
-        intake.IntakeMotorMax();
-        SortingWithColor.DetectedColor detectedColor = colorSensor.getDetectedColor(telemetry);
-        servoValue = sorter.GetServoPos();
-        telemetry.addData("Detected Color ", detectedColor);
-        telemetry.addData("Servo Value ", servoValue);
-        if (Math.abs(servoValue - 0.03) < 0.005) {
-            sortingValues[0][0] = detectedColor.getCode();
-            sortingValues[0][1] = Constants.sorterOutTakeA;
-
-        } else if (Math.abs(servoValue - 0.105) < 0.005) {
-            sortingValues[1][0] = detectedColor.getCode();
-            sortingValues[1][1] = Constants.sorterOutTakeB;
-
-        } else if (Math.abs(servoValue - 0.17) < 0.005) {
-            sortingValues[2][0] = detectedColor.getCode();
-            sortingValues[2][1] = Constants.sorterOutTakeC;
-        }
-    }
-
-    public void OuttakeColor(int targetColor) {
-        for (int index = 0; index < 3; index++) {
-
-            double storedColor = sortingValues[index][0];
-            double outPos = sortingValues[index][1];
-
-            if (storedColor == targetColor) {
-
-                sorter.setServo(outPos);
-
-                sleep(700);
-                kick.kick();
-                sleep(1000);
-                kick.retract();
-
-                sortingValues[index][0] = 0;
-                sortingValues[index][1] = 0;
-
-                return;
-            }
-        }
-    }
-
     /*robot.drive(18, 0.75, 0.0);
         //sleep(500);
 
