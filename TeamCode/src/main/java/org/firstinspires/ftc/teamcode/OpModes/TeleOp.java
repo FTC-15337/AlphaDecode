@@ -156,7 +156,7 @@ public class TeleOp extends LinearOpMode {
 //                kick.kick();
 //                sleep(1000);
 //                kick.retract();
-                telemetry.addLine("Clearing our value");
+//                telemetry.addLine("Clearing out value");
                 telemetry.update();
 
                 sortingValues[index][0] = 0;
