@@ -59,6 +59,9 @@ public class TeleOp extends LinearOpMode {
         if(gamepad1.dpad_right) {
             shooter.hoodClose();
         }
+        if(gamepad1.dpad_up) {
+            shooter.hoodZero();
+        }
     }
 
     public void setOperator(){
@@ -112,10 +115,6 @@ public class TeleOp extends LinearOpMode {
         if (gamepad2.right_stick_button) {
             shooter.hoodMed();
         }
-
-        telemetry.addData("HOOD POS IS", shooter.returnVal());
-        telemetry.update();
-
         if(gamepad2.left_bumper){
             outtakeColor(2);
         }else if(gamepad2.right_bumper){
@@ -153,10 +152,12 @@ public class TeleOp extends LinearOpMode {
 
                 sorter.setServo(outPos);
 
-                sleep(700);
-                kick.kick();
-                sleep(1000);
-                kick.retract();
+                  sleep(700);
+//                kick.kick();
+//                sleep(1000);
+//                kick.retract();
+                telemetry.addLine("Clearing our value");
+                telemetry.update();
 
                 sortingValues[index][0] = 0;
                 sortingValues[index][1] = 0;
@@ -179,6 +180,7 @@ public class TeleOp extends LinearOpMode {
         limelight.init(hardwareMap);
 
         kick.retract();
+        shooter.hoodZero();
         drive.imu.resetYaw();
 
         sorter.resetToIntake();
@@ -192,7 +194,6 @@ public class TeleOp extends LinearOpMode {
             //limelight.TargetArea();
             setDriver();
             setOperator();
-            telemetry.addData("Hood Pos", shooter.returnVal());
 
             telemetry.update();
         }
