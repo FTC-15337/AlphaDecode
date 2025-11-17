@@ -260,43 +260,6 @@ public class RedAutoBack extends LinearOpMode {
         robot.turnTo(-90, 1.0, 0.0);
         sleep(500);
     }
-
-
-    /*robot.drive(18, 0.75, 0.0);
-        //sleep(500);
-
-        robot.turnTo(-27, 0.75, 0.25);
-        //sleep(500);
-        shooter.FarOut();
-        sleep(500);
-        sorter.setOutA();
-        sleep(1250);
-        kick.kick();
-        sleep(1500);
-        kick.retract();
-        sorter.setOutB();
-        sleep(1250);
-        kick.kick();
-        sleep(1250);
-        kick.retract();
-        sorter.setOutC();
-        sleep(1250);
-        kick.kick();
-        sleep(1250);
-        kick.retract();
-        shooter.Stop();
-        robot.drive(20, 0.75, 0.0);
-        robot.turnTo(-90, 0.75, 0.10);
-        Intake.IntakeMotorMax();
-        sorter.setIntakeC();
-        robot.drive(27, 0.5, 0.10);
-        sorter.setIntakeB();
-        robot.drive(10, 0.2, 0.25);
-        sorter.setIntakeA();
-        robot.drive(10, 0.2, 0.25);
-        robot.drive(-36, 0.5, 0.0);
-        robot.turnTo(15, 0.75, 0.0);
-        robot.drive(-20, 0.75, 0.25);*/
 }
 
 
