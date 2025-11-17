@@ -198,18 +198,14 @@ public class AutoConfig{
             myOpMode.telemetry.addData("Distance Travled", driveDistance);
             // Time to exit?
             if (driveController.inPosition() && yawController.inPosition()) {
-                myOpMode.telemetry.addLine("IN IF");
                 if (holdTimer.time() > holdTime) {
-                    myOpMode.telemetry.addLine("IN IF SHOULD STOP");
                     break;   // Exit loop if we are in position, and have been there long enough.
                 }
             } else {
-                myOpMode.telemetry.addLine("IN IF GOING TO ELSE");
                 holdTimer.reset();
             }
             myOpMode.sleep(10);
         }
-        myOpMode.telemetry.addLine("BEFORE STOP");
         stopRobot();
     }
 
@@ -234,19 +230,14 @@ public class AutoConfig{
 
             // Time to exit?
             if (strafeController.inPosition() && yawController.inPosition()) {
-                myOpMode.telemetry.addLine("IN IF");
-
                 if (holdTimer.time() > holdTime) {
-                    myOpMode.telemetry.addLine("IN IF SHOULD STOP");
                     break;   // Exit loop if we are in position, and have been there long enough.
                 }
             } else {
-                myOpMode.telemetry.addLine("IN IF GOING TO ELSE");
                 holdTimer.reset();
             }
             myOpMode.sleep(10);
         }
-        myOpMode.telemetry.addLine("BEFORE STOP");
         stopRobot();
     }
 

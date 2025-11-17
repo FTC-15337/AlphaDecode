@@ -26,7 +26,7 @@ public class BlueAutoTop extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Initialize the robot hardware & Turn on telemetry
-        robot.initialize(true);
+        robot.initialize(false);
         ll.init(hardwareMap);
         sorter.init(hardwareMap);
         kick.init(hardwareMap);
@@ -45,94 +45,171 @@ public class BlueAutoTop extends LinearOpMode {
         waitForStart();
         robot.resetHeading();
 
-        if(opModeIsActive() && !isStopRequested()){
+        if (opModeIsActive() && !isStopRequested()) {
             shooter.MedOut();
-            robot.strafe(-50, 1.0, 0.0);
-            robot.turnTo(-25, 1.0, 0.25);
-            if(ll.getId() == 23) {
+            robot.drive(-78, 0.5, 0.0);
+            robot.turnTo(-57,1.0,0.25);
+            if(ll.getId() == 23){
+                robot.turnTo(-1,1.0,0.0);
                 PPG();
             }
-            if (ll.getId() == 22) {
+            if(ll.getId() == 22){
+                robot.turnTo(-1,1.0,0.25);
                 PGP();
             }
-            if(ll.getId() == 21) {
+            if(ll.getId() == 21){
+                robot.turnTo(-1,1.0,0.25);
                 GPP();
             }
-            if(ll.getId() != 21 && ll.getId()!= 22 && ll.getId() != 23){
-                telemetry.addLine("No Tag Detected");
-            } else {
-                telemetry.addData("Tag", ll.getId());
-            }
-            shooter.Stop();
-            telemetry.update();
         }
-
-
-
     }
 
-
-    public void PPG() {
-        robot.turnTo(60, 1.0, 0.0);
+    public void PPG(){
         kick.kick();
-        sleep(1000);
+        sleep(1100);
         kick.retract();
         sleep(200);
         sorter.setOutB();
         sleep(750);
         kick.kick();
-        sleep(1000);
+        sleep(1100);
         kick.retract();
         sleep(200);
         sorter.setOutC();
         sleep(750);
         kick.kick();
-        sleep(1000);
+        sleep(1100);
+        kick.retract();
+        sleep(500);
+        robot.turnTo(45, 1.0, 0.05);
+        sorter.setIntakeA();
+        intake.IntakeMotorMax();
+        robot.drive(32, 0.2, 0.10);
+        sorter.setIntakeB();
+        sleep(200);
+        robot.drive(6, 0.2, 0.25);
+        sleep(200);
+        sorter.setIntakeC();
+        robot.drive(11, 0.2, 0.25);
+        robot.drive(-45, 0.5, 0.25);
+        sorter.setOutA();
+        robot.turnTo(-1, 1.0, 0.0);
+        kick.kick();
+        sleep(1100);
+        kick.retract();
+        sleep(200);
+        sorter.setOutB();
+        sleep(750);
+        kick.kick();
+        sleep(1100);
+        kick.retract();
+        sleep(200);
+        sorter.setOutC();
+        sleep(750);
+        kick.kick();
+        sleep(1100);
         kick.retract();
         shooter.Stop();
+        robot.turnTo(45, 1.0, 0.0);
+        robot.drive(25, 1.0, 0.0);
+    }
+    public void PGP() {;
+        kick.kick();
+        sleep(1100);
+        kick.retract();
+        sleep(200);
+        sorter.setOutC();
+        sleep(750);
+        kick.kick();
+        sleep(1100);
+        kick.retract();
+        sleep(200);
+        sorter.setOutB();
+        sleep(750);
+        kick.kick();
+        sleep(1100);
+        kick.retract();
         sleep(500);
+        robot.turnTo(45, 1.0, 0.05);
         sorter.setIntakeA();
-        robot.turnTo(90, 1.0, 0.0);
-        robot.strafe(27, 1.0, 0.0);
+        intake.IntakeMotorMax();
+        robot.drive(32, 0.2, 0.10);
+        sorter.setIntakeB();
+        sleep(200);
+        robot.drive(6, 0.2, 0.25);
+        sleep(200);
+        sorter.setIntakeC();
+        robot.drive(11, 0.2, 0.25);
+        robot.drive(-45, 0.5, 0.25);
+        sorter.setOutA();
+        robot.turnTo(-1, 1.0, 0.0);
+        kick.kick();
+        sleep(1100);
+        kick.retract();
+        sleep(200);
+        sorter.setOutC();
+        sleep(750);
+        kick.kick();
+        sleep(1100);
+        kick.retract();
+        sleep(200);
+        sorter.setOutB();
+        sleep(750);
+        kick.kick();
+        sleep(1100);
+        kick.retract();
+        shooter.Stop();
+        robot.turnTo(45, 1.0, 0.0);
+        robot.drive(25, 1.0, 0.0);
     }
-
     public void GPP() {
-        shooter.MedOut();
-        sleep(1500);
         sorter.setOutC();
-        sleep(1250);
         kick.kick();
-        sleep(1250);
+        sleep(1100);
         kick.retract();
+        sleep(200);
         sorter.setOutB();
-        sleep(1250);
+        sleep(750);
         kick.kick();
-        sleep(1250);
+        sleep(1100);
         kick.retract();
+        sleep(200);
         sorter.setOutA();
-        sleep(1250);
+        sleep(750);
         kick.kick();
-        sleep(1250);
+        sleep(1100);
         kick.retract();
-    }
-
-    public void PGP() {
-        shooter.MedOut();
-        sleep(1500);
-        sorter.setOutA();
-        sleep(1250);
-        kick.kick();
-        sleep(1250);
-        kick.retract();
+        sleep(500);
+        robot.turnTo(45, 1.0, 0.05);
+        sorter.setIntakeA();
+        intake.IntakeMotorMax();
+        robot.drive(32, 0.2, 0.10);
+        sorter.setIntakeB();
+        sleep(200);
+        robot.drive(6, 0.2, 0.25);
+        sleep(200);
+        sorter.setIntakeC();
+        robot.drive(11, 0.2, 0.25);
+        robot.drive(-45, 0.5, 0.25);
         sorter.setOutC();
-        sleep(1250);
+        robot.turnTo(-1, 1.0, 0.0);
         kick.kick();
-        sleep(1250);
+        sleep(1100);
         kick.retract();
+        sleep(200);
         sorter.setOutB();
-        sleep(1250);
+        sleep(750);
         kick.kick();
-        sleep(1250);
+        sleep(1100);
         kick.retract();
+        sleep(200);
+        sorter.setOutA();
+        sleep(750);
+        kick.kick();
+        sleep(1100);
+        kick.retract();
+        shooter.Stop();
+        robot.turnTo(45, 1.0, 0.0);
+        robot.drive(25, 1.0, 0.0);
     }
 }
