@@ -42,24 +42,21 @@ public class TeleOp extends LinearOpMode {
         }
         if(gamepad1.a) {
             shooter.MedOut();
+            shooter.hoodMed();
         } else if(gamepad1.b) {
             shooter.FarOut();
-        } else if (gamepad1.left_trigger >= 0.7) {
+            shooter.hoodFar();
+        } else if (gamepad1.x) {
+            shooter.CloseOut();
+            shooter.hoodClose();
+        } else if(gamepad1.left_trigger >= 0.7){
             shooter.HPIn();
+            shooter.hoodClose();
         } else {
             shooter.Stop();
         }
 
-        if(gamepad1.dpad_down) {
-            shooter.hoodFar();
-        }
-        if(gamepad1.dpad_left) {
-            shooter.hoodMed();
-        }
-        if(gamepad1.dpad_right) {
-            shooter.hoodClose();
-        }
-        if(gamepad1.dpad_up) {
+        if(gamepad1.dpad_up){
             shooter.hoodZero();
         }
     }
@@ -76,10 +73,6 @@ public class TeleOp extends LinearOpMode {
             telemetry.update();
         } else {
             intake.IntakeMotorStop();
-        }
-
-        if(gamepad2.left_stick_button){
-
         }
 
         if(gamepad2.dpad_down) {
@@ -152,7 +145,7 @@ public class TeleOp extends LinearOpMode {
 
                 sorter.setServo(outPos);
 
-                  sleep(700);
+                sleep(100);
 //                kick.kick();
 //                sleep(1000);
 //                kick.retract();
