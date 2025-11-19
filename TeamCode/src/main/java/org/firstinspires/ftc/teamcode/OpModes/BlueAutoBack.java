@@ -143,7 +143,7 @@ public class BlueAutoBack extends LinearOpMode {
     public void GPP() {
         shooter.FarOut();
         sleep(800);
-        robot.turnTo(22, 1.0, 0.25);
+        robot.turnTo(22, 1.0, 0.75);
         sorter.setOutC();
         sleep(750);
         kick.kick();
