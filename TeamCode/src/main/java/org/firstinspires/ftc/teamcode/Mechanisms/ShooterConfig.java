@@ -25,7 +25,7 @@ public class ShooterConfig {
         shooter.setVelocity(-280);
     }
     public void Stop() {shooter.setVelocity(0);}
-    public void hoodFar(){hood.setPosition(0.515);}
+    public void hoodFar(){hood.setPosition(0.5);}
     public void hoodMed(){hood.setPosition(0.64);}
     public void hoodClose(){hood.setPosition(0.76);}
     public void hoodZero(){hood.setPosition(0.0);}
