@@ -46,14 +46,12 @@ public class BlueAutoBack extends LinearOpMode {
         kick.retract();
         led.init(hardwareMap);
 
-        shooter.hoodClose();
-
         telemetry.addData(">", "Touch Play to run Auto");
         telemetry.update();
 
         sortingValues = new double[3][2];
 
-        shooter.hoodFar();
+        shooter.hoodAutoFar();
 
         waitForStart();
         robot.resetHeading();
@@ -142,14 +140,14 @@ public class BlueAutoBack extends LinearOpMode {
 
     public void GPP() {
         shooter.FarOut();
-        sleep(800);
-        robot.turnTo(22, 1.0, 0.75);
+        robot.turnTo(22, 1.0, 2.0);
         sorter.setOutC();
         sleep(750);
         kick.kick();
         sleep(1000);
         kick.retract();
         sleep(200);
+        shooter.hoodFar();
         sorter.setOutB();
         sleep(750);
         kick.kick();
@@ -157,11 +155,10 @@ public class BlueAutoBack extends LinearOpMode {
         kick.retract();
         sleep(200);
         sorter.setOutA();
-        sleep(750);
+        sleep(800);
         kick.kick();
         sleep(1000);
         kick.retract();
-        shooter.Stop();
         sorter.setIntakeC();
         intake.IntakeMotorMax();
         robot.drive(36, 0.5, 0.10);
@@ -173,13 +170,12 @@ public class BlueAutoBack extends LinearOpMode {
         sleep(200); //425
         sorter.setIntakeA();
         robot.drive(10, 0.2, 0.10);
-        shooter.FarOut();
         robot.drive(-30, 1.0, 0.0);
         robot.turnTo(23, 1.0, 0.0);
-        robot.drive(-30, 1.0, 0.0);
+        robot.drive(-32, 1.0, 0.0);
         intake.IntakeMotorStop();
         sorter.setOutC();
-        sleep(750);
+        sleep(800);
         kick.kick();
         sleep(1000);
         kick.retract();
