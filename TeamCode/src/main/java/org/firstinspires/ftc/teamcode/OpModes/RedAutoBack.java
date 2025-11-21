@@ -229,7 +229,7 @@ public class RedAutoBack extends LinearOpMode {
         robot.drive(10, 0.2, 0.10);
         robot.drive(-30, 1.0, 0.0);
         robot.turnTo(-23, 1.0, 0.0);
-        robot.drive(-32, 1.0, 0.0);
+        robot.drive(-33, 1.0, 0.0);
         intake.IntakeMotorStop();
         sorter.setOutA();
         sleep(800);

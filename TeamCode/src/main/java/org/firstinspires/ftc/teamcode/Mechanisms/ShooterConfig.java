@@ -19,8 +19,8 @@ public class ShooterConfig {
         hood = hwMap.get(Servo.class , "hood");
     }
     public void FarOut() {shooter.setVelocity(1700);}
-    public void MedOut() {shooter.setVelocity(1375);}
-    public void CloseOut(){shooter.setVelocity(1250);}
+    public void MedOut() {shooter.setVelocity(1300);}
+    public void CloseOut(){shooter.setVelocity(1150);}
     public void HPIn(){
         shooter.setVelocity(-280);
     }
