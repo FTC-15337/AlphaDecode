@@ -47,18 +47,18 @@ public class RedAutoTop extends LinearOpMode {
 
         if (opModeIsActive() && !isStopRequested()) {
             shooter.MedOut();
-            robot.drive(-78, 0.5, 0.0);
+            robot.drive(-76, 0.5, 0.0);
             robot.turnTo(57,1.0,0.25);
             if(ll.getId() == 23){
-                robot.turnTo(1,1.0,0.0);
+                robot.turnTo(5,1.0,0.0);
                 PPG();
             }
             if(ll.getId() == 22){
-                robot.turnTo(1,1.0,0.25);
+                robot.turnTo(5,1.0,0.25);
                 PGP();
             }
             if(ll.getId() == 21){
-                robot.turnTo(1,1.0,0.25);
+                robot.turnTo(5,1.0,0.25);
                 GPP();
             }
         }
@@ -87,11 +87,12 @@ public class RedAutoTop extends LinearOpMode {
         robot.drive(32, 0.2, 0.10);
         sorter.setIntakeB();
         sleep(200);
-        robot.drive(6, 0.2, 0.25);
+        robot.drive(7, 0.2, 0.25);
         sleep(200);
         sorter.setIntakeC();
+        sleep(200);
         robot.drive(11, 0.2, 0.25);
-        robot.drive(-45, 0.5, 0.25);
+        robot.drive(-45, 0.5, 0.0);
         sorter.setOutA();
         robot.turnTo(1, 1.0, 0.0);
         kick.kick();
@@ -110,6 +111,7 @@ public class RedAutoTop extends LinearOpMode {
         sleep(1100);
         kick.retract();
         shooter.Stop();
+        intake.IntakeMotorStop();
         robot.turnTo(-45, 1.0, 0.0);
         robot.drive(25, 1.0, 0.0);
     }
@@ -139,6 +141,7 @@ public class RedAutoTop extends LinearOpMode {
         robot.drive(6, 0.2, 0.25);
         sleep(200);
         sorter.setIntakeC();
+        sleep(200);
         robot.drive(11, 0.2, 0.25);
         robot.drive(-45, 0.5, 0.25);
         sorter.setOutA();
@@ -189,6 +192,7 @@ public class RedAutoTop extends LinearOpMode {
         robot.drive(6, 0.2, 0.25);
         sleep(200);
         sorter.setIntakeC();
+        sleep(200);
         robot.drive(11, 0.2, 0.25);
         robot.drive(-45, 0.5, 0.25);
         sorter.setOutC();

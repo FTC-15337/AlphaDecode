@@ -58,6 +58,8 @@ public class TeleOp extends LinearOpMode {
 
         if(gamepad1.dpad_up){
             shooter.hoodZero();
+        } else if(gamepad1.dpad_down){
+            drive.imu.resetYaw();
         }
     }
 
