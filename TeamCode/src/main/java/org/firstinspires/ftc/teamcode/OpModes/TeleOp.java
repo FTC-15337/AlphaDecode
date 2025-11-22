@@ -36,7 +36,7 @@ public class TeleOp extends LinearOpMode {
         rotate = gamepad1.right_stick_x;
         drive.driveFieldRelative(forward, strafe, rotate);
 
-        if(gamepad1.right_trigger == 1.0) {
+        if(gamepad1.right_trigger >= 0.8) {
             Constants.driveMaxSpeed = 0.3;
         } else {
             Constants.driveMaxSpeed = 1.0;
@@ -71,7 +71,9 @@ public class TeleOp extends LinearOpMode {
     public void setOperator(){
         if(gamepad2.y && shooter.velocityValue() >= velocity - 100 && shooter.velocityValue() <= velocity + 100){
             kick.kick();
-        }else{
+        } else if(gamepad2.right_trigger >= 0.7 && gamepad2.y){
+            kick.kick();
+        } else {
             kick.retract();
         }
 
