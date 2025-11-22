@@ -47,7 +47,7 @@ public class RedAutoTop extends LinearOpMode {
 
         if (opModeIsActive() && !isStopRequested()) {
             shooter.MedOut();
-            robot.drive(-76, 0.5, 0.0);
+            robot.drive(-78, 0.5, 0.0);
             robot.turnTo(57,1.0,0.25);
             if(ll.getId() == 23){
                 robot.turnTo(5,1.0,0.0);
@@ -87,7 +87,7 @@ public class RedAutoTop extends LinearOpMode {
         robot.drive(32, 0.2, 0.10);
         sorter.setIntakeB();
         sleep(200);
-        robot.drive(7, 0.2, 0.25);
+        robot.drive(9, 0.2, 0.25);
         sleep(200);
         sorter.setIntakeC();
         sleep(200);
@@ -138,7 +138,7 @@ public class RedAutoTop extends LinearOpMode {
         robot.drive(32, 0.2, 0.10);
         sorter.setIntakeB();
         sleep(200);
-        robot.drive(6, 0.2, 0.25);
+        robot.drive(9, 0.2, 0.25);
         sleep(200);
         sorter.setIntakeC();
         sleep(200);
@@ -189,7 +189,7 @@ public class RedAutoTop extends LinearOpMode {
         robot.drive(32, 0.2, 0.10);
         sorter.setIntakeB();
         sleep(200);
-        robot.drive(6, 0.2, 0.25);
+        robot.drive(9, 0.2, 0.25);
         sleep(200);
         sorter.setIntakeC();
         sleep(200);
