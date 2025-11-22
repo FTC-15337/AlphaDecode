@@ -111,7 +111,7 @@ public class BlueAutoBack extends LinearOpMode {
         sorter.setIntakeA();
         robot.drive(10, 0.2, 0.10);
         robot.drive(-30, 1.0, 0.0);
-        robot.turnTo(23, 1.0, 0.0);
+        robot.turnTo(22, 1.0, 0.0);
         robot.drive(-32, 1.0, 0.0);
         intake.IntakeMotorStop();
         sorter.setOutA();
@@ -170,7 +170,7 @@ public class BlueAutoBack extends LinearOpMode {
         sorter.setIntakeA();
         robot.drive(10, 0.2, 0.10);
         robot.drive(-30, 1.0, 0.0);
-        robot.turnTo(23, 1.0, 0.0);
+        robot.turnTo(22, 1.0, 0.0);
         robot.drive(-32, 1.0, 0.0);
         intake.IntakeMotorStop();
         sorter.setOutC();
@@ -228,7 +228,7 @@ public class BlueAutoBack extends LinearOpMode {
         sorter.setIntakeA();
         robot.drive(10, 0.2, 0.10);
         robot.drive(-30, 1.0, 0.0);
-        robot.turnTo(23, 1.0, 0.0);
+        robot.turnTo(22, 1.0, 0.0);
         robot.drive(-32, 1.0, 0.0);
         intake.IntakeMotorStop();
         sorter.setOutA();
