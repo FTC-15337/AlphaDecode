@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 public class BlueAutoTop extends LinearOpMode {
     //input: strafe + is left //turn + is left
     //input: strafe - is right //turn - is right
+    //push
     private AutoConfig robot = new AutoConfig(this);
     private LimelightConfig ll = new LimelightConfig();
     private ShooterConfig shooter = new ShooterConfig();

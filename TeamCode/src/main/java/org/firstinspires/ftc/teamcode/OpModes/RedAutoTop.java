@@ -26,6 +26,7 @@ public class RedAutoTop extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Initialize the robot hardware & Turn on telemetry
+        //push
         robot.initialize(false);
         ll.init(hardwareMap);
         sorter.init(hardwareMap);
