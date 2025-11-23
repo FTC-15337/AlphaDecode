@@ -44,7 +44,7 @@ public class TeleOp extends LinearOpMode {
         if(gamepad1.a) {
             shooter.MedOut();
             shooter.hoodMed();
-            velocity = 1300;
+            velocity = 1400;
         } else if(gamepad1.b) {
             shooter.FarOut();
             shooter.hoodFar();
@@ -69,7 +69,7 @@ public class TeleOp extends LinearOpMode {
     }
 
     public void setOperator(){
-        if(gamepad2.y && shooter.velocityValue() >= velocity - 100 && shooter.velocityValue() <= velocity + 100){
+        if(gamepad2.y && shooter.velocityValue() >= velocity - 75 && shooter.velocityValue() <= velocity + 75){
             kick.kick();
         } else if(gamepad2.right_trigger >= 0.7 && gamepad2.y){
             kick.kick();
@@ -181,11 +181,7 @@ public class TeleOp extends LinearOpMode {
         led.init(hardwareMap);
         limelight.init(hardwareMap);
 
-        kick.retract();
-        shooter.hoodZero();
         drive.imu.resetYaw();
-
-        sorter.resetToIntake();
 
         sortingValues = new double[3][2];
 
