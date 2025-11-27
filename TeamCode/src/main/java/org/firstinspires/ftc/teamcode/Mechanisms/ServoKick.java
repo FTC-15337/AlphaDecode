@@ -11,22 +11,17 @@ import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 
 public class ServoKick {
     Servo kick;
-    CRServo servoWheel;
 
     public void init(HardwareMap hwMap){
-        kick = hwMap.get(Servo.class , "kick");
-        servoWheel = hwMap.get(CRServo.class, "wheel");
+        kick = hwMap.get(Servo.class, "kick2");
         kick.setPosition(Constants.retract);
     }
 
     public void kick(){
-        servoWheel.setPower(-1.0);
         kick.setPosition(Constants.kick);
     }
 
     public void retract(){
         kick.setPosition(Constants.retract);
-        servoWheel.setPower(0);
     }
-
 }

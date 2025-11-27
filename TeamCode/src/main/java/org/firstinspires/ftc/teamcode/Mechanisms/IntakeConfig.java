@@ -21,7 +21,7 @@ public class IntakeConfig {
         intakeMotorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         intakeMotorRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        intakeMotorLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        intakeMotorLeft.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     public void IntakeMotorStop(){

@@ -114,13 +114,13 @@ public class TeleOp extends LinearOpMode {
             sorter.setOutC();
             //telemetry.update();
         }
-        if (gamepad2.right_stick_button) {
-            shooter.hoodMed();
-        }
         if(gamepad2.left_bumper){
             outtakeColor(2);
         }else if(gamepad2.right_bumper){
             outtakeColor(1);
+        }
+        if(gamepad2.left_trigger >= 0.7){
+            sorter.setZero();
         }
     }
 
