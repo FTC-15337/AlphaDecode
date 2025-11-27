@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 
 public class ServoKick {
     Servo kick;
+    //push
 
     public void init(HardwareMap hwMap){
         kick = hwMap.get(Servo.class, "kick2");

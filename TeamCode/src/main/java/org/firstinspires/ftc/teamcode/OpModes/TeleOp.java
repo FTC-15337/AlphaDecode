@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp (name= "TeleOp")
 public class TeleOp extends LinearOpMode {
+    //push
     MecDrivebase drive = new MecDrivebase();
     StorageConfig sorter = new StorageConfig();
     SortingWithColor colorSensor = new SortingWithColor();
@@ -118,9 +119,6 @@ public class TeleOp extends LinearOpMode {
             outtakeColor(2);
         }else if(gamepad2.right_bumper){
             outtakeColor(1);
-        }
-        if(gamepad2.left_trigger >= 0.7){
-            sorter.setZero();
         }
     }
 
