@@ -79,7 +79,8 @@ public class TeleOp extends LinearOpMode {
         }
 
         if(gamepad2.left_trigger >= 0.7) {
-            Intake();
+            intake.IntakeMotorMax();
+            //Intake();
             telemetry.update();
         } else {
             intake.IntakeMotorStop();
