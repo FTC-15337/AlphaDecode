@@ -28,6 +28,7 @@ public class TeleOp extends LinearOpMode {
     double forward, strafe, rotate;
     double servoValue;
     static double[][] sortingValues;
+    static double[][] storedValues;
     double velocity;
 
     public void setDriver(){
@@ -73,8 +74,31 @@ public class TeleOp extends LinearOpMode {
         }
     }
 
+
+    public void autoKick(){
+        sorter.setOutA();
+        sleep(500);
+        kick.kick();
+        sleep(700);
+        kick.retract();
+        sleep(200);
+        sorter.setOutB();
+        sleep(500);
+        kick.kick();
+        sleep(700);
+        kick.retract();
+        sleep(200);
+        sorter.setOutC();
+        sleep(500);
+        kick.kick();
+        sleep(700);
+        kick.retract();
+    }
+
     public void setOperator(){
         if(gamepad2.y){
+            autoKick();
+        } else if(gamepad2.y && gamepad2.right_trigger > 0.5){
             kick.kick();
         } else {
             kick.retract();
@@ -82,7 +106,7 @@ public class TeleOp extends LinearOpMode {
 
         if(gamepad2.left_trigger >= 0.7) {
             intake.IntakeMotorMax();
-            //Intake();
+            intake();
             telemetry.update();
         } else {
             intake.IntakeMotorStop();
@@ -125,25 +149,76 @@ public class TeleOp extends LinearOpMode {
         }
     }
 
-    public void Intake(){
+
+    public void intake() {
         intake.IntakeMotorMax();
-        SortingWithColor.DetectedColor detectedColor = colorSensor.getDetectedColor(telemetry);
+
         servoValue = sorter.GetServoPos();
-        telemetry.addData("Detected Color ", detectedColor);
         telemetry.addData("Servo Value ", servoValue);
+
         if (Math.abs(servoValue - 0.03) < 0.005) {
-            sortingValues[0][0] = detectedColor.getCode();
             sortingValues[0][1] = Constants.sorterOutTakeA;
 
         } else if (Math.abs(servoValue - 0.105) < 0.005) {
-            sortingValues[1][0] = detectedColor.getCode();
             sortingValues[1][1] = Constants.sorterOutTakeB;
 
         } else if (Math.abs(servoValue - 0.17) < 0.005) {
-            sortingValues[2][0] = detectedColor.getCode();
             sortingValues[2][1] = Constants.sorterOutTakeC;
         }
     }
+
+
+//    public void Intake(){
+//        intake.IntakeMotorMax();
+//        SortingWithColor.DetectedColor detectedColor = colorSensor.getDetectedColor(telemetry);
+//        servoValue = sorter.GetServoPos();
+//        telemetry.addData("Detected Color ", detectedColor);
+//        telemetry.addData("Servo Value ", servoValue);
+//        if (Math.abs(servoValue - 0.03) < 0.005) {
+//            sortingValues[0][0] = detectedColor.getCode();
+//            sortingValues[0][1] = Constants.sorterOutTakeA;
+//
+//        } else if (Math.abs(servoValue - 0.105) < 0.005) {
+//            sortingValues[1][0] = detectedColor.getCode();
+//            sortingValues[1][1] = Constants.sorterOutTakeB;
+//
+//        } else if (Math.abs(servoValue - 0.17) < 0.005) {
+//            sortingValues[2][0] = detectedColor.getCode();
+//            sortingValues[2][1] = Constants.sorterOutTakeC;
+//        }
+//    }
+
+
+    public void outtakeAll() {
+        for (int index = 0; index < 3; index++) {
+
+            double outPos = sortingValues[index][1];
+
+            // If this slot has NOT been emptied
+            if (outPos != 0) {
+
+                // Move to the position
+                sorter.setServo(outPos);
+                sleep(100);
+
+                // Kick
+                kick.kick();
+                sleep(500);
+                kick.retract();
+
+                telemetry.addData("Outtaking slot", index);
+                telemetry.update();
+
+                // Clear this slot
+                sortingValues[index][0] = 0;
+                sortingValues[index][1] = 0;
+
+                // Move on to next filled slot on next call
+                return;
+            }
+        }
+    }
+
 
     public void outtakeColor(int targetColor) {
         for (int index = 0; index < 3; index++) {
