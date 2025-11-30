@@ -14,7 +14,7 @@ public class Constants {
     public static double intakeMax = 1.0;
     public static double intakeRev = -1.0;
     public static double kick = 0.0;
-    public static double retract = 0.1825;
+    public static double retract = 0.5;
 
     /*public static double outPos1 = 1.0;
     public static double outPos2 = 0.75; //med
