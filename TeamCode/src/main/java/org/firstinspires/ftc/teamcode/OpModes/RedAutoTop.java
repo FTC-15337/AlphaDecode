@@ -13,8 +13,6 @@ import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
 @Autonomous(name = "RED AUTO TOP")
 public class RedAutoTop extends LinearOpMode {
-    //input: strafe + is left //turn + is left
-    //input: strafe - is right //turn - is right
     private AutoConfig robot = new AutoConfig(this);
     private LimelightConfig ll = new LimelightConfig();
     private ShooterConfig shooter = new ShooterConfig();
@@ -25,8 +23,6 @@ public class RedAutoTop extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        // Initialize the robot hardware & Turn on telemetry
-        //push
         robot.initialize(false);
         ll.init(hardwareMap);
         sorter.init(hardwareMap);
