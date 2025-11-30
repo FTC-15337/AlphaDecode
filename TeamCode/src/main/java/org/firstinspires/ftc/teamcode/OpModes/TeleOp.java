@@ -74,33 +74,23 @@ public class TeleOp extends LinearOpMode {
         }
     }
 
-
-    public void autoKick(){
-        sorter.setOutA();
-        sleep(500);
-        kick.kick();
-        sleep(700);
-        kick.retract();
-        sleep(200);
-        sorter.setOutB();
-        sleep(500);
-        kick.kick();
-        sleep(700);
-        kick.retract();
-        sleep(200);
-        sorter.setOutC();
-        sleep(500);
-        kick.kick();
-        sleep(700);
-        kick.retract();
-    }
-
     public void setOperator(){
         if(gamepad2.y){
-            autoKick();
-        } else if(gamepad2.y && gamepad2.right_trigger > 0.5){
+            sorter.setOutA();
+            sleep(200);
             kick.kick();
-        } else {
+            sleep(500);
+            kick.retract();
+            sorter.setOutC();
+            sleep(200);
+            kick.kick();
+            sleep(500);
+            kick.retract();
+            sorter.setOutB();
+            sleep(200);
+        } else if(gamepad2.y && gamepad2.right_trigger > 0.5) {
+            kick.kick();
+        }else{
             kick.retract();
         }
 
