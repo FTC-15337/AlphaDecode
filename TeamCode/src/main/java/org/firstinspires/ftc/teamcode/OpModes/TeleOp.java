@@ -96,7 +96,7 @@ public class TeleOp extends LinearOpMode {
 
         if(gamepad2.left_trigger >= 0.7) {
             intake.IntakeMotorMax();
-            intake();
+//            intake();
             telemetry.update();
         } else {
             intake.IntakeMotorStop();
@@ -132,32 +132,32 @@ public class TeleOp extends LinearOpMode {
             sorter.setOutC();
             //telemetry.update();
         }
-        if(gamepad2.left_bumper){
-            outtakeColor(2);
-        }else if(gamepad2.right_bumper){
-            outtakeColor(1);
-        }
+//        if(gamepad2.left_bumper){
+//            outtakeColor(2);
+//        }else if(gamepad2.right_bumper){
+//            outtakeColor(1);
+//        }
     }
 
 
-    public void intake() {
-        intake.IntakeMotorMax();
-
-        servoValue = sorter.GetServoPos();
-        telemetry.addData("Servo Value ", servoValue);
-
-        if (Math.abs(servoValue - 0.03) < 0.005) {
-            sortingValues[0][1] = Constants.sorterOutTakeA;
-
-        } else if (Math.abs(servoValue - 0.105) < 0.005) {
-            sortingValues[1][1] = Constants.sorterOutTakeB;
-
-        } else if (Math.abs(servoValue - 0.17) < 0.005) {
-            sortingValues[2][1] = Constants.sorterOutTakeC;
-        }
-    }
-
-
+//    public void intake() {
+//        intake.IntakeMotorMax();
+//
+//        servoValue = sorter.GetServoPos();
+//        telemetry.addData("Servo Value ", servoValue);
+//
+//        if (Math.abs(servoValue - 0.03) < 0.005) {
+//            sortingValues[0][1] = Constants.sorterOutTakeA;
+//
+//        } else if (Math.abs(servoValue - 0.105) < 0.005) {
+//            sortingValues[1][1] = Constants.sorterOutTakeB;
+//
+//        } else if (Math.abs(servoValue - 0.17) < 0.005) {
+//            sortingValues[2][1] = Constants.sorterOutTakeC;
+//        }
+//    }
+//
+//
 //    public void Intake(){
 //        intake.IntakeMotorMax();
 //        SortingWithColor.DetectedColor detectedColor = colorSensor.getDetectedColor(telemetry);
@@ -177,64 +177,64 @@ public class TeleOp extends LinearOpMode {
 //            sortingValues[2][1] = Constants.sorterOutTakeC;
 //        }
 //    }
-
-
-    public void outtakeAll() {
-        for (int index = 0; index < 3; index++) {
-
-            double outPos = sortingValues[index][1];
-
-            // If this slot has NOT been emptied
-            if (outPos != 0) {
-
-                // Move to the position
-                sorter.setServo(outPos);
-                sleep(100);
-
-                // Kick
-                kick.kick();
-                sleep(500);
-                kick.retract();
-
-                telemetry.addData("Outtaking slot", index);
-                telemetry.update();
-
-                // Clear this slot
-                sortingValues[index][0] = 0;
-                sortingValues[index][1] = 0;
-
-                // Move on to next filled slot on next call
-                return;
-            }
-        }
-    }
-
-
-    public void outtakeColor(int targetColor) {
-        for (int index = 0; index < 3; index++) {
-
-            double storedColor = sortingValues[index][0];
-            double outPos = sortingValues[index][1];
-
-            if (storedColor == targetColor) {
-
-                sorter.setServo(outPos);
-
-                sleep(100);
+//
+//
+//    public void outtakeAll() {
+//        for (int index = 0; index < 3; index++) {
+//
+//            double outPos = sortingValues[index][1];
+//
+//            // If this slot has NOT been emptied
+//            if (outPos != 0) {
+//
+//                // Move to the position
+//                sorter.setServo(outPos);
+//                sleep(100);
+//
+//                // Kick
 //                kick.kick();
-//                sleep(1000);
+//                sleep(500);
 //                kick.retract();
-//                telemetry.addLine("Clearing out value");
-                telemetry.update();
-
-                sortingValues[index][0] = 0;
-                sortingValues[index][1] = 0;
-
-                return;
-            }
-        }
-    }
-
+//
+//                telemetry.addData("Outtaking slot", index);
+//                telemetry.update();
+//
+//                // Clear this slot
+//                sortingValues[index][0] = 0;
+//                sortingValues[index][1] = 0;
+//
+//                // Move on to next filled slot on next call
+//                return;
+//            }
+//        }
+//    }
+//
+//
+//    public void outtakeColor(int targetColor) {
+//        for (int index = 0; index < 3; index++) {
+//
+//            double storedColor = sortingValues[index][0];
+//            double outPos = sortingValues[index][1];
+//
+//            if (storedColor == targetColor) {
+//
+//                sorter.setServo(outPos);
+//
+//                sleep(100);
+////                kick.kick();
+////                sleep(1000);
+////                kick.retract();
+////                telemetry.addLine("Clearing out value");
+//                telemetry.update();
+//
+//                sortingValues[index][0] = 0;
+//                sortingValues[index][1] = 0;
+//
+//                return;
+//            }
+//        }
+//    }
+//
     @Override
     public void runOpMode() throws InterruptedException {
 
