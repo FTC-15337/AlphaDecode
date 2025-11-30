@@ -15,7 +15,6 @@ import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp (name= "TeleOp")
 public class TeleOp extends LinearOpMode {
-    //push
     MecDrivebase drive = new MecDrivebase();
     StorageConfig sorter = new StorageConfig();
     SortingWithColor colorSensor = new SortingWithColor();
@@ -25,6 +24,7 @@ public class TeleOp extends LinearOpMode {
     Led led = new Led();
     LimelightConfig limelight = new LimelightConfig();
 
+    double servoValue;
     double forward, strafe, rotate;
     static double[][] sortingValues;
     static double[][] storedValues;
