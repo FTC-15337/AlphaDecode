@@ -15,7 +15,7 @@ public class IntakeConfig {
     public void init(HardwareMap hwMap){
 
         intakeMotorRight = hwMap.get(DcMotor.class , "intakeMotorR");
-        intakeMotorLeft = hwMap.get(DcMotor.class , "odoY");
+        intakeMotorLeft = hwMap.get(DcMotor.class , "intakeMotorL");
 
         intakeMotorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeMotorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

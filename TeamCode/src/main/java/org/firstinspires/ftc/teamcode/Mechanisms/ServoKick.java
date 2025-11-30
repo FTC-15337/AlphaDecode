@@ -25,4 +25,8 @@ public class ServoKick {
     public void retract(){
         kick.setPosition(Constants.retract);
     }
+
+    public void zeroKick() {
+        kick.setPosition(0.0);
+    }
 }

@@ -67,12 +67,14 @@ public class TeleOp extends LinearOpMode {
         } else if(gamepad1.dpad_down){
             drive.imu.resetYaw();
         }
+
+        if(gamepad1.right_bumper) {
+            kick.zeroKick();
+        }
     }
 
     public void setOperator(){
-        if(gamepad2.y && shooter.velocityValue() >= velocity - 75 && shooter.velocityValue() <= velocity + 75){
-            kick.kick();
-        } else if(gamepad2.right_trigger >= 0.7 && gamepad2.y){
+        if(gamepad2.y){
             kick.kick();
         } else {
             kick.retract();
