@@ -26,7 +26,6 @@ public class TeleOp extends LinearOpMode {
     LimelightConfig limelight = new LimelightConfig();
 
     double forward, strafe, rotate;
-    double servoValue;
     static double[][] sortingValues;
     static double[][] storedValues;
     double velocity;
