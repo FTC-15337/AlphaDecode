@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.ConstantValues.Constants;
 import org.firstinspires.ftc.teamcode.Mechanisms.IntakeConfig;
@@ -13,6 +14,8 @@ import org.firstinspires.ftc.teamcode.Mechanisms.ServoKick;
 import org.firstinspires.ftc.teamcode.Mechanisms.SortingWithColor;
 import org.firstinspires.ftc.teamcode.Mechanisms.StorageConfig;
 
+import java.util.Timer;
+
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp (name= "TeleOp")
 public class TeleOp extends LinearOpMode {
     MecDrivebase drive = new MecDrivebase();
@@ -21,85 +24,126 @@ public class TeleOp extends LinearOpMode {
     ShooterConfig shooter = new ShooterConfig();
     IntakeConfig intake = new IntakeConfig();
     ServoKick kick = new ServoKick();
-    Led led = new Led();
+    Led led = new Led();;
     LimelightConfig limelight = new LimelightConfig();
-
+    ElapsedTime kickTimer = new ElapsedTime();
+    ElapsedTime pathTimer = new ElapsedTime();
     double servoValue;
     double forward, strafe, rotate;
     static double[][] sortingValues;
     static double[][] storedValues;
     double velocity;
 
-    public void setDriver(){
+    public void setDriver() {
         led.startLed();
         forward = -gamepad1.left_stick_y;
         strafe = gamepad1.left_stick_x;
         rotate = gamepad1.right_stick_x;
         drive.driveFieldRelative(forward, strafe, rotate);
 
-        if(gamepad1.right_trigger >= 0.8) {
+        if (gamepad1.right_trigger >= 0.8) {
             Constants.driveMaxSpeed = 0.3;
         } else {
             Constants.driveMaxSpeed = 1.0;
         }
-        if(gamepad1.a) {
+        if (gamepad1.a) {
             shooter.MedOut();
             shooter.hoodMed();
-            velocity = 1400;
-        } else if(gamepad1.b) {
+            ////////////velocity = 1350;
+        } else if (gamepad1.b) {
             shooter.FarOut();
             shooter.hoodFar();
-            velocity = 1700;
+            ////////////velocity = 1700;
         } else if (gamepad1.x) {
             shooter.CloseOut();
             shooter.hoodClose();
-            velocity = 1150;
-        } else if(gamepad1.left_trigger >= 0.7){
+            ////////////velocity = 1150;
+        } else if (gamepad1.left_trigger >= 0.7) {
             shooter.HPIn();
             shooter.hoodClose();
         } else {
             shooter.Stop();
-            velocity = 0;
+            ////////////velocity = 0;
         }
 
-        if(gamepad1.dpad_up){
+        if (gamepad1.dpad_up) {
             shooter.hoodZero();
-        } else if(gamepad1.dpad_down){
+        } else if (gamepad1.dpad_down) {
             drive.imu.resetYaw();
         }
 
-        if(gamepad1.right_bumper) {
+        if (gamepad1.right_bumper) {
             kick.zeroKick();
         }
+
+
     }
 
-    public void autoKick(){
+    static int step = -1;
 
-        sorter.setOutA();
-        sleep(700);
-        kick.kick();
-        sleep(700);
-        kick.retract();
-        sorter.setOutC();
-        sleep(700);
-        kick.kick();
-        sleep(700);
-        kick.retract();
-        sorter.setOutB();
-        sleep(700);
-        kick.kick();
-        sleep(700);
-        kick.retract();
+    public void unsortedKick(){
+
+            if (step == -1) return;
+
+            switch (step) {
+                case 0:
+                    kickTimer.reset();
+                    step = 1;
+                    break;
+
+                case 1:
+                        kick.kick();
+                        kickTimer.reset();
+                        step = 2;
+                    break;
+
+                case 2:
+                    if (kickTimer.milliseconds() > 700) {
+                        kick.retract();
+                        kickTimer.reset();
+                        step = 3;
+                    }
+                    break;
+                case 3:
+                    if(kickTimer.milliseconds() > 150) {
+
+                        if(sorter.getServoPos() == Constants.sorterOutTakeA){
+                            sorter.setOutC();
+                        }else if(sorter.getServoPos() == Constants.sorterOutTakeC){
+                            sorter.setOutB();
+                        }else if(sorter.getServoPos() == Constants.sorterOutTakeB){
+                            sorter.setOutA();
+                        }
+
+                        step = -1;
+                    }
+
+                    break;
+            }
+
+
     }
 
     public void setOperator(){
-        if(gamepad2.y){
-            autoKick();
-        } else if(gamepad2.y && gamepad2.right_trigger > 0.5) {
-            kick.kick();
-        }else{
-            kick.retract();
+        if(gamepad2.y && step == -1) {
+            step = 0;
+            kickTimer.reset();
+
+
+//        } else if(gamepad2.y && gamepad2.right_trigger > 0.5) {
+//            kick.kick();
+//  }else{
+//            kick.retract();
+//        }
         }
+
+        unsortedKick();
+//
+//        if(gamepad2.right_trigger > 0.5){
+//            kick.kick();
+//        }else{
+//            kick.retract();
+//        }
 
         if(gamepad2.left_trigger >= 0.7) {
             intake.IntakeMotorMax();
@@ -108,26 +152,33 @@ public class TeleOp extends LinearOpMode {
         } else {
             intake.IntakeMotorStop();
         }
+        if(gamepad2.dpad_right){
+            kick.kick();
+        }
+        if(gamepad2.dpad_left){
+            kick.retract();
+        }
+        if(gamepad2.right_bumper){
+            telemetry.update();
+            telemetry.addData("Sorter Val", sorter.getServoPos());
+            if(sorter.getServoPos() == Constants.sorterOutTakeA){
+                sorter.setOutC();
+                return;
+            }
+            if(sorter.getServoPos() == Constants.sorterOutTakeC){
+                sorter.setOutB();
+                return;
+            }if(sorter.getServoPos() == Constants.sorterOutTakeB){
+                sorter.setOutA();
+                return;
+            }
+        }
 
-        if(gamepad2.dpad_down) {
-            //telemetry.addLine("Sorter IA");
-            sorter.setIntakeA();
-        }
-        if(gamepad2.dpad_right) {
-            //telemetry.addLine("Sorter IC");
-            sorter.setIntakeB();
-        }
-        if(gamepad2.dpad_left) {
-            //telemetry.addLine("Sorter IB");
-            sorter.setIntakeC();
-        }
         if (gamepad2.dpad_up) {
             intake.OutIntake();
         }
         if(gamepad2.a) {
-            //telemetry.addLine("Sorter OA");
             sorter.setOutA();
-            //telemetry.update();
         }
         if(gamepad2.b) {
             //telemetry.addLine("Sorter OB");
@@ -196,11 +247,11 @@ public class TeleOp extends LinearOpMode {
 //
 //                // Move to the position
 //                sorter.setServo(outPos);
-//                sleep(100);
+//                sleep(300);
 //
 //                // Kick
 //                kick.kick();
-//                sleep(500);
+//                sleep(300);
 //                kick.retract();
 //
 //                telemetry.addData("Outtaking slot", index);
@@ -227,9 +278,9 @@ public class TeleOp extends LinearOpMode {
 //
 //                sorter.setServo(outPos);
 //
-//                sleep(100);
+//                sleep(300);
 ////                kick.kick();
-////                sleep(1000);
+////                sleep(3000);
 ////                kick.retract();
 ////                telemetry.addLine("Clearing out value");
 //                telemetry.update();
@@ -256,7 +307,7 @@ public class TeleOp extends LinearOpMode {
 
         drive.imu.resetYaw();
 
-        sortingValues = new double[3][2];
+//        sortingValues = new double[3][2];
 
         waitForStart();
 

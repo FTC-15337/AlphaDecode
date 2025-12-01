@@ -8,7 +8,7 @@ public class Constants {
     public static double sorterIntakeB = 0.105;
     public static double sorterIntakeC = 0.17;
     public static double sorterOutTakeA = 0.14;
-    public static double sorterOutTakeB = 0.004;
+    public static double sorterOutTakeB = 0.0;
     public static double sorterOutTakeC = 0.07;
     public static double intakeStop = 0.0;
     public static double intakeMax = 1.0;
