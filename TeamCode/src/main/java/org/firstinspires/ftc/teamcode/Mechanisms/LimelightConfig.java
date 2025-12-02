@@ -17,7 +17,6 @@ public class LimelightConfig {
         limelight.start();
     }
 
-    /** Safe wrapper: returns null if result is invalid */
     private LLResult getSafeResult() {
         LLResult result = limelight.getLatestResult();
         if (result == null || !result.isValid()) {
@@ -43,7 +42,6 @@ public class LimelightConfig {
         return fid.get(0).getFiducialId();
     }
 
-    /** Horizontal angle offset (−27° to +27° usually) */
     public double getTx() {
         LLResult result = getSafeResult();
         if (result == null) return 0;

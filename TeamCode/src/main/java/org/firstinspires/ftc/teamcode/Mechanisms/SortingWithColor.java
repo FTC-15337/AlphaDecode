@@ -19,14 +19,12 @@ public class SortingWithColor {
         GREEN(2),
         UNKNOWN(3);
 
-        private final int code; // Field to store the numeric value
+        private final int code;
 
-        // Constructor to initialize the code
         DetectedColor(int code) {
             this.code = code;
         }
 
-        // Getter method to retrieve the code
         public int getCode() {
             return code;
         }
@@ -39,13 +37,12 @@ public class SortingWithColor {
 
 
     public DetectedColor getDetectedColor(Telemetry telemetry) {
-        // Read normalized colors
+
         NormalizedRGBA colors = colorSensor.getNormalizedColors();
         float r = colors.red;
         float g = colors.green;
         float b = colors.blue;
 
-        // Compute total intensity to get ratios
         float total = r + g + b;
 
         float redRatio = r / total;
@@ -56,7 +53,7 @@ public class SortingWithColor {
         telemetry.addData("Green Ratio", greenRatio);
         telemetry.addData("Blue Ratio", blueRatio);
         if (GetDistance() < 12.0) {
-            //Colors too close together
+
             if (greenRatio > 0.4 && greenRatio < 0.45 && redRatio > 0.13 && redRatio < 0.20) {
                 return DetectedColor.GREEN;
             } else {
@@ -71,8 +68,3 @@ public class SortingWithColor {
     }
 
 }
-
-    /*if(redRatio < 0.23 && blueRatio > 0.34){
-            return DetectedColor.UNKNOWN;
-        }*/
-
