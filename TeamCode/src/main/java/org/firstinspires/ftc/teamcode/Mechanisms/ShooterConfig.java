@@ -19,12 +19,12 @@ public class ShooterConfig {
     }
     public void FarOut() {shooter.setVelocity(1700);}
     public void MedOut() {shooter.setVelocity(1400);}
-    public void CloseOut(){shooter.setVelocity(1150);}
+    public void CloseOut(){shooter.setVelocity(1300);}
     public void HPIn(){
         shooter.setVelocity(-280);
     }
     public void Stop() {shooter.setVelocity(0);}
-    public void hoodFar(){hood.setPosition(0.49);}
+    public void hoodFar(){hood.setPosition(0.48);}
     public void hoodMed(){hood.setPosition(0.55);}
     public void hoodClose(){hood.setPosition(0.73);}
     public void hoodZero(){hood.setPosition(0.0);}

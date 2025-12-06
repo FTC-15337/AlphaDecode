@@ -112,7 +112,7 @@ public class TeleOp extends LinearOpMode {
                     }
                     break;
                 case 3:
-                    if(kickTimer.milliseconds() > 150) {
+                    if(kickTimer.milliseconds() > 200) {
 
                         if(sorter.getServoPos() == Constants.sorterOutTakeA){
                             sorter.setOutC();
