@@ -76,6 +76,10 @@ public class MecDrivebase {
 
         this.drive(newForward, newStrafe, rotate);
     }
+
+    public void setBackRight(double input){
+        frontRight.setPower(input);
+    }
     /*public YawPitchRollAngles getOrientation() {
         imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
         return null;

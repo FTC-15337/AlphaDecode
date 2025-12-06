@@ -20,12 +20,12 @@ import java.util.Timer;
 public class TeleOp extends LinearOpMode {
     MecDrivebase drive = new MecDrivebase();
     StorageConfig sorter = new StorageConfig();
-    SortingWithColor colorSensor = new SortingWithColor();
+    //SortingWithColor colorSensor = new SortingWithColor();
     ShooterConfig shooter = new ShooterConfig();
     IntakeConfig intake = new IntakeConfig();
     ServoKick kick = new ServoKick();
-    Led led = new Led();;
-    LimelightConfig limelight = new LimelightConfig();
+    LimelightConfig ll = new LimelightConfig();
+    Led led = new Led();
     ElapsedTime kickTimer = new ElapsedTime();
     ElapsedTime pathTimer = new ElapsedTime();
     double servoValue;
@@ -40,6 +40,16 @@ public class TeleOp extends LinearOpMode {
         strafe = gamepad1.left_stick_x;
         rotate = gamepad1.right_stick_x;
         drive.driveFieldRelative(forward, strafe, rotate);
+
+
+        if (gamepad1.right_bumper) {
+            ll.alignYaw(drive);
+        }
+
+        telemetry.addData("tx", ll.getTx());
+        telemetry.addData("aligned", Math.abs(ll.getTx()) < 1);
+        telemetry.update();
+
 
         if (gamepad1.right_trigger >= 0.8) {
             Constants.driveMaxSpeed = 0.3;
@@ -72,9 +82,6 @@ public class TeleOp extends LinearOpMode {
             drive.imu.resetYaw();
         }
 
-        if (gamepad1.right_bumper) {
-            kick.zeroKick();
-        }
 
 
     }
@@ -297,13 +304,13 @@ public class TeleOp extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         drive.init(hardwareMap);
-        colorSensor.init(hardwareMap);
+        //colorSensor.init(hardwareMap);
         intake.init(hardwareMap);
         sorter.init(hardwareMap);
         shooter.init(hardwareMap);
         kick.init(hardwareMap);
         led.init(hardwareMap);
-        limelight.init(hardwareMap);
+        ll.init(hardwareMap);
 
         drive.imu.resetYaw();
 
@@ -312,7 +319,7 @@ public class TeleOp extends LinearOpMode {
         waitForStart();
 
         while (!isStopRequested() && opModeIsActive()) {
-            telemetry.addData("Color", colorSensor.getDetectedColor(telemetry));
+            //telemetry.addData("Color", colorSensor.getDetectedColor(telemetry));
             //limelight.TargetArea();
             setDriver();
             setOperator();
