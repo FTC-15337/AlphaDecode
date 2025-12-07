@@ -46,11 +46,6 @@ public class TeleOp extends LinearOpMode {
             ll.alignYaw(drive);
         }
 
-        telemetry.addData("tx", ll.getTx());
-        telemetry.addData("aligned", Math.abs(ll.getTx()) < 1);
-        telemetry.update();
-
-
         if (gamepad1.right_trigger >= 0.8) {
             Constants.driveMaxSpeed = 0.3;
         } else {
@@ -323,6 +318,8 @@ public class TeleOp extends LinearOpMode {
             //limelight.TargetArea();
             setDriver();
             setOperator();
+
+            telemetry.addData("aligned", Math.abs(ll.getTx()) < 1);
 
             telemetry.update();
         }
