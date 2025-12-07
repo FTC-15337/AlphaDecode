@@ -100,7 +100,7 @@ public class TeleOp extends LinearOpMode {
                     break;
 
                 case 2:
-                    if (kickTimer.milliseconds() > 700) {
+                    if (kickTimer.milliseconds() > 350) {
                         kick.retract();
                         kickTimer.reset();
                         step = 3;
@@ -108,12 +108,13 @@ public class TeleOp extends LinearOpMode {
                     break;
                 case 3:
                     if(kickTimer.milliseconds() > 200) {
-
-                        if(sorter.getServoPos() == Constants.sorterOutTakeA){
+                        telemetry.addData("Sorter servo is ", sorter.getServoPos());
+                        telemetry.update();
+                        if(sorter.getServoPos() >= Constants.sorterOutTakeA - 0.005 && sorter.getServoPos() <= Constants.sorterOutTakeA + 0.005){
                             sorter.setOutC();
-                        }else if(sorter.getServoPos() == Constants.sorterOutTakeC){
+                        }else if(sorter.getServoPos() >= Constants.sorterOutTakeC - 0.005 && sorter.getServoPos() <= Constants.sorterOutTakeC + 0.005){
                             sorter.setOutB();
-                        }else if(sorter.getServoPos() == Constants.sorterOutTakeB){
+                        }else if(sorter.getServoPos() >= Constants.sorterOutTakeB - 0.005 && sorter.getServoPos() <= Constants.sorterOutTakeB + 0.005){
                             sorter.setOutA();
                         }
 

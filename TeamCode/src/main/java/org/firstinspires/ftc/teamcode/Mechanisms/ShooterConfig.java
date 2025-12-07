@@ -18,15 +18,15 @@ public class ShooterConfig {
         hood = hwMap.get(Servo.class , "hood");
     }
     public void FarOut() {shooter.setVelocity(1700);}
-    public void MedOut() {shooter.setVelocity(1400);}
+    public void MedOut() {shooter.setVelocity(1350);}
     public void CloseOut(){shooter.setVelocity(1150);}
     public void HPIn(){
         shooter.setVelocity(-280);
     }
     public void Stop() {shooter.setVelocity(0);}
     public void hoodFar(){hood.setPosition(0.465);}
-    public void hoodMed(){hood.setPosition(0.575);}
-    public void hoodClose(){hood.setPosition(0.78);}
+    public void hoodMed(){hood.setPosition(0.57);}
+    public void hoodClose(){hood.setPosition(0.7);}
     public void hoodZero(){hood.setPosition(0.0);}
     public void hoodAutoFar(){hood.setPosition(0.48);}
     public void hoodAutoMed(){hood.setPosition(0.6);}
